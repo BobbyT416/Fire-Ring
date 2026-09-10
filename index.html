@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 004</title>
+<title>Fire Ring — Build 004.1</title>
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
 *{box-sizing:border-box}body{margin:0;background:#e7ebe4;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
@@ -125,7 +125,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 </div>
 
 <div id="maptab" style="display:none">
-<div class="card"><h2 class="section-title">Ohiopyle Area Map</h2><div class="map"><div class="water"></div><div class="road r1"></div><div class="road r2"></div><div class="trail t1"></div><div class="trail t2"></div><div class="maplabel kentuck">KENTUCK</div><div class="maplabel falls">OHIOPYLE FALLS</div><div class="maplabel cucumber">CUCUMBER FALLS</div><div class="maplabel baugh">BAUGHMAN ROCK</div><div class="map-pin pk"><i>⛺</i></div><div class="map-pin pf"><i>💧</i></div><div class="map-pin pc"><i>💧</i></div><div class="map-pin pb"><i>▲</i></div></div><div class="legend"><span><i class="dot"></i> campground</span><span><i class="dot blue"></i> river</span><span><i class="dash"></i> trail</span></div><p class="sub" style="margin-top:10px">Prototype map for Build 004. The production version can use a real interactive map with official park GIS layers, campground boundaries, trailheads, parking, restrooms, water, viewpoints and user-added points.</p><button class="secondary" onclick="toast('Official Ohiopyle map will open in the production build.')">Open official park map ↗</button></div>
+<div class="card"><h2 class="section-title">Ohiopyle Area Map</h2><div class="map"><div class="water"></div><div class="road r1"></div><div class="road r2"></div><div class="trail t1"></div><div class="trail t2"></div><div class="maplabel kentuck">KENTUCK</div><div class="maplabel falls">OHIOPYLE FALLS</div><div class="maplabel cucumber">CUCUMBER FALLS</div><div class="maplabel baugh">BAUGHMAN ROCK</div><div class="map-pin pk"><i>⛺</i></div><div class="map-pin pf"><i>💧</i></div><div class="map-pin pc"><i>💧</i></div><div class="map-pin pb"><i>▲</i></div></div><div class="legend"><span><i class="dot"></i> campground</span><span><i class="dot blue"></i> river</span><span><i class="dash"></i> trail</span></div><p class="sub" style="margin-top:10px">Prototype map for Build 004.1. The production version can use a real interactive map with official park GIS layers, campground boundaries, trailheads, parking, restrooms, water, viewpoints and user-added points.</p><button class="secondary" onclick="toast('Official Ohiopyle map will open in the production build.')">Open official park map ↗</button></div>
 </div>
 
 <div id="things" style="display:none">
@@ -210,7 +210,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
 </nav>
 
-<div class="version-footer">Fire Ring • Build 004</div>
+<div class="version-footer">Fire Ring • Build 004.1</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
@@ -218,11 +218,19 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <script>
 function show(id){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  const target=document.getElementById(id); if(target) target.classList.add('active');
+  const target=document.getElementById(id);
+  if(target) target.classList.add('active');
   document.querySelectorAll('.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
   window.scrollTo({top:0,behavior:'smooth'});
-})}
-function tab(id){['overview','maptab','things','info'].forEach(x=>document.getElementById(x).style.display='none');document.getElementById(id).style.display='block';document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+}
+function tab(id){
+  ['overview','maptab','things','info'].forEach(x=>{
+    const el=document.getElementById(x); if(el) el.style.display='none';
+  });
+  const target=document.getElementById(id); if(target) target.style.display='block';
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(window.event && window.event.target) window.event.target.classList.add('active');
+}
 function checkin(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 function openCampers(){show('campers')}

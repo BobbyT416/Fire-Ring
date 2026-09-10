@@ -1,20 +1,23 @@
-FIRE RING — BUILD 004
-=====================
+FIRE RING — BUILD 004.1
+=======================
 
-First substantially interactive prototype.
+BUG FIX RELEASE.
 
-Major changes:
-- Real Home screen remains the starting point.
-- Explore, Trips and Profile are navigable.
-- Kentuck Campground detail page is navigable.
-- Campground tabs now open dedicated screens.
-- Interactive campground map with tappable points of interest.
-- Map layer toggles.
-- Things To Do list with tappable activities.
-- Campground Information / Rules & Safety screen.
-- Campers Here Now list.
-- Tappable camper profile.
-- Check-in and privacy concept retained.
-- Version number: Build 004.
+Build 004 contained a JavaScript syntax error in the navigation function. That
+prevented the browser from executing the script, so none of the clickable
+controls worked.
 
-This is still a front-end prototype with demonstration data.
+Build 004.1 fixes the syntax error and includes the same interactive features:
+- Home / Explore / Trips / Profile navigation
+- Kentuck campground detail
+- Interactive map
+- Map POI buttons
+- Map layer toggles
+- Things To Do buttons
+- Campground information
+- Campers Here Now
+- Camper profile
+- Check-in
+- Version number
+
+No feature was intentionally removed.
