@@ -1,28 +1,20 @@
-FIRE RING — BUILD 003
+FIRE RING — BUILD 004
 =====================
 
-Navigation fix and first true app shell.
+First substantially interactive prototype.
 
-IMPORTANT FIX:
-- Build 002/002.1 opened directly into the Kentuck Campground detail page, making it
-  appear that the user was stuck there. Build 003 now has a real Home screen and
-  global navigation.
+Major changes:
+- Real Home screen remains the starting point.
+- Explore, Trips and Profile are navigable.
+- Kentuck Campground detail page is navigable.
+- Campground tabs now open dedicated screens.
+- Interactive campground map with tappable points of interest.
+- Map layer toggles.
+- Things To Do list with tappable activities.
+- Campground Information / Rules & Safety screen.
+- Campers Here Now list.
+- Tappable camper profile.
+- Check-in and privacy concept retained.
+- Version number: Build 004.
 
-Included:
-- Home screen
-- Explore screen
-- Trips screen
-- Profile screen
-- Campground detail page for Kentuck Campground
-- Campers screen
-- Global bottom navigation
-- Campground detail back button
-- Fire Ring header navigation
-- Version number: Build 003
-
-Next:
-- Real interactive map
-- Campground detail data layers
-- Real campground database
-- Reviews/photos
-- Real check-ins, profiles, notifications and trips
+This is still a front-end prototype with demonstration data.
