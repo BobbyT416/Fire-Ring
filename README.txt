@@ -1,8 +1,7 @@
-Fire Ring Build 024
+Fire Ring Build 025
 
-- Added map starting-location field: address, city, ZIP, or landmark; Go/Enter recenters the map.
-- Updated mission statement to say connect with nearby campers.
-- Unified the brand/header/mission/navigation into one smaller professional header.
-- Branding line: FIRE RING / Come find your circle — Gather around.
-- Removed the duplicate welcome/title/tagline from the body.
-- Version 024.
+- Moved the Explore map below the campground search results.
+- Search results now appear first; the map follows them.
+- Renamed the map heading to Map and clarified that it visualizes the results above.
+- Preserved address/landmark map lookup and My Location controls.
+- Version 025.
