@@ -1,3 +1,6 @@
-Fire Ring Build 018
+Fire Ring Build 019
 
-Removed the expanded Get Your Gear section from Explore. Compact Get Your Gear access remains on Home and My Trips, with the gear hub available when tapped. All other Explore functionality is preserved.
+- Added a Back button to every app page.
+- Back follows Fire Ring's actual in-app navigation history rather than always returning Home.
+- Top navigation remains available.
+- Version 019.
