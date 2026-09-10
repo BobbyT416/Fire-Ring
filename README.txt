@@ -1,7 +1,7 @@
-Fire Ring Build 020
+Fire Ring Build 021
 
-- Added Packing List to the top navigation.
-- Packing List is now its own page and does not appear expanded on My Trips or Home.
-- My Trips keeps trip cards and compact Get Your Gear access.
-- Packing List opens only when the top Packing List button is clicked.
-- Version 020.
+- Removed Profile from the top navigation; Profile remains accessible from the profile circle in the header.
+- Top navigation uses two rows (3 buttons per row) for comfortable sizing.
+- Changed the Campers navigation icon from a flame to 👥 people/networking.
+- Home Quick Access Campers icon also uses 👥.
+- Version 021.
