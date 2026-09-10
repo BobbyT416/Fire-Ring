@@ -1,10 +1,8 @@
-Fire Ring Build 023
+Fire Ring Build 024
 
-- Explore search now searches campground name, state, city, ZIP (where indexed), and landmark aliases.
-- Added search examples and clearer search wording.
-- Reworked Home so the brand header and welcome/mission area form one cohesive, smaller header.
-- Fire Ring title is larger with a more polished serif treatment.
-- Primary navigation is incorporated into the header in two rows.
-- Profile remains represented by the header profile circle, not a nav button.
-- Expanded the Home mission statement slightly.
-- Version 023.
+- Added map starting-location field: address, city, ZIP, or landmark; Go/Enter recenters the map.
+- Updated mission statement to say connect with nearby campers.
+- Unified the brand/header/mission/navigation into one smaller professional header.
+- Branding line: FIRE RING / Come find your circle — Gather around.
+- Removed the duplicate welcome/title/tagline from the body.
+- Version 024.
