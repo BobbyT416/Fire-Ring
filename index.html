@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 004.1</title>
+<title>Fire Ring — Build 005</title>
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
 *{box-sizing:border-box}body{margin:0;background:#e7ebe4;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
@@ -84,14 +84,293 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 </div>
 </section>
 
+
 <section id="explore" class="page">
 <div class="content" style="padding-top:16px">
   <div class="section-title">Explore Campgrounds</div>
-  <div class="card"><input id="search" placeholder="Search campgrounds, parks, or locations…" style="width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;outline:none"></div>
-  <div class="list-card" onclick="show('campground')"><div class="list-thumb"></div><div><h3>Kentuck Campground</h3><p>Ohiopyle State Park · 4.8 ★</p><button class="small-btn">12 campers here now</button></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div><h3>Laurel Hill State Park</h3><p>Somerset, PA · 4.6 ★</p><button class="small-btn">View campground</button></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div><h3>Raccoon Creek State Park</h3><p>Hookstown, PA · 4.5 ★</p><button class="small-btn">View campground</button></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div><h3>Raystown Lake</h3><p>Huntingdon, PA · 4.7 ★</p><button class="small-btn">View campground</button></div></div>
+  <div class="card">
+    <div style="display:flex;gap:8px">
+      <input id="campSearch" autocomplete="off" placeholder="Search campgrounds, parks, or locations…" style="flex:1;min-width:0;border:1px solid var(--line);border-radius:13px;padding:12px;outline:none">
+      <button id="searchBtn" class="primary" style="width:82px;padding:10px;font-size:13px">Search</button>
+    </div>
+    <div style="margin-top:8px;color:var(--muted);font-size:11px">Pennsylvania campground directory · 68 entries in this prototype</div>
+  </div>
+  <div id="searchStatus" style="font-size:12px;color:var(--muted);margin:10px 4px 7px"></div>
+  <div id="campgroundResults">
+    <div class="list-card campground-result" data-name="bald eagle state park, letterman campground" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Bald Eagle State Park, Letterman Campground</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Bald Eagle State Park, Letterman Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="bald eagle state park, rustic campground" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Bald Eagle State Park, Rustic Campground</h3><p>Pennsylvania State Parks · North · Camping season: May - October</p>
+      <button class="small-btn" onclick="openCampground('Bald Eagle State Park, Rustic Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="black moshannon state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Black Moshannon State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Black Moshannon State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="chapman state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Chapman State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Chapman State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="cherry springs state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Cherry Springs State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - November</p>
+      <button class="small-btn" onclick="openCampground('Cherry Springs State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="colton point state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Colton Point State Park</h3><p>Pennsylvania State Parks · North · Camping season: May - October</p>
+      <button class="small-btn" onclick="openCampground('Colton Point State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="hills creek state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Hills Creek State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Hills Creek State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="hyner run state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Hyner Run State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Hyner Run State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="kettle creek state park, lower campground" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Kettle Creek State Park, Lower Campground</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Kettle Creek State Park, Lower Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="kettle creek state park, upper campground" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Kettle Creek State Park, Upper Campground</h3><p>Pennsylvania State Parks · North · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Kettle Creek State Park, Upper Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="leonard harrison state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Leonard Harrison State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Leonard Harrison State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="little pine state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Little Pine State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Little Pine State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="lyman run state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Lyman Run State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Lyman Run State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ole bull state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ole Bull State Park</h3><p>Pennsylvania State Parks · North · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Ole Bull State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="parker dam state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Parker Dam State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Parker Dam State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="patterson state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Patterson State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Patterson State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="poe paddy state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Poe Paddy State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Poe Paddy State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="poe valley state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Poe Valley State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Poe Valley State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ravensburg state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ravensburg State Park</h3><p>Pennsylvania State Parks · North · Camping season: May - September</p>
+      <button class="small-btn" onclick="openCampground('Ravensburg State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="raymond b. winter state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Raymond B. Winter State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Raymond B. Winter State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="reeds gap state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Reeds Gap State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Reeds Gap State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="simon b. elliott state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Simon B. Elliott State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - September</p>
+      <button class="small-btn" onclick="openCampground('Simon B. Elliott State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="sinnemahoning state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Sinnemahoning State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Sinnemahoning State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="sizerville state park" data-region="north">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Sizerville State Park</h3><p>Pennsylvania State Parks · North · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Sizerville State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="blue knob state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Blue Knob State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Blue Knob State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="caledonia state park, chinquapin hill campground" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Caledonia State Park, Chinquapin Hill Campground</h3><p>Pennsylvania State Parks · South · Camping season: May - October</p>
+      <button class="small-btn" onclick="openCampground('Caledonia State Park, Chinquapin Hill Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="caledonia state park, hosack run campground" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Caledonia State Park, Hosack Run Campground</h3><p>Pennsylvania State Parks · South · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Caledonia State Park, Hosack Run Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="codorus state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Codorus State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Codorus State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="colonel denning state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Colonel Denning State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Colonel Denning State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="cowans gap state park, a campground" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Cowans Gap State Park, A Campground</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Cowans Gap State Park, A Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="cowans gap state park, b campground" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Cowans Gap State Park, B Campground</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Cowans Gap State Park, B Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="fowlers hollow state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Fowlers Hollow State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Fowlers Hollow State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="gifford pinchot state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Gifford Pinchot State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Gifford Pinchot State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="greenwood furnace state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Greenwood Furnace State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - November</p>
+      <button class="small-btn" onclick="openCampground('Greenwood Furnace State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="little buffalo state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Little Buffalo State Park</h3><p>Pennsylvania State Parks · South · Camping season: March - October</p>
+      <button class="small-btn" onclick="openCampground('Little Buffalo State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="penn-roosevelt state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Penn-Roosevelt State Park</h3><p>Pennsylvania State Parks · South · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Penn-Roosevelt State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="pine grove furnace state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Pine Grove Furnace State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Pine Grove Furnace State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="prince gallitzin state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Prince Gallitzin State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Prince Gallitzin State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="shawnee state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Shawnee State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Shawnee State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="trough creek state park" data-region="south">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Trough Creek State Park</h3><p>Pennsylvania State Parks · South · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Trough Creek State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="frances slocum state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Frances Slocum State Park</h3><p>Pennsylvania State Parks · East · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Frances Slocum State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="french creek state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>French Creek State Park</h3><p>Pennsylvania State Parks · East · Camping season: March - January</p>
+      <button class="small-btn" onclick="openCampground('French Creek State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="hickory run state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Hickory Run State Park</h3><p>Pennsylvania State Parks · East · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Hickory Run State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="lackawanna state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Lackawanna State Park</h3><p>Pennsylvania State Parks · East · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Lackawanna State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="locust lake state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Locust Lake State Park</h3><p>Pennsylvania State Parks · East · Camping season: March - October</p>
+      <button class="small-btn" onclick="openCampground('Locust Lake State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="promised land state park, pickerel point and deerfield campgrounds" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Promised Land State Park, Pickerel Point and Deerfield Campgrounds</h3><p>Pennsylvania State Parks · East · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Promised Land State Park, Pickerel Point and Deerfield Campgrounds')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="promised land state park, lower lake campground" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Promised Land State Park, Lower Lake Campground</h3><p>Pennsylvania State Parks · East · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Promised Land State Park, Lower Lake Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="promised land state park, pines campground" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Promised Land State Park, Pines Campground</h3><p>Pennsylvania State Parks · East · Camping season: May - August</p>
+      <button class="small-btn" onclick="openCampground('Promised Land State Park, Pines Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ricketts glen state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ricketts Glen State Park</h3><p>Pennsylvania State Parks · East · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Ricketts Glen State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="salt springs state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Salt Springs State Park</h3><p>Pennsylvania State Parks · East · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Salt Springs State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="tobyhanna state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Tobyhanna State Park</h3><p>Pennsylvania State Parks · East · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Tobyhanna State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="worlds end state park" data-region="east">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Worlds End State Park</h3><p>Pennsylvania State Parks · East · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Worlds End State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="clear creek state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Clear Creek State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Clear Creek State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="cook forest state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Cook Forest State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Cook Forest State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="keystone state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Keystone State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Keystone State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="kooser state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Kooser State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Kooser State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="laurel hill state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Laurel Hill State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Laurel Hill State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="laurel ridge state park, backpacking" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Laurel Ridge State Park, Backpacking</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Laurel Ridge State Park, Backpacking')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="moraine state park, backpacking" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Moraine State Park, Backpacking</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Moraine State Park, Backpacking')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ohiopyle state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ohiopyle State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Ohiopyle State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ohiopyle state park, backpacking" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ohiopyle State Park, Backpacking</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Ohiopyle State Park, Backpacking')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="oil creek state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Oil Creek State Park</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Oil Creek State Park')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="pymatuning state park, jamestown campground" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Pymatuning State Park, Jamestown Campground</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Pymatuning State Park, Jamestown Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="pymatuning state park, linesville campground" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Pymatuning State Park, Linesville Campground</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Pymatuning State Park, Linesville Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="raccoon creek state park, main campground" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Raccoon Creek State Park, Main Campground</h3><p>Pennsylvania State Parks · West · Camping season: April - October</p>
+      <button class="small-btn" onclick="openCampground('Raccoon Creek State Park, Main Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="raccoon creek state park, sioux rustic campground" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Raccoon Creek State Park, Sioux Rustic Campground</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Raccoon Creek State Park, Sioux Rustic Campground')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="raccoon creek state park, backpacking" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Raccoon Creek State Park, Backpacking</h3><p>Pennsylvania State Parks · West · Camping season: Year Round</p>
+      <button class="small-btn" onclick="openCampground('Raccoon Creek State Park, Backpacking')">View campground</button>
+      </div></div><div class="list-card campground-result" data-name="ryerson station state park" data-region="west">
+      <div class="list-thumb"></div><div style="flex:1">
+      <h3>Ryerson Station State Park</h3><p>Pennsylvania State Parks · West · Camping season: April - December</p>
+      <button class="small-btn" onclick="openCampground('Ryerson Station State Park')">View campground</button>
+      </div></div>
+  </div>
 </div>
 </section>
 
@@ -125,7 +404,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 </div>
 
 <div id="maptab" style="display:none">
-<div class="card"><h2 class="section-title">Ohiopyle Area Map</h2><div class="map"><div class="water"></div><div class="road r1"></div><div class="road r2"></div><div class="trail t1"></div><div class="trail t2"></div><div class="maplabel kentuck">KENTUCK</div><div class="maplabel falls">OHIOPYLE FALLS</div><div class="maplabel cucumber">CUCUMBER FALLS</div><div class="maplabel baugh">BAUGHMAN ROCK</div><div class="map-pin pk"><i>⛺</i></div><div class="map-pin pf"><i>💧</i></div><div class="map-pin pc"><i>💧</i></div><div class="map-pin pb"><i>▲</i></div></div><div class="legend"><span><i class="dot"></i> campground</span><span><i class="dot blue"></i> river</span><span><i class="dash"></i> trail</span></div><p class="sub" style="margin-top:10px">Prototype map for Build 004.1. The production version can use a real interactive map with official park GIS layers, campground boundaries, trailheads, parking, restrooms, water, viewpoints and user-added points.</p><button class="secondary" onclick="toast('Official Ohiopyle map will open in the production build.')">Open official park map ↗</button></div>
+<div class="card"><h2 class="section-title">Ohiopyle Area Map</h2><div class="map"><div class="water"></div><div class="road r1"></div><div class="road r2"></div><div class="trail t1"></div><div class="trail t2"></div><div class="maplabel kentuck">KENTUCK</div><div class="maplabel falls">OHIOPYLE FALLS</div><div class="maplabel cucumber">CUCUMBER FALLS</div><div class="maplabel baugh">BAUGHMAN ROCK</div><div class="map-pin pk"><i>⛺</i></div><div class="map-pin pf"><i>💧</i></div><div class="map-pin pc"><i>💧</i></div><div class="map-pin pb"><i>▲</i></div></div><div class="legend"><span><i class="dot"></i> campground</span><span><i class="dot blue"></i> river</span><span><i class="dash"></i> trail</span></div><p class="sub" style="margin-top:10px">Prototype map for Build 005. The production version can use a real interactive map with official park GIS layers, campground boundaries, trailheads, parking, restrooms, water, viewpoints and user-added points.</p><button class="secondary" onclick="toast('Official Ohiopyle map will open in the production build.')">Open official park map ↗</button></div>
 </div>
 
 <div id="things" style="display:none">
@@ -203,6 +482,13 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
  <div class="item" onclick="toast('Lisa profile coming next.')"><h3>👩 Lisa</h3><p>Tent · Here until Tuesday · 🐕 Dog friendly</p><button class="linkbtn">View profile ›</button></div>
 </div>
 </section>
+
+<section id="directory_detail" class="page">
+<div class="screen"><div class="backline"><button onclick="show('explore')">‹</button><span>Back to Explore</span></div>
+<h1 id="directoryName">Campground</h1>
+<div class="card"><h2>Campground Record</h2><p class="sub" id="directoryMeta"></p><div class="notice" style="margin-top:12px"><b>Real directory entry</b>This campground is part of Fire Ring's Pennsylvania seed directory. The next data pass can enrich it with coordinates, official map links, amenities, photos, rules, activities, and reservation information.</div></div>
+<button class="primary" onclick="show('explore')">← Back to campground search</button>
+</div></section>
 <nav class="bottom">
 <button data-page="home" onclick="show('home')"><span>⌂</span>Home</button>
 <button data-page="explore" onclick="show('explore')"><span>◉</span>Explore</button>
@@ -210,7 +496,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
 </nav>
 
-<div class="version-footer">Fire Ring • Build 004.1</div>
+<div class="version-footer">Fire Ring • Build 005</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
@@ -231,10 +517,40 @@ function tab(id){
   document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
   if(window.event && window.event.target) window.event.target.classList.add('active');
 }
+
+function runCampgroundSearch(){
+  const q=(document.getElementById('campSearch').value||'').trim().toLowerCase();
+  const cards=[...document.querySelectorAll('.campground-result')];
+  let count=0;
+  cards.forEach(c=>{
+    const match=!q || c.dataset.name.includes(q) || c.dataset.region.includes(q);
+    c.style.display=match?'flex':'none';
+    if(match) count++;
+  });
+  document.getElementById('searchStatus').textContent=q ? `${count} campground${count===1?'':'s'} found` : `${cards.length} Pennsylvania campground entries`;
+}
+function openCampground(name){
+  if(name.toLowerCase().startsWith('ohiopyle state park')){
+    show('campground');
+  }else{
+    document.getElementById('directoryName').textContent=name;
+    const card=document.querySelector(`.campground-result[data-name="${name.toLowerCase().replace(/"/g,'&quot;')}"]`);
+    const meta=card?card.querySelector('p').textContent:'Pennsylvania State Parks';
+    document.getElementById('directoryMeta').textContent=meta;
+    show('directory_detail');
+  }
+}
 function checkin(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 function openCampers(){show('campers')}
 function toast(msg){let t=document.createElement('div');t.textContent=msg;t.style='position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#173d2b;color:white;padding:12px 17px;border-radius:99px;z-index:200;font-size:12px;font-weight:700';document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+
+const searchInput=document.getElementById('campSearch');
+const searchButton=document.getElementById('searchBtn');
+if(searchButton) searchButton.addEventListener('click',runCampgroundSearch);
+if(searchInput) searchInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();runCampgroundSearch();}});
+if(searchInput) searchInput.addEventListener('input',()=>{if(searchInput.value.trim()==='') runCampgroundSearch();});
+if(document.getElementById('searchStatus')) runCampgroundSearch();
 </script>
 </body>
 </html>
