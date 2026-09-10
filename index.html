@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 006</title>
+<title>Fire Ring — Build 007</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
 *{box-sizing:border-box}body{margin:0;background:#e7ebe4;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
@@ -18,7 +19,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 .card{background:var(--paper);border:1px solid var(--line);border-radius:21px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f0f3ec;border-radius:14px;padding:11px 7px;text-align:center}.stat b{font-size:18px;display:block}.stat span{font-size:10px;color:var(--muted)}
 .section-title{font-family:Georgia,serif;font-size:23px;margin:5px 0 13px}.sub{font-size:13px;color:var(--muted);line-height:1.5}
-.map{height:300px;border-radius:18px;overflow:hidden;position:relative;background:#dbe6ce;border:1px solid #cbd8c1}
+.explore-map{height:300px;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin-top:12px}.map{height:300px;border-radius:18px;overflow:hidden;position:relative;background:#dbe6ce;border:1px solid #cbd8c1}
 .map .water{position:absolute;left:47%;top:-40px;width:90px;height:390px;background:#83b7c9;border-radius:55%;transform:rotate(13deg);opacity:.9}
 .road{position:absolute;height:8px;background:#f6f0d7;border:2px solid #b9a979;border-radius:99px;transform-origin:left center}.r1{width:330px;left:18px;top:170px;transform:rotate(-17deg)}.r2{width:270px;left:150px;top:92px;transform:rotate(74deg)}
 .trail{position:absolute;border-top:3px dashed #58734e;border-radius:50%}.t1{width:190px;left:15px;top:110px;transform:rotate(23deg)}.t2{width:180px;left:205px;top:205px;transform:rotate(-35deg)}
@@ -527,17 +528,59 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
 </nav>
 
-<div class="version-footer">Fire Ring • Build 006</div>
+<div class="version-footer">Fire Ring • Build 007</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+let exploreMap=null, exploreMarkers=[], userMarker=null;
+function initExploreMap(){
+  if(exploreMap || !document.getElementById('exploreMap') || typeof L==='undefined') return;
+  exploreMap=L.map('exploreMap').setView([40.05,-79.5],9);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(exploreMap);
+  addExploreMarkers();
+}
+function addExploreMarkers(){
+  if(!exploreMap) return;
+  exploreMarkers.forEach(m=>m.remove()); exploreMarkers=[];
+  document.querySelectorAll('.campground-result[data-lat]').forEach(card=>{
+    const lat=+card.dataset.lat, lon=+card.dataset.lon;
+    if(!isFinite(lat)||!isFinite(lon)) return;
+    const name=card.querySelector('h3')?.textContent||'Campground';
+    const type=card.dataset.type==='private'?'Private':'Public';
+    const marker=L.marker([lat,lon]).addTo(exploreMap);
+    marker.bindPopup('<b>'+name+'</b><br>'+type+'<br><span style="font-size:11px">Tap the pin again to open</span>');
+    marker.on('dblclick',()=>openCampgroundFromMap(name));
+    exploreMarkers.push(marker);
+  });
+}
+function openCampgroundFromMap(name){
+  if(name.indexOf('Kentuck Campground')>=0){show('campground');return;}
+  const cards=[...document.querySelectorAll('.campground-result')];
+  const c=cards.find(x=>(x.querySelector('h3')?.textContent||'')===name);
+  if(c){document.getElementById('directoryName').textContent=name;document.getElementById('directoryMeta').textContent=c.querySelector('p')?.textContent||'';show('directory_detail');}
+}
+function centerExploreMap(){
+  if(!exploreMap) initExploreMap();
+  if(userLocation) exploreMap.setView([userLocation.lat,userLocation.lon],10);
+  else exploreMap.setView([40.05,-79.5],9);
+}
+function updateUserMapMarker(){
+  if(!exploreMap||!userLocation) return;
+  if(userMarker) userMarker.remove();
+  userMarker=L.circleMarker([userLocation.lat,userLocation.lon],{radius:8,weight:3,fillOpacity:.9}).addTo(exploreMap).bindPopup('<b>Your location</b>');
+  exploreMap.setView([userLocation.lat,userLocation.lon],10);
+}
+</script>
 <script>
 function show(id){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   const target=document.getElementById(id);
   if(target) target.classList.add('active');
   document.querySelectorAll('.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  if(id==='explore'){setTimeout(()=>{initExploreMap();if(exploreMap)exploreMap.invalidateSize();},50);}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function tab(id){
@@ -589,6 +632,7 @@ function requestLocation(){
     userLocation={lat:pos.coords.latitude,lon:pos.coords.longitude};
     status.textContent='📍 Location enabled · results can now be sorted by distance';
     applyExploreFilters();
+    updateUserMapMarker();
   },err=>{
     status.textContent=err.code===1?'Location permission was denied. You can enable it in your browser settings.':'Could not get your location. Try again.';
   },{enableHighAccuracy:true,timeout:10000,maximumAge:300000});
