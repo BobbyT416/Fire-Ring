@@ -1,7 +1,8 @@
 Fire Ring Build 016
 
-- Removed Profile from top controls; profile remains in the header.
-- Removed bottom navigation.
-- Removed redundant Quick Access section.
-- Renamed top controls to Explore Campgrounds, My Trips, Meet Campers.
-- Get Your Gear is now a dedicated page with camping checklist, Shop buttons, shopping categories, and Build a Trip.
+- Added Home to the top site controls.
+- Tightened top controls to fit five destinations.
+- Get Your Gear is now a compact launcher on Home rather than an expanded section.
+- Added a compact Get Your Gear launcher on My Trips instead of expanding the full gear catalog there.
+- Preserved the full Gear experience in Explore and the trip packing checklist.
+- Version 016.
