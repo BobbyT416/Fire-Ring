@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 022</title>
+<title>Fire Ring — Build 023</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -52,7 +52,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 
 .checklist{margin-top:10px}.checkitem{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.checkitem:last-child{border-bottom:0}.checkitem input{width:18px;height:18px;accent-color:var(--green)}.checkitem label{flex:1;font-size:13px}.shopbtn{border:1px solid var(--line);background:#f4f6f0;color:var(--green);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800}.shopbtn:hover{background:#e9efe6}.tagline{font-family:Georgia,serif;font-style:italic;color:#dfeadf;font-size:15px;margin:4px 0 14px}.reservebox{background:#eef5ea;border:1px solid #d2e1cd;border-radius:17px;padding:14px;margin-bottom:12px}.reservebox h3{margin:0 0 4px;font-family:Georgia,serif;font-size:19px}.reservebox p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.4}.gear-note{font-size:10px;color:var(--muted);margin-top:9px;line-height:1.4}.store-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.store-row button{flex:1;min-width:90px}
 
-/* Build 022 home cleanup */
+/* Build 023 home cleanup */
 .home-featured-kentuck, .featured-kentuck, .kentuck-featured-card { display:none !important; }
 .gear-quick-access { margin-top: 14px; }
 .inapp-panel, .shopping-panel, .web-panel { z-index: 99999 !important; }
@@ -105,7 +105,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 </style>
 
 <style>
-/* Build 022: top navigation is the only primary site navigation. */
+/* Build 023: top navigation is the only primary site navigation. */
 .bottom-nav,.bottomnav,.nav-bottom,.fixed-bottom-nav,.mobile-bottom-nav,
 footer.bottom-nav,[class*="bottom-nav"],[class*="bottomNav"]{display:none !important;}
 body{padding-bottom:0 !important;}
@@ -148,6 +148,21 @@ body{padding-bottom:0 !important;}
   .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
 }
 </style>
+<style>
+.fr-top-header{padding:14px 14px 10px;border-radius:0 0 26px 26px;background:linear-gradient(135deg,#143a29 0%,#205b38 62%,#2f7044 100%);color:#fffaf0;box-shadow:0 10px 28px rgba(23,61,45,.20)}
+.fr-header-inner{margin-bottom:10px}
+.fr-brand-name{font-family:Georgia,"Times New Roman",serif;font-size:27px;letter-spacing:2.4px}
+.fr-brand-tag{font-size:12px}
+.fr-home-message{position:relative;z-index:2;background:rgba(255,250,240,.10);border:1px solid rgba(255,250,240,.18);border-radius:20px;padding:14px 15px 13px;margin:0 0 10px}
+.fr-welcome{font-size:10px;letter-spacing:1.2px;opacity:.78}
+.fr-home-message h1{font-family:Georgia,"Times New Roman",serif;font-size:25px;line-height:1.05;margin:5px 0 3px}
+.fr-home-tagline{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:15px}
+.fr-home-message p{font-size:12px;line-height:1.42;margin:8px 0 10px;max-width:620px}
+.fr-home-cta{width:100%;border:0;border-radius:13px;padding:10px;background:#fffaf0;color:#173d2d;font-weight:800;font-size:13px;cursor:pointer}
+.fr-site-controls{position:relative;z-index:3;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important}
+.fr-site-controls button{min-height:38px;border:1px solid rgba(255,250,240,.20)!important;background:rgba(255,250,240,.12)!important;color:#fffaf0!important;border-radius:11px!important;padding:8px 5px!important;font-size:11px!important;font-weight:800}
+.search-examples{margin-top:6px;color:var(--muted);font-size:10px}
+</style>
 </head>
 <body>
 <div class="app">
@@ -162,26 +177,28 @@ body{padding-bottom:0 !important;}
     </div>
     <button class="fr-header-profile" onclick="show('profile')" aria-label="Profile">👤</button>
   </div>
+  <div class="fr-home-message">
+    <div class="fr-welcome">WELCOME TO FIRE RING</div>
+    <h1>Where campers gather.</h1>
+    <div class="fr-home-tagline">Come find your circle.</div>
+    <p>Discover campgrounds, see who's camping nearby, plan your next adventure, and share the places you love with people who love camping too.</p>
+    <button class="fr-home-cta" onclick="show('explore')">Explore Campgrounds</button>
+  </div>
   <div class="fr-header-glow"></div>
+  <nav class="fr-site-controls" aria-label="Primary">
+    <button onclick="show('home')">⌂ Home</button>
+    <button onclick="show('explore')">🗺️ Explore</button>
+    <button onclick="show('trips')">📅 Trips</button>
+    <button onclick="show('packing')">🎒 Packing List</button>
+    <button onclick="show('campers')">👥 Campers</button>
+  </nav>
 </header>
-<div class="fr-site-controls">
-  <button onclick="show('home')">⌂ Home</button>
-  <button onclick="show('explore')">🗺️ Explore</button>
-  <button onclick="show('trips')">📅 Trips</button>
-  <button onclick="show('packing')">🎒 Packing List</button>
-  <button onclick="show('campers')">👥 Campers</button>
-</div>
 
 
 
 <section id="home" class="page active">
 <div class="content" style="padding-top:16px">
-  <div class="card" style="background:linear-gradient(145deg,#173d2b,#2f6f3e);color:white;padding:20px">
-    <div style="font-size:12px;opacity:.8">WELCOME TO FIRE RING</div>
-    <h1 style="font-family:Georgia,serif;font-size:30px;margin:6px 0">Where campers gather.</h1>
-    <div class="tagline">Come find your circle.</div><p style="font-size:13px;line-height:1.5;opacity:.9">Discover campgrounds, see who's camping nearby, plan your next trip, and share the places you love.</p>
-    <button class="primary" style="background:white;color:#173d2b" onclick="show('explore')">Explore Campgrounds</button>
-  </div>
+  
 
   
 </div>
@@ -193,7 +210,7 @@ body{padding-bottom:0 !important;}
   <div class="section-title">Explore Campgrounds</div>
   <div class="card">
     <div style="display:flex;gap:8px">
-      <input id="campSearch" autocomplete="off" placeholder="Search campgrounds, parks, or locations…" style="flex:1;min-width:0;border:1px solid var(--line);border-radius:13px;padding:12px;outline:none">
+      <input id="campSearch" autocomplete="off" placeholder="Search campground, state, city, ZIP or landmark…" style="flex:1;min-width:0;border:1px solid var(--line);border-radius:13px;padding:12px;outline:none">
       <button id="searchBtn" class="primary" style="width:82px;padding:10px;font-size:13px">Search</button>
     </div>
     <div style="display:flex;gap:7px;align-items:center;margin-top:9px;flex-wrap:wrap">
@@ -205,7 +222,8 @@ body{padding-bottom:0 !important;}
         <option value="all">All campgrounds</option><option value="public">Public</option><option value="private">Private</option>
       </select>
     </div>
-    <div id="locationStatus" style="margin-top:8px;color:var(--muted);font-size:11px">Use your location to sort campgrounds from nearest to farthest.</div>
+    <div id="locationStatus" style="margin-top:8px;color:var(--muted);font-size:11px">Search by campground name, state, city, ZIP code, or a nearby landmark.</div>
+    <div class="search-examples">Try: <b>Ohiopyle</b> · <b>Pennsylvania</b> · <b>15470</b> · <b>Fallingwater</b></div>
     <div style="margin-top:6px;color:var(--muted);font-size:11px">Pennsylvania campground directory · 68 state-park entries + real local campground records</div>
   </div>
   <div class="card" style="padding:10px;margin-bottom:10px">
@@ -215,25 +233,25 @@ body{padding-bottom:0 !important;}
   </div>
   <div id="searchStatus" style="font-size:12px;color:var(--muted);margin:10px 4px 7px"></div>
     <div id="campgroundResults">
-    <div class="list-card campground-result location-ready" data-name="ohiopyle state park, kentuck campground" data-region="west" data-type="public" data-lat="39.88783" data-lon="-79.49427">
+    <div class="list-card campground-result location-ready" data-name="ohiopyle state park, kentuck campground" data-search="ohiopyle, pennsylvania, pa, 15470, fallingwater, frank lloyd wright, ohiopyle falls, youghiogheny river, great allegheny passage, cucumber falls, baughman rocks" data-region="west" data-type="public" data-lat="39.88783" data-lon="-79.49427">
       <div class="list-thumb"></div><div style="flex:1"><h3>Kentuck Campground — Ohiopyle State Park</h3><p>Public · Ohiopyle, PA · About 200 campsites · Electric available</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="show('campground')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="benner's meadow run rv campground" data-region="west" data-type="private" data-lat="39.84040145" data-lon="-79.56436397">
+    <div class="list-card campground-result location-ready" data-name="benner's meadow run rv campground" data-search="farmington, pennsylvania, pa, 15437, fallingwater, laurel highlands, ohiopyle" data-region="west" data-type="private" data-lat="39.84040145" data-lon="-79.56436397">
       <div class="list-thumb"></div><div style="flex:1"><h3>Benner's Meadow Run RV Campground</h3><p>Private · Farmington, PA · RV, tent, cabins & yurts</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Private campground detail coming next.')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="scarlett knob campground" data-region="west" data-type="private" data-lat="39.88656091" data-lon="-79.46282475">
+    <div class="list-card campground-result location-ready" data-name="scarlett knob campground" data-search="ohiopyle, pennsylvania, pa, 15470, ohiopyle falls, youghiogheny river, great allegheny passage" data-region="west" data-type="private" data-lat="39.88656091" data-lon="-79.46282475">
       <div class="list-thumb"></div><div style="flex:1"><h3>Scarlett Knob Campground</h3><p>Private · Ohiopyle, PA · Tent, RV and small-camper sites</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Private campground detail coming next.')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="tall oaks campground" data-region="west" data-type="private" data-lat="39.78271055" data-lon="-79.57168862">
+    <div class="list-card campground-result location-ready" data-name="tall oaks campground" data-search="farmington, pennsylvania, pa, 15437, laurel highlands, ohiopyle, fallingwater" data-region="west" data-type="private" data-lat="39.78271055" data-lon="-79.57168862">
       <div class="list-thumb"></div><div style="flex:1"><h3>Tall Oaks Campground</h3><p>Private · Farmington, PA · Tent and RV camping</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Private campground detail coming next.')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="yough lake campground" data-region="west" data-type="private" data-lat="39.775483" data-lon="-79.405668">
+    <div class="list-card campground-result location-ready" data-name="yough lake campground" data-search="confluence, pennsylvania, pa, 15424, youghiogheny river, yough lake, great allegheny passage" data-region="west" data-type="private" data-lat="39.775483" data-lon="-79.405668">
       <div class="list-thumb"></div><div style="flex:1"><h3>Yough Lake Campground</h3><p>Private · Confluence, PA · Tent, RV and cabin camping</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Private campground detail coming next.')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="yogi bear's jellystone park mill run" data-region="west" data-type="private" data-lat="39.94633784" data-lon="-79.45295397">
+    <div class="list-card campground-result location-ready" data-name="yogi bear's jellystone park mill run" data-search="mill run, pennsylvania, pa, 15464, ohiopyle, fallingwater, laurel highlands" data-region="west" data-type="private" data-lat="39.94633784" data-lon="-79.45295397">
       <div class="list-thumb"></div><div style="flex:1"><h3>Yogi Bear's Jellystone Park Mill Run</h3><p>Private · Mill Run, PA · RV, tent, cabins and full hookups</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Private campground detail coming next.')">View campground</button></div>
     </div>
-    <div class="list-card campground-result location-ready" data-name="outflow camping" data-region="west" data-type="public" data-lat="39.805" data-lon="-79.3669444">
+    <div class="list-card campground-result location-ready" data-name="outflow camping" data-search="confluence, pennsylvania, pa, 15424, youghiogheny river, yough lake, great allegheny passage" data-region="west" data-type="public" data-lat="39.805" data-lon="-79.3669444">
       <div class="list-thumb"></div><div style="flex:1"><h3>Outflow Camping</h3><p>Public · Confluence, PA · Army Corps of Engineers campground</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="toast('Public campground detail coming next.')">View campground</button></div>
     </div>
     <div class="list-card campground-result" data-name="bald eagle state park, letterman campground" data-region="north">
@@ -654,7 +672,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 022</div>
+<div class="version-footer">Fire Ring • Build 023</div>
 </div>
 
 
@@ -784,7 +802,8 @@ function applyExploreFilters(){
   const container=document.getElementById('campgroundResults');
   const cards=[...document.querySelectorAll('.campground-result')];
   cards.forEach(c=>{
-    const matchText=!q || c.dataset.name.includes(q) || c.dataset.region.includes(q) || (c.textContent||'').toLowerCase().includes(q);
+    const searchable=[c.dataset.name,c.dataset.region,c.dataset.search||'',c.textContent||''].join(' ').toLowerCase();
+    const matchText=!q || searchable.includes(q);
     const matchType=type==='all' || c.dataset.type===type;
     let d=null;
     if(userLocation && c.dataset.lat) d=distanceMiles(userLocation.lat,userLocation.lon,+c.dataset.lat,+c.dataset.lon);
