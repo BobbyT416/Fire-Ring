@@ -1,6 +1,3 @@
-Fire Ring Build 017
+Fire Ring Build 018
 
-- Removed the bottom-of-page navigation buttons.
-- Top navigation remains the single primary navigation.
-- Preserved Home, Explore, Trips, Campers, Profile and all existing features.
-- Version 017.
+Removed the expanded Get Your Gear section from Explore. Compact Get Your Gear access remains on Home and My Trips, with the gear hub available when tapped. All other Explore functionality is preserved.
