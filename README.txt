@@ -1,3 +1,9 @@
-Fire Ring Build 013
+Fire Ring Build 014
 
-Home cleanup: removes the large featured Kentuck Campground card from the Camping Near You area while retaining Kentuck as a campground in Explore/details. Get Your Gear remains in Quick Access. Build number updated to 013.
+Built from the known-good Build 012.
+- Restored all app sections/navigation.
+- Removed the large featured Kentuck Campground card from Home.
+- Replaced it with a compact Camping Near You prompt.
+- Added Get Your Gear directly under Quick Access.
+- Preserved Explore, Trips, Campers, Profile, campground data, map, search, and external shopping/reservation transition behavior.
+- Version: Build 014
