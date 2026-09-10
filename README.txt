@@ -1,11 +1,12 @@
-Fire Ring — Build 007
+Fire Ring — Build 009
 
-Interactive Explore map milestone.
-- Added real Leaflet/OpenStreetMap map to Explore.
-- Existing campground coordinates are plotted as map pins.
-- Pin popups open campground records.
-- Use My Location adds a location marker and recenters the map.
-- Search, Enter-to-search, distance sorting, radius filters, and Public/Private filtering remain.
-- Version shown in footer.
+Highlights:
+- Brand phrase: Come find your circle.
+- Explore map, location sorting, public/private and radius filters retained.
+- Get Your Gear section expanded and affiliate-ready.
+- Kentuck Campground now has Reserve a Campsite action.
+- My Trips includes an interactive starter packing checklist with Shop buttons beside each item.
+- Packing list is designed for future personalization by campground, weather, camping style, pets, activities and trip length.
+- Version footer: Build 009.
 
-Internet connection is required for map tiles.
+Note: store/reservation destinations in this prototype are direct destination links. Production affiliate links require approved partner accounts and tracked URLs.

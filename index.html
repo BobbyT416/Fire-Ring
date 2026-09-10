@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 007</title>
+<title>Fire Ring — Build 009</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -47,6 +47,10 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 .mapbig{height:380px;border-radius:19px;position:relative;overflow:hidden;background:#d9e6ce;border:1px solid #c9d7bf}.mapbig .water{position:absolute;left:43%;top:-60px;width:105px;height:500px;background:#82b8ca;border-radius:55%;transform:rotate(12deg)}.mroad{position:absolute;height:9px;background:#f6efd5;border:2px solid #b8a677;border-radius:99px}.mr1{width:430px;left:-45px;top:220px;transform:rotate(-13deg)}.mr2{width:340px;left:145px;top:100px;transform:rotate(73deg)}.mr3{width:250px;left:-10px;top:110px;transform:rotate(26deg)}.mtrail{position:absolute;border-top:3px dashed #55764d;border-radius:50%}.mt1{width:220px;left:10px;top:155px;transform:rotate(23deg)}.mt2{width:210px;left:200px;top:270px;transform:rotate(-30deg)}.mpin{position:absolute;width:34px;height:34px;border-radius:50% 50% 50% 0;background:var(--forest);border:3px solid #fff;transform:rotate(-45deg);box-shadow:0 3px 9px #0004}.mpin i{display:block;transform:rotate(45deg);font-style:normal;text-align:center;line-height:28px;color:#fff}.sitepin{background:#6f8f58}.m1{left:29%;top:29%}.m2{right:13%;top:48%}.m3{right:8%;bottom:18%}.m4{left:15%;bottom:16%}.m5{left:52%;bottom:34%}.mapcardlabel{position:absolute;background:#fffdf0e8;padding:5px 7px;border-radius:8px;font-size:10px;font-weight:800;color:#34513c}.ml1{left:18%;top:21%}.ml2{right:8%;top:42%}.ml3{right:5%;bottom:11%}.ml4{left:7%;bottom:8%}
 .profile-head{display:flex;gap:13px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:19px;padding:15px;margin-bottom:12px}.bigavatar{width:66px;height:66px;border-radius:50%;background:linear-gradient(145deg,#6c8b70,#d7bd98);display:grid;place-items:center;font-size:29px;border:3px solid white;box-shadow:0 2px 8px #0002}
 .switchrow{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.switchrow:last-child{border:0}.toggle{width:45px;height:25px;background:#c9cec8;border-radius:99px;padding:3px}.toggle.on{background:#4b9b52}.toggle i{display:block;width:19px;height:19px;background:white;border-radius:50%;transition:.2s}.toggle.on i{transform:translateX(20px)}
+
+.gear-card{border:1px solid var(--line);background:#fffdf6;border-radius:14px;padding:12px;text-align:left;color:var(--forest);cursor:pointer;min-height:72px}.gear-card b{display:block;font-size:12px}.gear-card small{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.25}.gear-card:hover{transform:translateY(-1px)}
+
+.checklist{margin-top:10px}.checkitem{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.checkitem:last-child{border-bottom:0}.checkitem input{width:18px;height:18px;accent-color:var(--green)}.checkitem label{flex:1;font-size:13px}.shopbtn{border:1px solid var(--line);background:#f4f6f0;color:var(--green);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800}.shopbtn:hover{background:#e9efe6}.tagline{font-family:Georgia,serif;font-style:italic;color:#dfeadf;font-size:15px;margin:4px 0 14px}.reservebox{background:#eef5ea;border:1px solid #d2e1cd;border-radius:17px;padding:14px;margin-bottom:12px}.reservebox h3{margin:0 0 4px;font-family:Georgia,serif;font-size:19px}.reservebox p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.4}.gear-note{font-size:10px;color:var(--muted);margin-top:9px;line-height:1.4}.store-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.store-row button{flex:1;min-width:90px}
 </style>
 </head>
 <body>
@@ -59,7 +63,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
   <div class="card" style="background:linear-gradient(145deg,#173d2b,#2f6f3e);color:white;padding:20px">
     <div style="font-size:12px;opacity:.8">WELCOME TO FIRE RING</div>
     <h1 style="font-family:Georgia,serif;font-size:30px;margin:6px 0">Where campers gather.</h1>
-    <p style="font-size:13px;line-height:1.5;opacity:.9">Discover campgrounds, see who's camping nearby, plan your next trip, and share the places you love.</p>
+    <div class="tagline">Come find your circle.</div><p style="font-size:13px;line-height:1.5;opacity:.9">Discover campgrounds, see who's camping nearby, plan your next trip, and share the places you love.</p>
     <button class="primary" style="background:white;color:#173d2b" onclick="show('explore')">Explore Campgrounds</button>
   </div>
 
@@ -106,7 +110,24 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
     <div id="locationStatus" style="margin-top:8px;color:var(--muted);font-size:11px">Use your location to sort campgrounds from nearest to farthest.</div>
     <div style="margin-top:6px;color:var(--muted);font-size:11px">Pennsylvania campground directory · 68 state-park entries + real local campground records</div>
   </div>
+  <div class="card" style="padding:10px;margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px"><div><b style="font-family:Georgia,serif;font-size:18px">Campgrounds near you</b><div class="sub" style="margin-top:2px">Tap a pin to view the campground.</div></div><button class="secondary" onclick="centerExploreMap()" style="padding:8px 10px">📍 Center</button></div>
+    <div id="exploreMap" class="explore-map"></div>
+    <div id="mapStatus" style="font-size:10px;color:var(--muted);margin-top:6px">Interactive map loading…</div>
+  </div>
   <div id="searchStatus" style="font-size:12px;color:var(--muted);margin:10px 4px 7px"></div>
+  <div class="card" style="margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center"><div><h2 class="section-title" style="margin:0">🔥 Get Your Gear</h2><p class="sub" style="margin-top:4px">Shop for the kind of trip you are planning. Fire Ring can eventually personalize these links to your campground, camping style and season.</p></div><span class="chip">Affiliate-ready</span></div>
+    <div class="gear-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+      <button class="gear-card" onclick="openGear('Camping Essentials','https://www.amazon.com/s?k=camping+essentials')"><b>⛺ Camping Essentials</b><small>Tents · sleeping · camp kitchen</small></button>
+      <button class="gear-card" onclick="openGear('RV & Towing','https://www.amazon.com/s?k=rv+camping+supplies')"><b>🚐 RV & Towing</b><small>Chocks · adapters · hoses · leveling</small></button>
+      <button class="gear-card" onclick="openGear('Hiking & Outdoors','https://www.rei.com/c/hiking')"><b>🥾 Hiking & Outdoors</b><small>Boots · packs · layers · trail gear</small></button>
+      <button class="gear-card" onclick="openGear('Fishing & Water','https://www.basspro.com/')"><b>🎣 Fishing & Water</b><small>Fishing · paddling · water gear</small></button>
+      <button class="gear-card" onclick="openGear('Camp Cooking','https://www.cabelas.com/shop/en/camping-cooking')"><b>🍳 Camp Cooking</b><small>Stoves · cookware · coolers</small></button>
+      <button class="gear-card" onclick="openGear('Lighting & Safety','https://www.amazon.com/s?k=camping+lantern+headlamp')"><b>🔦 Lighting & Safety</b><small>Lanterns · headlamps · first aid</small></button>
+    </div>
+    <div class="notice" style="margin-top:9px;font-size:10px"><b>How Fire Ring can earn:</b> these are destination links in the prototype. Once approved for affiliate programs, Fire Ring can substitute tracked links and earn commissions on qualifying purchases without charging the camper extra.</div>
+  </div>
   <div id="campgroundResults">
     <div class="list-card campground-result location-ready" data-name="ohiopyle state park, kentuck campground" data-region="west" data-type="public" data-lat="39.88783" data-lon="-79.49427">
       <div class="list-thumb"></div><div style="flex:1"><h3>Kentuck Campground — Ohiopyle State Park</h3><p>Public · Ohiopyle, PA · About 200 campsites · Electric available</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0"></div><button class="small-btn" onclick="show('campground')">View campground</button></div>
@@ -411,6 +432,20 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
   <div class="section-title">My Trips</div>
   <div class="list-card"><div class="list-thumb"></div><div><h3>Raystown Lake</h3><p>September 18–21 · RV · 4 days</p><button class="small-btn">6 campers also going</button></div></div>
   <div class="list-card"><div class="list-thumb"></div><div><h3>Deep Creek Lake</h3><p>October 9–12 · RV · 3 nights</p><button class="small-btn">View trip</button></div></div>
+  <div class="card" style="margin-top:14px">
+    <div class="row"><div><h2 class="section-title" style="margin:0">🎒 Trip Packing List</h2><p class="sub" style="margin-top:4px">A starter list for your next camping trip. Tap <b>Shop</b> when you need something.</p></div><span class="pill">8 items</span></div>
+    <div class="checklist">
+      <div class="checkitem"><input type="checkbox" id="pack1"><label for="pack1">Tent or RV sleeping setup</label><button class="shopbtn" onclick="shopItem('Tent & camping shelter','https://www.amazon.com/s?k=camping+tent')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack2"><label for="pack2">Sleeping bag / bedding</label><button class="shopbtn" onclick="shopItem('Sleeping bags','https://www.amazon.com/s?k=camping+sleeping+bag')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack3"><label for="pack3">Camp chairs</label><button class="shopbtn" onclick="shopItem('Camp chairs','https://www.amazon.com/s?k=camping+chair')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack4"><label for="pack4">Lantern / headlamp</label><button class="shopbtn" onclick="shopItem('Camp lighting','https://www.amazon.com/s?k=camping+lantern+headlamp')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack5"><label for="pack5">Camp cooking gear</label><button class="shopbtn" onclick="shopItem('Camp cooking gear','https://www.amazon.com/s?k=camping+cookware+stove')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack6"><label for="pack6">First-aid kit</label><button class="shopbtn" onclick="shopItem('First aid kit','https://www.amazon.com/s?k=camping+first+aid+kit')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack7"><label for="pack7">Rain gear / weather protection</label><button class="shopbtn" onclick="shopItem('Rain gear','https://www.rei.com/c/rain-jackets')">Shop</button></div>
+      <div class="checkitem"><input type="checkbox" id="pack8"><label for="pack8">Firewood / fire-starting supplies</label><button class="shopbtn" onclick="shopItem('Campfire supplies','https://www.amazon.com/s?k=fire+starter+camping')">Shop</button></div>
+    </div>
+    <p class="gear-note">Fire Ring can eventually personalize this list based on destination, weather, RV/tent camping, pets, activities and trip length. Affiliate links would be clearly identified where required.</p>
+  </div>
   <div class="empty">+ Plan another camping trip</div>
 </div>
 </section>
@@ -429,6 +464,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <div class="tabs"><button class="active">Overview</button><button onclick="show('map')">Map</button><button onclick="show('things2')">Things To Do</button><button onclick="show('info2')">Info</button></div>
 
 <div id="overview">
+<div class="reservebox"><h3>📅 Ready to reserve?</h3><p>Check current availability and reserve a campsite through the campground reservation system. Fire Ring is designed to eventually use tracked partner links when available.</p><button class="primary" onclick="reserveCampground()">Reserve a Campsite →</button></div>
 <div class="card"><div class="stats"><div class="stat"><b>~200</b><span>campsites</span></div><div class="stat"><b>4.8 ★</b><span>Fire Ring rating</span></div><div class="stat"><b>12</b><span>campers here now</span></div></div></div>
 <div class="card"><h2 class="section-title">Who's Camping Here?</h2><div class="campers"><span class="mini">👩</span><span class="mini">🧢</span><span class="mini">🧔</span><span class="mini">👩</span><span class="mini more">+8</span></div><p class="sub">These members have chosen to be visible at Kentuck. Exact campsite numbers are never shown.</p><div class="buttons"><button class="primary" onclick="checkin()">📍 Check In</button><button class="secondary" onclick="show('campers')">See campers</button></div></div>
 <div class="card"><h2 class="section-title">At a Glance</h2><p class="sub"><b>Kentuck Campground</b> has about 200 campsites, many with electric hookups, plus 27 walk-to sites and three multi-sites. The campground has a dump station and shower houses. Every campsite has a picnic table, fire ring, and parking space. </p></div>
@@ -528,7 +564,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
 </nav>
 
-<div class="version-footer">Fire Ring • Build 007</div>
+<div class="version-footer">Fire Ring • Build 009</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
@@ -537,10 +573,15 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <script>
 let exploreMap=null, exploreMarkers=[], userMarker=null;
 function initExploreMap(){
-  if(exploreMap || !document.getElementById('exploreMap') || typeof L==='undefined') return;
-  exploreMap=L.map('exploreMap').setView([40.05,-79.5],9);
+  const el=document.getElementById('exploreMap');
+  const status=document.getElementById('mapStatus');
+  if(!el) return;
+  if(typeof L==='undefined'){ if(status) status.textContent='Interactive map library could not load. Check your internet connection and reload.'; return; }
+  if(exploreMap){exploreMap.invalidateSize();return;}
+  exploreMap=L.map('exploreMap',{zoomControl:true}).setView([40.05,-79.5],9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(exploreMap);
   addExploreMarkers();
+  if(status) status.textContent='Live map · OpenStreetMap · campground pins are approximate directory locations';
 }
 function addExploreMarkers(){
   if(!exploreMap) return;
@@ -551,8 +592,7 @@ function addExploreMarkers(){
     const name=card.querySelector('h3')?.textContent||'Campground';
     const type=card.dataset.type==='private'?'Private':'Public';
     const marker=L.marker([lat,lon]).addTo(exploreMap);
-    marker.bindPopup('<b>'+name+'</b><br>'+type+'<br><span style="font-size:11px">Tap the pin again to open</span>');
-    marker.on('dblclick',()=>openCampgroundFromMap(name));
+    marker.bindPopup('<b>'+name+'</b><br>'+type+'<br><button style="margin-top:6px;border:0;border-radius:8px;padding:6px 9px;background:#173d2b;color:white;font-weight:700;cursor:pointer" onclick="openCampgroundFromMap('+JSON.stringify(name).replace(/'/g,'\\\'')+')">View campground</button>');
     exploreMarkers.push(marker);
   });
 }
@@ -575,6 +615,14 @@ function updateUserMapMarker(){
 }
 </script>
 <script>
+function openGear(category,url){
+  toast(category+' · opening store');
+  setTimeout(()=>window.open(url,'_blank','noopener,noreferrer'),120);
+}
+function shopItem(item,url){ toast('Shopping for '+item); setTimeout(()=>window.open(url,'_blank','noopener,noreferrer'),120); }
+function reserveCampground(){
+  window.open('https://www.reserveamerica.com/explore/ohiopyle-state-park/PA/880211/campsite-booking','_blank','noopener,noreferrer');
+}
 function show(id){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   const target=document.getElementById(id);
@@ -665,6 +713,7 @@ if(radiusFilter) radiusFilter.addEventListener('change',applyExploreFilters);
 const typeFilter=document.getElementById('typeFilter');
 if(typeFilter) typeFilter.addEventListener('change',applyExploreFilters);
 if(document.getElementById('searchStatus')) runCampgroundSearch();
+window.addEventListener('load',()=>{ if(document.getElementById('exploreMap')) setTimeout(()=>{initExploreMap(); if(exploreMap) exploreMap.invalidateSize();},100); });
 </script>
 </body>
 </html>
