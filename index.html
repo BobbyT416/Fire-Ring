@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 026</title>
+<title>Fire Ring — Build 027</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -217,7 +217,14 @@ body{padding-bottom:0 !important;}
   .camp-collage{grid-template-rows:92px 92px}
   .home-mission h1{font-size:25px}
 }
-</style></head>
+</style><style>
+/* Build 027: Home has no Back button; bring Home content closer to the header/nav. */
+#home .page-back{display:none !important;}
+.home-content{padding:0 10px 22px !important;}
+.home-intro{margin-top:0 !important;}
+.home-mission{padding:10px 17px 12px !important;}
+</style>
+</head>
 <body>
 <div class="app">
 <header class="fr-top-header">
@@ -742,7 +749,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 026</div>
+<div class="version-footer">Fire Ring • Build 027</div>
 </div>
 
 
@@ -1014,6 +1021,7 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.page').forEach(function(page){
+    if(page.id==='home') return;
     if(page.querySelector('.page-back')) return;
     const content=page.querySelector('.content') || page;
     const btn=document.createElement('button');

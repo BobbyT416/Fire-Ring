@@ -1,10 +1,7 @@
-Fire Ring Build 026
+Fire Ring — Build 027
 
-- Reworked Home into a cohesive, professional home experience.
-- Persistent header contains only Fire Ring branding, profile, and primary navigation.
-- Home-only mission statement and camping photo collage appear beneath the navigation and disappear when leaving Home.
-- Removed the large Explore Campgrounds button from the mission area.
-- Branding remains: FIRE RING / Come find your circle — Gather around.
-- Mission expanded to emphasize camping community and connection.
-- Uses free-to-use Unsplash imagery for the prototype collage; final production imagery should be downloaded/licensed according to the source terms.
-- Version 026.
+Changes from Build 026:
+- Home is the only page without a Back button.
+- Back buttons remain available on all other pages and continue to use the in-app history stack.
+- Home content was moved closer to the header/navigation controls for a tighter, more cohesive layout.
+- Version footer updated to Build 027.
