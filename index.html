@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 009</title>
+<title>Fire Ring — Build 010</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -52,7 +52,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 
 .checklist{margin-top:10px}.checkitem{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.checkitem:last-child{border-bottom:0}.checkitem input{width:18px;height:18px;accent-color:var(--green)}.checkitem label{flex:1;font-size:13px}.shopbtn{border:1px solid var(--line);background:#f4f6f0;color:var(--green);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800}.shopbtn:hover{background:#e9efe6}.tagline{font-family:Georgia,serif;font-style:italic;color:#dfeadf;font-size:15px;margin:4px 0 14px}.reservebox{background:#eef5ea;border:1px solid #d2e1cd;border-radius:17px;padding:14px;margin-bottom:12px}.reservebox h3{margin:0 0 4px;font-family:Georgia,serif;font-size:19px}.reservebox p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.4}.gear-note{font-size:10px;color:var(--muted);margin-top:9px;line-height:1.4}.store-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.store-row button{flex:1;min-width:90px}
 </style>
-</head>
+<style>.webshell{position:fixed;inset:0;background:rgba(20,30,20,.58);z-index:9999;display:none;align-items:flex-end;justify-content:center}.webshell.open{display:flex}.webpanel{width:min(760px,100%);height:min(92vh,900px);background:#f7f6f0;border-radius:22px 22px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}.webhead{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#183b2a;color:#fff}.webhead .webtitle{flex:1;font-weight:800;font-size:14px}.webhead button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:8px 10px;font-weight:800}.webhead .closex{background:#fff;color:#183b2a}.webhint{font-size:10px;color:#dce8df;background:#183b2a;padding:0 12px 8px}.webbody{position:relative;flex:1;background:#fff}.webbody iframe{width:100%;height:100%;border:0;background:#fff}.webloading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#fff;color:#5e6a61;font-size:13px;z-index:2}.webloading.hide{display:none}.webfallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:28px;background:#fff;z-index:3}.webfallback.show{display:flex}.webfallback .cardx{max-width:430px}.webfallback h3{margin:0 0 8px;font-family:Georgia,serif;font-size:22px}.webfallback p{margin:0 0 16px;color:#687268;font-size:13px;line-height:1.5}.webopen{display:inline-block;background:#1d5438;color:#fff;border-radius:12px;padding:11px 15px;font-weight:800;text-decoration:none}</style></head>
 <body>
 <div class="app">
 <header><div class="top"><button class="back" onclick="show('home')">‹</button><div class="logo">🔥</div><button class="brand" onclick="show('home')" style="border:0;background:none;padding:0;color:var(--ink)">Fire Ring</button><button class="avatar">🧢</button></div></header>
@@ -564,7 +564,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
 </nav>
 
-<div class="version-footer">Fire Ring • Build 009</div>
+<div class="version-footer">Fire Ring • Build 010</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
@@ -615,15 +615,7 @@ function updateUserMapMarker(){
 }
 </script>
 <script>
-function openGear(category,url){
-  toast(category+' · opening store');
-  setTimeout(()=>window.open(url,'_blank','noopener,noreferrer'),120);
-}
-function shopItem(item,url){ toast('Shopping for '+item); setTimeout(()=>window.open(url,'_blank','noopener,noreferrer'),120); }
-function reserveCampground(){
-  window.open('https://www.reserveamerica.com/explore/ohiopyle-state-park/PA/880211/campsite-booking','_blank','noopener,noreferrer');
-}
-function show(id){
+function openWebShell(title,url){var shell=document.getElementById('webShell'),frame=document.getElementById('webFrame'),load=document.getElementById('webLoading'),fallback=document.getElementById('webFallback'),open=document.getElementById('webOpen'),titleEl=document.getElementById('webTitle');titleEl.textContent=title||'Fire Ring';open.href=url;fallback.classList.remove('show');load.classList.remove('hide');frame.style.display='block';frame.src=url;shell.classList.add('open');document.body.style.overflow='hidden';clearTimeout(window.__webFallbackTimer);window.__webFallbackTimer=setTimeout(function(){if(load&&!load.classList.contains('hide')){load.classList.add('hide');fallback.classList.add('show');frame.style.display='none';}},4500);frame.onload=function(){load.classList.add('hide');clearTimeout(window.__webFallbackTimer)};frame.onerror=function(){load.classList.add('hide');fallback.classList.add('show');frame.style.display='none'}}function closeWebShell(){var shell=document.getElementById('webShell'),frame=document.getElementById('webFrame');shell.classList.remove('open');document.body.style.overflow='';frame.src='about:blank'}function openGear(category,url){toast(category+' · opening inside Fire Ring');setTimeout(function(){openWebShell(category,url)},80)}function shopItem(item,url){toast('Shopping for '+item+' · opening inside Fire Ring');setTimeout(function(){openWebShell(item,url)},80)}function reserveCampground(){openWebShell('Reserve · Kentuck Campground','https://www.reserveamerica.com/explore/ohiopyle-state-park/PA/880211/campsite-booking')}function show(id){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   const target=document.getElementById(id);
   if(target) target.classList.add('active');
@@ -715,5 +707,5 @@ if(typeFilter) typeFilter.addEventListener('change',applyExploreFilters);
 if(document.getElementById('searchStatus')) runCampgroundSearch();
 window.addEventListener('load',()=>{ if(document.getElementById('exploreMap')) setTimeout(()=>{initExploreMap(); if(exploreMap) exploreMap.invalidateSize();},100); });
 </script>
-</body>
+<div id="webShell" class="webshell" role="dialog" aria-modal="true" aria-label="Fire Ring web view"><div class="webpanel"><div class="webhead"><button onclick="closeWebShell()">← Back</button><div id="webTitle" class="webtitle">Fire Ring</div><button class="closex" onclick="closeWebShell()">Done</button></div><div class="webhint">Viewing a partner website inside Fire Ring.</div><div class="webbody"><div id="webLoading" class="webloading">Loading…</div><iframe id="webFrame" title="Partner website" referrerpolicy="strict-origin-when-cross-origin"></iframe><div id="webFallback" class="webfallback"><div class="cardx"><h3>This site doesn't allow an in-app view</h3><p>Some retailers and reservation systems block embedded views for security. Fire Ring can still send you to the same tracked destination.</p><a id="webOpen" class="webopen" href="#" target="_blank" rel="noopener noreferrer">Open Website</a></div></div></div></div></div></body>
 </html>
