@@ -1,32 +1,12 @@
-FIRE RING — BUILD 002
-=====================
+FIRE RING — BUILD 002.1
+=======================
 
-This build expands the prototype around a real campground: Kentuck Campground,
-Ohiopyle State Park, Pennsylvania.
+Small navigation/identification update to Build 002.
 
-Included:
-- Campground detail page
-- Campers-here-now experience
-- Check-in concept with privacy protection
-- Overview / Map / Things To Do / Info tabs
-- Prototype Ohiopyle area map
-- Official-data style campground information
-- Hiking/activity cards
-- Rules and safety notices
-- Nearby attractions
-- Official-map handoff concept
+Changes:
+- Persistent "Fire Ring • Build 002.1" version number at bottom of page.
+- Bottom-left navigation now explicitly says Home.
+- Fire Ring header/logo returns to Home when tapped.
+- Campground detail back button returns to Home.
 
-Research basis:
-- Pennsylvania DCNR Ohiopyle maps/GIS
-- Pennsylvania DCNR Ohiopyle hiking information
-- Pennsylvania DCNR Ohiopyle camping information
-- Pennsylvania DCNR state-park rules
-- Pennsylvania DCNR whitewater rules
-
-Next build candidates:
-1. Replace prototype map with a real interactive map.
-2. Add real campground boundary/trail/POI layers.
-3. Add a full campground map with site-level data when available.
-4. Build reviews, photos and community posts.
-5. Add real user accounts and check-ins with Supabase.
-6. Add "nearby campgrounds" and a scalable campground database.
+No backend/data changes in this build.
