@@ -1,6 +1,7 @@
-Fire Ring Build 015
+Fire Ring Build 016
 
-- Removed redundant Camping Near You prompt from Home.
-- Added site controls directly beneath the header.
-- Redesigned the header with Fire Ring branding, circle tagline, fire mark, profile button, and a more polished outdoor visual treatment.
-- Version 015.
+- Removed Profile from top controls; profile remains in the header.
+- Removed bottom navigation.
+- Removed redundant Quick Access section.
+- Renamed top controls to Explore Campgrounds, My Trips, Meet Campers.
+- Get Your Gear is now a dedicated page with camping checklist, Shop buttons, shopping categories, and Build a Trip.

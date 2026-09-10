@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 015</title>
+<title>Fire Ring — Build 016</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -52,7 +52,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 
 .checklist{margin-top:10px}.checkitem{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.checkitem:last-child{border-bottom:0}.checkitem input{width:18px;height:18px;accent-color:var(--green)}.checkitem label{flex:1;font-size:13px}.shopbtn{border:1px solid var(--line);background:#f4f6f0;color:var(--green);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800}.shopbtn:hover{background:#e9efe6}.tagline{font-family:Georgia,serif;font-style:italic;color:#dfeadf;font-size:15px;margin:4px 0 14px}.reservebox{background:#eef5ea;border:1px solid #d2e1cd;border-radius:17px;padding:14px;margin-bottom:12px}.reservebox h3{margin:0 0 4px;font-family:Georgia,serif;font-size:19px}.reservebox p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.4}.gear-note{font-size:10px;color:var(--muted);margin-top:9px;line-height:1.4}.store-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.store-row button{flex:1;min-width:90px}
 
-/* Build 015 home cleanup */
+/* Build 016 home cleanup */
 .home-featured-kentuck, .featured-kentuck, .kentuck-featured-card { display:none !important; }
 .gear-quick-access { margin-top: 14px; }
 .inapp-panel, .shopping-panel, .web-panel { z-index: 99999 !important; }
@@ -98,6 +98,16 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 .fr-site-controls button:hover{transform:translateY(-1px)}
 </style>
 
+<style>
+.fr-site-controls{grid-template-columns:repeat(3,1fr);gap:8px;padding:9px 8px 11px}
+.fr-site-controls button{font-size:11px;white-space:nowrap;padding:10px 5px}
+@media(max-width:380px){.fr-site-controls button{font-size:10px}}
+</style>
+<style>
+.gear-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #e8e3d8}
+.gear-item:last-child{border-bottom:0}
+.gear-item button{border:1px solid #c9c2b4;background:#fffdf7;color:#173d2d;border-radius:10px;padding:7px 12px;font-weight:800;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="app">
@@ -115,10 +125,10 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
   <div class="fr-header-glow"></div>
 </header>
 <div class="fr-site-controls">
-  <button onclick="show('explore')">🗺️ Explore</button>
-  <button onclick="show('trips')">📅 Trips</button>
-  <button onclick="show('campers')">🔥 Campers</button>
-  <button onclick="show('profile')">👤 Profile</button>
+  <button onclick="show('explore')">🗺️ Explore Campgrounds</button>
+  <button onclick="show('trips')">📅 My Trips</button>
+  <button onclick="show('campers')">🔥 Meet Campers</button>
+  
 </div>
 
 
@@ -132,16 +142,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
     <button class="primary" style="background:white;color:#173d2b" onclick="show('explore')">Explore Campgrounds</button>
   </div>
 
-  <div class="section-title" style="margin:22px 5px 10px">Quick Access</div>
-  <div class="activities">
-    <div class="activity" onclick="show('explore')"><b>🗺️ Explore</b><span>Find campgrounds and parks</span></div>
-    <div class="activity" onclick="show('trips')"><b>📅 My Trips</b><span>Plan where you're going next</span></div>
-    <div class="activity" onclick="show('campers')"><b>🔥 Campers</b><span>See the community nearby</span></div>
-    <div class="activity" onclick="show('profile')"><b>👤 Profile</b><span>Your camping history</span></div>
-    <div class="activity" onclick="show('explore'); setTimeout(function(){document.querySelector('.gear-card')?.scrollIntoView({behavior:'smooth',block:'center'});},150)"><b>🛒 Get Your Gear</b><span>Shop camping and outdoor essentials</span></div>
-  </div>
-</div>
-</section>
+  </section>
 
 
 <section id="explore" class="page">
@@ -611,14 +612,9 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 <div class="card"><h2>Campground Record</h2><p class="sub" id="directoryMeta"></p><div class="notice" style="margin-top:12px"><b>Real directory entry</b>This campground is part of Fire Ring's Pennsylvania seed directory. The next data pass can enrich it with coordinates, official map links, amenities, photos, rules, activities, and reservation information.</div></div>
 <button class="primary" onclick="show('explore')">← Back to campground search</button>
 </div></section>
-<nav class="bottom">
-<button data-page="home" onclick="show('home')"><span>⌂</span>Home</button>
-<button data-page="explore" onclick="show('explore')"><span>◉</span>Explore</button>
-<button data-page="trips" onclick="show('trips')"><span>□</span>Trips</button>
-<button data-page="profile" onclick="show('profile')"><span>●</span>Profile</button>
-</nav>
 
-<div class="version-footer">Fire Ring • Build 015</div>
+
+<div class="version-footer">Fire Ring • Build 016</div>
 </div>
 
 <div class="modalback" id="modal"><div class="modal"><button class="close" onclick="closeModal()">×</button><h2>You're checked in! 🔥</h2><p>You are now checked in at Kentuck Campground.</p><p>Your exact campsite is <b>never displayed</b>. Other visible campers only see that you're camping at Kentuck.</p><button class="primary" onclick="closeModal();show('campers')">See who's here</button></div></div>
@@ -793,6 +789,48 @@ document.addEventListener('click',function(e){
   }
 },true);
 </script>
+
+
+
+<section id="gear" class="screen">
+  <div class="page-head">
+    <button class="back" onclick="show('home')">← Back</button>
+    <div>
+      <div class="eyebrow">FIRE RING SHOPPING</div>
+      <h1>Get Your Gear</h1>
+      <p>Build your camping list, find what you need, and shop when you're ready.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:16px;margin-top:12px">
+    <div class="row"><div><h3 style="margin:0">📝 My Camping List</h3><div class="sub">Check items off as you pack. Each item can lead straight to shopping.</div></div><span class="pill">Trip ready</span></div>
+    <div style="margin-top:12px">
+      <div class="gear-item"><span>⛺ Tent / shelter</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+tent')">Shop</button></div>
+      <div class="gear-item"><span>💤 Sleeping bag / bedding</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+sleeping+bag')">Shop</button></div>
+      <div class="gear-item"><span>🪑 Camp chairs</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+chair')">Shop</button></div>
+      <div class="gear-item"><span>🔦 Lantern / headlamp</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+lantern+headlamp')">Shop</button></div>
+      <div class="gear-item"><span>🍳 Camp cooking gear</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+cookware')">Shop</button></div>
+      <div class="gear-item"><span>🩹 First-aid kit</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+first+aid+kit')">Shop</button></div>
+      <div class="gear-item"><span>🌧️ Rain gear</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+rain+gear')">Shop</button></div>
+      <div class="gear-item"><span>🔥 Fire-starting supplies</span><button onclick="frExitOverlay('shop','https://www.amazon.com/s?k=fire+starter+camping')">Shop</button></div>
+    </div>
+  </div>
+
+  <div class="section-title">Shop by Category</div>
+  <div class="activities">
+    <div class="activity" onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+essentials')"><b>⛺ Camping Essentials</b><span>Tents, sleeping gear, chairs and more</span></div>
+    <div class="activity" onclick="frExitOverlay('shop','https://www.amazon.com/s?k=rv+camping+accessories')"><b>🚐 RV & Towing</b><span>Leveling, power, water and hookup gear</span></div>
+    <div class="activity" onclick="frExitOverlay('shop','https://www.amazon.com/s?k=hiking+gear')"><b>🥾 Hiking & Outdoors</b><span>Packs, footwear and trail gear</span></div>
+    <div class="activity" onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+cooking+gear')"><b>🍳 Camp Kitchen</b><span>Stoves, cookware, coffee and storage</span></div>
+    <div class="activity" onclick="frExitOverlay('shop','https://www.amazon.com/s?k=camping+lighting')"><b>🔦 Lighting & Safety</b><span>Lanterns, headlamps and emergency gear</span></div>
+  </div>
+
+  <div class="card" style="padding:15px;margin-top:14px">
+    <h3 style="margin-top:0">🧭 Make it a trip</h3>
+    <p class="sub">Fire Ring can eventually build a packing list around your destination, season, camping style and planned activities.</p>
+    <button class="primary" onclick="show('trips')">Build a Trip</button>
+  </div>
+</section>
 
 </body>
 </html>
