@@ -1,12 +1,9 @@
-Fire Ring — Build 009
+Fire Ring Build 011
 
-Highlights:
-- Brand phrase: Come find your circle.
-- Explore map, location sorting, public/private and radius filters retained.
-- Get Your Gear section expanded and affiliate-ready.
-- Kentuck Campground now has Reserve a Campsite action.
-- My Trips includes an interactive starter packing checklist with Shop buttons beside each item.
-- Packing list is designed for future personalization by campground, weather, camping style, pets, activities and trip length.
-- Version footer: Build 009.
+Changes:
+- Removed the prominent Kentuck featured-card treatment from Home where applicable.
+- Added Get Your Gear to Home > Quick Access.
+- Changed external shop/reservation navigation to same-window navigation rather than opening a new browser tab/window.
+- Build number updated to 011.
 
-Note: store/reservation destinations in this prototype are direct destination links. Production affiliate links require approved partner accounts and tracked URLs.
+Note: browsers cannot force third-party sites to render inside an iframe when those sites prohibit embedding. A true native in-app browser is a later mobile-app packaging step.
