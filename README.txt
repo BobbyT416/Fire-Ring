@@ -1,7 +1,7 @@
-Fire Ring Build 021
+Fire Ring Build 022
 
-- Removed Profile from the top navigation; Profile remains accessible from the profile circle in the header.
-- Top navigation uses two rows (3 buttons per row) for comfortable sizing.
-- Changed the Campers navigation icon from a flame to 👥 people/networking.
-- Home Quick Access Campers icon also uses 👥.
-- Version 021.
+- Removed Get Your Gear launcher from My Trips.
+- Removed redundant Quick Access section from Home.
+- Get Your Gear launcher is available on the Packing List page only (plus its modal destination).
+- Top navigation remains the primary navigation.
+- Version 022.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 021</title>
+<title>Fire Ring — Build 022</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -52,7 +52,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 
 .checklist{margin-top:10px}.checkitem{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.checkitem:last-child{border-bottom:0}.checkitem input{width:18px;height:18px;accent-color:var(--green)}.checkitem label{flex:1;font-size:13px}.shopbtn{border:1px solid var(--line);background:#f4f6f0;color:var(--green);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800}.shopbtn:hover{background:#e9efe6}.tagline{font-family:Georgia,serif;font-style:italic;color:#dfeadf;font-size:15px;margin:4px 0 14px}.reservebox{background:#eef5ea;border:1px solid #d2e1cd;border-radius:17px;padding:14px;margin-bottom:12px}.reservebox h3{margin:0 0 4px;font-family:Georgia,serif;font-size:19px}.reservebox p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.4}.gear-note{font-size:10px;color:var(--muted);margin-top:9px;line-height:1.4}.store-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.store-row button{flex:1;min-width:90px}
 
-/* Build 021 home cleanup */
+/* Build 022 home cleanup */
 .home-featured-kentuck, .featured-kentuck, .kentuck-featured-card { display:none !important; }
 .gear-quick-access { margin-top: 14px; }
 .inapp-panel, .shopping-panel, .web-panel { z-index: 99999 !important; }
@@ -105,7 +105,7 @@ header{padding:20px 18px 12px;position:sticky;top:0;background:#f7f6eff2;backdro
 </style>
 
 <style>
-/* Build 021: top navigation is the only primary site navigation. */
+/* Build 022: top navigation is the only primary site navigation. */
 .bottom-nav,.bottomnav,.nav-bottom,.fixed-bottom-nav,.mobile-bottom-nav,
 footer.bottom-nav,[class*="bottom-nav"],[class*="bottomNav"]{display:none !important;}
 body{padding-bottom:0 !important;}
@@ -183,14 +183,7 @@ body{padding-bottom:0 !important;}
     <button class="primary" style="background:white;color:#173d2b" onclick="show('explore')">Explore Campgrounds</button>
   </div>
 
-  <div class="section-title" style="margin:22px 5px 10px">Quick Access</div>
-  <div class="activities">
-    <div class="activity" onclick="show('explore')"><b>🗺️ Explore</b><span>Find campgrounds and parks</span></div>
-    <div class="activity" onclick="show('trips')"><b>📅 My Trips</b><span>Plan where you're going next</span></div>
-    <div class="activity" onclick="show('campers')"><b>👥 Campers</b><span>See the community nearby</span></div>
-    <div class="activity" onclick="show('profile')"><b>👤 Profile</b><span>Your camping history</span></div>
-    <div class="activity gear-launch" onclick="openGearHub()"><b>🛒 Get Your Gear</b><span>Shop camping and outdoor essentials</span></div>
-  </div>
+  
 </div>
 </section>
 
@@ -525,7 +518,6 @@ body{padding-bottom:0 !important;}
   <div class="section-title">My Trips</div>
   <div class="list-card"><div class="list-thumb"></div><div><h3>Raystown Lake</h3><p>September 18–21 · RV · 4 days</p><button class="small-btn">6 campers also going</button></div></div>
   <div class="list-card"><div class="list-thumb"></div><div><h3>Deep Creek Lake</h3><p>October 9–12 · RV · 3 nights</p><button class="small-btn">View trip</button></div></div>
-  <button class="gear-hub-button" onclick="openGearHub()">🛒 Get Your Gear <span>Browse camping essentials</span> ›</button>
   <div class="empty">+ Plan another camping trip</div>
 </div>
 </section>
@@ -662,7 +654,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 021</div>
+<div class="version-footer">Fire Ring • Build 022</div>
 </div>
 
 
