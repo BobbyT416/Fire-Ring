@@ -1,29 +1,32 @@
-FIRE RING — BUILD 001
+FIRE RING — BUILD 002
 =====================
 
-First interactive concept build based on the Fire Ring camping social-network idea.
+This build expands the prototype around a real campground: Kentuck Campground,
+Ohiopyle State Park, Pennsylvania.
 
 Included:
-- Responsive mobile-first home screen
-- Fire Ring branding
-- Nearby campground map concept
-- Campground card with rating, amenities, photos concept, and current campers
-- Check-in interaction
-- Visibility toggle
-- Explore screen
-- Trips screen
-- Profile screen
-- Bottom navigation
-- Basic search behavior
+- Campground detail page
+- Campers-here-now experience
+- Check-in concept with privacy protection
+- Overview / Map / Things To Do / Info tabs
+- Prototype Ohiopyle area map
+- Official-data style campground information
+- Hiking/activity cards
+- Rules and safety notices
+- Nearby attractions
+- Official-map handoff concept
 
-This build intentionally uses demo campground/user data and a stylized map so it can run without API keys.
+Research basis:
+- Pennsylvania DCNR Ohiopyle maps/GIS
+- Pennsylvania DCNR Ohiopyle hiking information
+- Pennsylvania DCNR Ohiopyle camping information
+- Pennsylvania DCNR state-park rules
+- Pennsylvania DCNR whitewater rules
 
-Next likely build:
-1. Real campground database import (RIDB/Recreation.gov)
-2. Real map
-3. Campground detail screen
-4. Real camper/check-in model
-5. Notifications
-6. Accounts and Supabase backend
-7. Reviews/photos
-8. Trip planning
+Next build candidates:
+1. Replace prototype map with a real interactive map.
+2. Add real campground boundary/trail/POI layers.
+3. Add a full campground map with site-level data when available.
+4. Build reviews, photos and community posts.
+5. Add real user accounts and check-ins with Supabase.
+6. Add "nearby campgrounds" and a scalable campground database.
