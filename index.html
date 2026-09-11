@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 031</title>
+<title>Fire Ring — Build 032</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -229,7 +229,7 @@ body{padding-bottom:0 !important;}
 </style>
 
 <style>
-/* Build 031 — social-first home + camper photo gallery */
+/* Build 032 — social-first home + camper photo gallery */
 .home-social{margin-top:10px}
 .home-campfire{position:relative;min-height:230px;border-radius:22px;overflow:hidden;background:#173d2b;box-shadow:0 10px 28px rgba(23,61,45,.16)}
 .home-campfire>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:saturate(.95)}
@@ -243,15 +243,22 @@ body{padding-bottom:0 !important;}
 .profile-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.profile-photo-tile{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#eef2ea;border:1px solid #dce2d8}.profile-photo-tile img{width:100%;height:100%;object-fit:cover}.profile-photo-remove{position:absolute;right:5px;top:5px;width:23px;height:23px;border:0;border-radius:50%;background:rgba(20,35,27,.78);color:#fff;cursor:pointer;font-weight:900}.photo-upload-btn{display:flex;align-items:center;justify-content:center;gap:7px;min-height:78px;border:1px dashed #aab7aa;border-radius:12px;background:#f7f9f4;color:var(--forest);font-size:11px;font-weight:850;cursor:pointer}.photo-upload-btn input{display:none}
 @media(max-width:430px){.home-audience{grid-template-columns:1fr}.home-campfire{min-height:260px}.home-campfire-copy{padding:20px 17px}.profile-photos{grid-template-columns:repeat(3,1fr)}}
 </style>
-</head>
+<style id="fire-ring-logo-css">
+.fr-brand-mark{display:flex;align-items:center;gap:10px}.fr-logo-svg{width:50px;height:50px;flex:none}.fr-brand-name{font-weight:950;letter-spacing:.06em;font-size:25px}.fr-brand-name .logo-i{position:relative;display:inline-block}.fr-brand-name .logo-flame{position:absolute;left:50%;top:-11px;transform:translateX(-50%);font-size:10px;line-height:1}.camper-picker{margin-top:11px;border:1px solid #dfe5db;background:#f7f8f3;border-radius:14px;padding:11px}.camper-picker-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.camper-picker-head b{font-size:11px}.camper-picker-head button{border:0;background:none;color:#345c3f;font-weight:850;font-size:10px;cursor:pointer}.camper-list{display:grid;gap:6px}.camper-choice{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #e0e4dd;border-radius:11px;padding:8px 9px;cursor:pointer}.camper-choice input{width:17px;height:17px;accent-color:#315b3d}.camper-choice span{display:flex;flex-direction:column;font-size:11px}.camper-choice small{font-size:9px;color:#748078;margin-top:2px}.camper-count{font-size:9px;color:#69746b;margin-top:7px}.broadcast-scope-note{font-size:9px;color:#69746b;line-height:1.35;margin-top:7px}
+</style></head>
 <body>
 <div class="app">
 <header class="fr-top-header">
   <div class="fr-header-main">
     <div class="fr-brand-mark" onclick="show('home')" role="button" aria-label="Fire Ring Home">
-      <div class="fr-fire-icon">🔥</div>
+      <svg class="fr-logo-svg" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path d="M17 43h30L43 29 32 20 21 29z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M32 42c-5-2-7-5-7-9 0-3 2-6 5-9 0 5 4 6 6 9 2 3 1 7-4 9z" fill="currentColor"/>
+        <path d="M12 50h40" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
       <div>
-        <div class="fr-brand-name">FIRE RING</div>
+        <div class="fr-brand-name">F<span class="logo-i">I<span class="logo-flame">🔥</span></span>RE RING</div>
         <div class="fr-brand-tag">Come find your circle <span>— Gather around.</span></div>
       </div>
     </div>
@@ -284,6 +291,7 @@ body{padding-bottom:0 !important;}
     <div class="home-broadcast">
       <div class="home-broadcast-head"><div class="home-broadcast-icon">📣</div><div><div class="eyebrow">YOUR DIGITAL CAMPGROUND</div><h2>Talk to the campfire.</h2><p class="sub">Say something to campers around you. They can read it without creating a connection or sending anything back automatically.</p></div></div>
       <div class="home-audience"><button id="homeBroadcastCurrent" class="selected" onclick="setHomeBroadcastAudience('current')">📍 Current campground<small>Everyone currently checked in there.</small></button><button id="homeBroadcastNearby" onclick="setHomeBroadcastAudience('nearby')">🔥 Nearby campgrounds<small>Use your saved radius.</small></button></div>
+      <div class="camper-picker"><div class="camper-picker-head"><b>Choose campers</b><button type="button" onclick="toggleCamperPicker('homeCamperPicker')">Select / clear all</button></div><div id="homeCamperPicker" class="camper-list"><label class="camper-choice"><input type="checkbox" checked><span>Sarah M.<small>Kentuck Campground</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Mike &amp; Jen R.<small>Kentuck Campground</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Chris T.<small>Nearby · 4 miles</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Angela P.<small>Nearby · 8 miles</small></span></label></div><div id="homeCamperCount" class="camper-count">4 campers selected</div><div class="broadcast-scope-note">You can leave specific campers out of a group message. They will not be notified.</div></div>
       <textarea id="homeBroadcastText" maxlength="280" placeholder="Anyone up for a hike, campfire, fishing trip, or local tip?"></textarea>
       <button id="homeBroadcastSend" class="home-broadcast-send" onclick="sendHomeBroadcast()">📣 Send to campers at this campground</button>
       <div class="home-broadcast-note">Your chosen public identity is shown. No campsite number, read receipt, or automatic response is shared.</div>
@@ -703,6 +711,7 @@ body{padding-bottom:0 !important;}
       <div class="broadcast-box">
         <label class="broadcast-label">Who should receive it?</label>
         <div class="broadcast-audience"><button id="broadcastCurrent" class="selected" onclick="setBroadcastAudience('current')">📍 Current campground<small>Everyone currently checked in there.</small></button><button id="broadcastNearby" onclick="setBroadcastAudience('nearby')">🔥 Nearby campgrounds<small>Use your saved small-radius setting.</small></button></div>
+        <div class="camper-picker"><div class="camper-picker-head"><b>Choose campers</b><button type="button" onclick="toggleCamperPicker('profileCamperPicker')">Select / clear all</button></div><div id="profileCamperPicker" class="camper-list"><label class="camper-choice"><input type="checkbox" checked><span>Sarah M.<small>Kentuck Campground</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Mike &amp; Jen R.<small>Kentuck Campground</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Chris T.<small>Nearby · 4 miles</small></span></label><label class="camper-choice"><input type="checkbox" checked><span>Angela P.<small>Nearby · 8 miles</small></span></label></div><div id="profileCamperCount" class="camper-count">4 campers selected</div><div class="broadcast-scope-note">Exclude anyone you don't want included. Only selected campers receive this message.</div></div>
         <div id="broadcastRangeWrap" style="display:none"><label class="broadcast-label" style="margin-top:11px">Your nearby range</label><div class="broadcast-range"><button id="range5" onclick="setBroadcastRange(5)">5 miles</button><button id="range10" class="selected" onclick="setBroadcastRange(10)">10 miles</button><button id="range25" onclick="setBroadcastRange(25)">25 miles</button></div></div>
         <label class="broadcast-label" style="margin-top:12px">Your message</label>
         <textarea id="broadcastText" class="broadcast-text" maxlength="280" placeholder="Example: Anyone up for a short hike to the falls this afternoon?"></textarea>
@@ -821,7 +830,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 031</div>
+<div class="version-footer">Fire Ring • Build 032</div>
 </div>
 
 
@@ -1130,6 +1139,10 @@ function replyToBroadcast(mode){if(mode==='all')toast('Reply will be shared with
 function showMessageRequests(){let ov=document.createElement('div');ov.className='modalback';ov.style.display='flex';ov.innerHTML='<div class="modal" style="max-width:430px"><button class="close" onclick="this.closest(\'.modalback\').remove()">×</button><h2>💬 Message requests</h2><p class="sub">Only accepted requests can become private conversations.</p><div class="item"><h3>🥾 Sarah</h3><p>“Looks like we both love hiking and campfires. Want to connect?”</p><button class="primary" onclick="toast(\'Sarah is now a connection.\');this.closest(\'.modalback\').remove()">Accept</button> <button class="small-btn" onclick="this.closest(\'.modalback\').remove()">Decline</button></div><div class="item"><h3>🎣 Mike</h3><p>“We camp in the same region. Thought we might have some places to swap.”</p><button class="primary" onclick="toast(\'Mike is now a connection.\');this.closest(\'.modalback\').remove()">Accept</button> <button class="small-btn" onclick="this.closest(\'.modalback\').remove()">Decline</button></div></div>';document.body.appendChild(ov)}
 document.addEventListener('DOMContentLoaded',initProfilePage);
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{renderProfilePhotos();syncHomeBroadcast()},0)});
+
+function toggleCamperPicker(id){const el=document.getElementById(id);if(!el)return;const boxes=[...el.querySelectorAll('input[type=checkbox]')];const all=boxes.every(x=>x.checked);boxes.forEach(x=>x.checked=!all);updateCamperCounts()}
+function updateCamperCounts(){[['homeCamperPicker','homeCamperCount'],['profileCamperPicker','profileCamperCount']].forEach(([a,b])=>{const e=document.getElementById(a),c=document.getElementById(b);if(e&&c)c.textContent=e.querySelectorAll('input:checked').length+' campers selected'});}
+document.addEventListener('change',e=>{if(e.target.matches('.camper-picker input'))updateCamperCounts()});
 </script>
 </body>
 </html>
