@@ -258,6 +258,11 @@ body{padding-bottom:0 !important;}
   .fr-header-profile{flex-basis:40px;width:40px;height:40px;}
 }
 </style>
+
+<style id="build034-social-css">
+.social-page{max-width:980px;margin:0 auto;padding:12px 14px 34px}.social-page .page-back{margin:0 0 10px}.social-page .page-back button{border:0;background:transparent;color:var(--forest);font-weight:850;padding:6px 0}.social-hero{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#173d2b,#2d5d3d);color:#fffaf0;border-radius:22px;padding:20px 22px;margin-bottom:12px;box-shadow:var(--shadow)}.social-hero h1{font-family:Georgia,serif;font-size:30px;margin:4px 0}.social-hero p{margin:0;max-width:620px;color:#e4eadf;font-size:12px;line-height:1.45}.social-hero-icon{font-size:42px;background:#ffffff18;border:1px solid #ffffff22;border-radius:18px;padding:8px 13px}.social-controls,.message-tabs{display:flex;gap:7px;background:#edf1e9;border-radius:14px;padding:4px;margin-bottom:10px}.seg{border:0;background:transparent;color:#657067;font-weight:850;border-radius:10px;padding:10px 13px;font-size:11px;flex:1}.seg.selected{background:#fff;color:var(--forest);box-shadow:0 2px 7px #0001}.camper-safety-note,.message-privacy{padding:10px 12px;border-radius:12px;background:#f1f5ee;color:#58665d;font-size:10px;line-height:1.4;margin-bottom:12px}.camper-directory{display:grid;grid-template-columns:1fr 1fr;gap:12px}.camper-card{display:flex;gap:12px;background:#fffdf7;border:1px solid var(--line);border-radius:19px;padding:14px;box-shadow:var(--shadow)}.camper-avatar{width:58px;height:58px;border-radius:17px;background:#edf2e9;display:grid;place-items:center;font-size:29px;flex:none}.camper-info{min-width:0;flex:1}.camper-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.camper-top h3{margin:0;font-size:16px}.online-dot,.nearby-dot{font-size:8px;color:#47754f;white-space:nowrap}.nearby-dot{color:#8b6840}.camper-location{font-size:10px;color:var(--muted);margin:3px 0 8px}.camper-card .chips{display:flex;flex-wrap:wrap;gap:4px}.camper-card .chip{font-size:9px;padding:5px 7px}.camper-about{font-size:10px;color:#59655e;line-height:1.35;margin:9px 0}.camper-actions{display:flex;gap:6px}.camper-actions button{flex:1;padding:8px 9px;border-radius:10px;font-size:10px}.social-footnote{text-align:center;color:#718078;font-size:9px;margin:14px 0}.badge{background:#b84b39;color:#fff;border-radius:99px;padding:2px 6px;margin-left:3px;font-size:8px}.message-hero{margin-bottom:12px}.message-list{display:grid;gap:9px}.message-list-card{display:flex;gap:11px;padding:13px;background:#fffdf7;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.message-avatar{width:42px;height:42px;border-radius:13px;background:#f0eee3;display:grid;place-items:center;font-size:21px;flex:none}.message-list-card>div:last-child{flex:1}.message-meta{display:flex;justify-content:space-between;gap:8px;font-size:11px}.message-meta span{font-size:9px;color:#7b847d}.message-list-card p{font-size:11px;color:#59635c;line-height:1.4;margin:5px 0 8px}.message-actions{display:flex;gap:6px}.message-actions button{border:1px solid #dbe1d8;background:#fff;border-radius:9px;padding:7px 9px;font-size:9px;font-weight:800;color:#3e6048}@media(max-width:700px){.camper-directory{grid-template-columns:1fr}.social-hero{padding:17px}.social-hero h1{font-size:25px}.social-hero-icon{font-size:32px}.camper-card{padding:12px}}@media(max-width:390px){.social-controls,.message-tabs{overflow-x:auto}.seg{min-width:105px}.camper-card{flex-direction:column}.camper-avatar{width:50px;height:50px}.message-actions{flex-direction:column}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -273,7 +278,7 @@ body{padding-bottom:0 !important;}
     <button onclick="show('explore')">🗺️ Explore</button>
     <button onclick="show('trips')">📅 Trips</button>
     <button onclick="show('packing')">🎒 Packing List</button>
-    <button onclick="show('campers')">👥 Campers</button>
+    <button onclick="show('campers')">👥 Campers</button><button onclick="show('messages')">💬 Messages</button>
   </nav>
   <div class="fr-header-glow"></div>
 </header>
@@ -760,7 +765,7 @@ body{padding-bottom:0 !important;}
 </div>
 </section>
 
-<section id="campers" class="page"><div class="content" style="padding-top:20px"><div class="card"><h2 class="section-title">Campers at Kentuck</h2><p class="sub">Only members who have opted into campground visibility appear here.</p><div class="trailrow"><strong>👩 Sarah</strong><small>Camping · Tent · Here until Sunday · 🥾 Hiking</small></div><div class="trailrow"><strong>🧢 Mike</strong><small>Camping · RV · Here until Monday · 🎣 Fishing</small></div><div class="trailrow"><strong>🧔 Dave</strong><small>Camping · RV · Here until Sunday · 🚣 Kayaking</small></div><div class="trailrow"><strong>👩 Lisa</strong><small>Camping · Tent · Here until Tuesday · 🐕 Dog friendly</small></div><div class="trailrow"><strong>🔥 You</strong><small>Your check-in · Visibility can be changed anytime</small></div></div></div></section>
+<section id="campers_preview" class="page"><div class="content" style="padding-top:20px"><div class="card"><h2 class="section-title">Campers at Kentuck</h2><p class="sub">Only members who have opted into campground visibility appear here.</p><div class="trailrow"><strong>👩 Sarah</strong><small>Camping · Tent · Here until Sunday · 🥾 Hiking</small></div><div class="trailrow"><strong>🧢 Mike</strong><small>Camping · RV · Here until Monday · 🎣 Fishing</small></div><div class="trailrow"><strong>🧔 Dave</strong><small>Camping · RV · Here until Sunday · 🚣 Kayaking</small></div><div class="trailrow"><strong>👩 Lisa</strong><small>Camping · Tent · Here until Tuesday · 🐕 Dog friendly</small></div><div class="trailrow"><strong>🔥 You</strong><small>Your check-in · Visibility can be changed anytime</small></div></div></div></section>
 
 <section id="home2" class="page"><div class="content"></div></section>
 
@@ -816,13 +821,10 @@ body{padding-bottom:0 !important;}
 </section>
 
 <section id="campers" class="page">
-<div class="screen"><div class="backline"><button onclick="show('campground')">‹</button><span>Back to campground</span></div><h1>Campers Here Now</h1><p class="sub">Only campers who choose to be visible appear here. Exact campsite numbers are never shown.</p>
- <div class="item" onclick="show('camp_profile')"><h3>👩 Sarah</h3><p>Tent · Here until Sunday · 🥾 Hiking · 🔥 Campfires</p><button class="linkbtn">View profile ›</button></div>
- <div class="item" onclick="toast('Mike profile coming next.')"><h3>🧢 Mike</h3><p>RV · Here until Monday · 🎣 Fishing</p><button class="linkbtn">View profile ›</button></div>
- <div class="item" onclick="toast('Dave profile coming next.')"><h3>🧔 Dave</h3><p>RV · Here until Sunday · 🚣 Kayaking</p><button class="linkbtn">View profile ›</button></div>
- <div class="item" onclick="toast('Lisa profile coming next.')"><h3>👩 Lisa</h3><p>Tent · Here until Tuesday · 🐕 Dog friendly</p><button class="linkbtn">View profile ›</button></div>
-</div>
+<div class="social-page"><div class="page-back"><button onclick="goBack()">← Back</button></div><div class="social-hero"><div><div class="eyebrow">THE FIRE RING COMMUNITY</div><h1>Campers nearby</h1><p>Meet people who have chosen to be visible and are camping in your area.</p></div><div class="social-hero-icon">👥</div></div><div class="social-controls"><button class="seg selected" onclick="filterCampers('current',this)">📍 Here now</button><button class="seg" onclick="filterCampers('nearby',this)">🔥 Nearby</button><button class="seg" onclick="filterCampers('all',this)">✨ All</button></div><div class="camper-safety-note">🛡️ Only campers who have chosen to be visible appear here. Exact campsite numbers are never shown.</div><div id="camperDirectory" class="camper-directory"><article class="camper-card" data-scope="current"><div class="camper-avatar">👩</div><div class="camper-info"><div class="camper-top"><h3>Sarah M.</h3><span class="online-dot">● Here now</span></div><p class="camper-location">Kentuck Campground</p><div class="chips"><span class="chip">⛺ Tent</span><span class="chip">🥾 Hiking</span><span class="chip">🔥 Campfires</span></div><p class="camper-about">Always up for a waterfall hike or a good campfire conversation.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Sarah M.')">View profile</button><button class="primary" onclick="openMessageRequest('Sarah M.')">Connect</button></div></div></article><article class="camper-card" data-scope="current"><div class="camper-avatar">🧢</div><div class="camper-info"><div class="camper-top"><h3>Mike &amp; Jen R.</h3><span class="online-dot">● Here now</span></div><p class="camper-location">Kentuck Campground</p><div class="chips"><span class="chip">🚐 RV</span><span class="chip">🎣 Fishing</span><span class="chip">🍳 Cooking</span></div><p class="camper-about">Traveling the region and looking for new places to explore.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Mike & Jen R.')">View profile</button><button class="primary" onclick="openMessageRequest('Mike & Jen R.')">Connect</button></div></div></article><article class="camper-card" data-scope="nearby"><div class="camper-avatar">🧔</div><div class="camper-info"><div class="camper-top"><h3>Chris T.</h3><span class="nearby-dot">● 4 miles away</span></div><p class="camper-location">Nearby campground</p><div class="chips"><span class="chip">🛶 Kayaking</span><span class="chip">🚲 Cycling</span><span class="chip">📷 Photography</span></div><p class="camper-about">Weekend camper, paddler, and sunset photographer.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Chris T.')">View profile</button><button class="primary" onclick="openMessageRequest('Chris T.')">Connect</button></div></div></article><article class="camper-card" data-scope="nearby"><div class="camper-avatar">👩</div><div class="camper-info"><div class="camper-top"><h3>Angela P.</h3><span class="nearby-dot">● 8 miles away</span></div><p class="camper-location">Nearby campground</p><div class="chips"><span class="chip">🐕 Dogs</span><span class="chip">🌌 Stargazing</span><span class="chip">⛺ Tent</span></div><p class="camper-about">Camping with my dog and chasing dark skies whenever I can.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Angela P.')">View profile</button><button class="primary" onclick="openMessageRequest('Angela P.')">Connect</button></div></div></article></div><div class="social-footnote">Visibility is always controlled from your profile. You can disappear from the camper directory whenever you choose.</div></div>
 </section>
+
+<section id="messages" class="page"><div class="social-page"><div class="page-back"><button onclick="goBack()">← Back</button></div><div class="social-hero"><div><div class="eyebrow">YOUR FIRE RING CONVERSATIONS</div><h1>Messages</h1><p>Campfire broadcasts and private conversations, all with your permission.</p></div><div class="social-hero-icon">💬</div></div><div class="message-tabs"><button class="seg selected">📣 Campfire</button><button class="seg">🤝 Requests <span class="badge">2</span></button><button class="seg">🔒 Private</button></div><div class="message-list"><article class="message-list-card"><div class="message-avatar">🔥</div><div><div class="message-meta"><b>Pine Creek Campground</b><span>10:24 AM</span></div><p><b>Mike &amp; Sarah:</b> Anyone interested in a group hike this afternoon?</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article><article class="message-list-card"><div class="message-avatar">🌲</div><div><div class="message-meta"><b>Nearby Campers · 10 miles</b><span>Yesterday</span></div><p><b>Nature_Nancy:</b> The falls are amazing this time of year!</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article></div><div class="message-privacy">🛡️ <b>Your privacy stays yours.</b> Receiving a broadcast never automatically reveals you, creates a connection, or sends feedback.</div></div></section>
 
 <section id="directory_detail" class="page">
 <div class="screen"><div class="backline"><button onclick="show('explore')">‹</button><span>Back to Explore</span></div>
@@ -832,7 +834,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 033</div>
+<div class="version-footer">Fire Ring • Build 034</div>
 </div>
 
 
@@ -1142,5 +1144,13 @@ function showMessageRequests(){let ov=document.createElement('div');ov.className
 document.addEventListener('DOMContentLoaded',initProfilePage);
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{renderProfilePhotos();syncHomeBroadcast()},0)});
 </script>
+
+<script id="build034-social-js">
+function filterCampers(scope,btn){document.querySelectorAll('#camperDirectory .camper-card').forEach(c=>{c.style.display=(scope==='all'||c.dataset.scope===scope)?'flex':'none'});document.querySelectorAll('.social-controls .seg').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected')}
+function showCamperProfile(name){toast(name+' profile selected.');}
+function openMessageRequest(name){toast('Connection request started for '+name+'.');}
+function openMessages(){show('messages')}
+</script>
+
 </body>
 </html>
