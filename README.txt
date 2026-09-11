@@ -1,4 +1,4 @@
-Fire Ring — Build 028
+Fire Ring — Build 029
 
 Profile page redesigned as the social heart of the app.
 - 18+ date-of-birth gate with month/day/year selectors
