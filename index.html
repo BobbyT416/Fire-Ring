@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 033</title>
+<title>Fire Ring — Build 044</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -272,7 +272,7 @@ body{padding-bottom:0 !important;}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 043: clean, text-first primary navigation. */
+/* Build 044: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -310,6 +310,19 @@ body{padding-bottom:0 !important;}
 .fr-location-btn:hover{background:#f1f5ed!important}
 </style>
 
+<style id="build044-trip-polish">
+.trip-list-card{display:flex;align-items:stretch;gap:11px;background:#fffdf7;border:1px solid var(--line);border-radius:18px;padding:11px;margin:10px 0;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.trip-list-card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(24,51,41,.13);border-color:#b8c9b8}
+.trip-list-thumb{width:62px;min-height:72px;border-radius:13px;background:linear-gradient(155deg,#6f8e62,#3e6447 42%,#82aeb8 43%,#a8cbd1 58%,#456348 59%,#274536);flex:none}
+.trip-list-body{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.trip-list-body h3{margin:0 0 3px;font-family:Georgia,serif;font-size:17px}
+.trip-list-body p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.4}
+.trip-list-link{margin-top:7px;font-size:9.5px;color:var(--green);font-weight:850}
+.trip-open-arrow{font-size:16px;color:#708078;align-self:center;padding:0 2px}
+.trip-detail-back{display:flex;align-items:center;gap:8px;margin-bottom:10px}.trip-detail-back button{border:0;background:#edf0ea;border-radius:10px;padding:7px 10px;color:var(--forest);font-weight:850}
+.trip-detail-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px}.trip-detail-card h2{font-family:Georgia,serif;margin:0 0 5px;font-size:24px}.trip-detail-meta{font-size:11px;color:var(--muted);line-height:1.5}.trip-detail-stat{margin-top:12px;padding:10px 12px;background:#f0f5ed;border-radius:12px;font-size:11px}.trip-detail-stat b{font-size:15px;color:var(--forest)}
+.trip-add{align-items:end}.trip-add-field{flex:1;min-width:125px}.trip-add-field label{display:block;font-size:9px;font-weight:850;color:#6f7a72;margin:0 0 4px}.trip-add-field input{width:100%;min-width:0}.trip-nights-preview{font-size:9px;color:var(--muted);margin-top:6px;line-height:1.35}.trip-calendar-note strong{color:var(--forest)}
+</style>
 <style id="trip-calendar-css">
 .trip-calendar-wrap{margin-top:14px}.trip-calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.trip-calendar-head h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:18px;color:var(--forest)}.calendar-nav{display:flex;gap:5px}.calendar-nav button{width:31px;height:31px;border:1px solid var(--line);background:#fffdf7;border-radius:9px;color:var(--forest);font-weight:900;cursor:pointer}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.calendar-dow{text-align:center;font-size:8px;font-weight:850;color:#78837c;padding:3px 0}.calendar-day{min-height:43px;border:1px solid #e4e7df;border-radius:9px;background:#fffdf7;padding:5px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;cursor:pointer;color:var(--ink)}.calendar-day.muted{opacity:.35}.calendar-day.today{border-color:#719578;box-shadow:inset 0 0 0 1px #719578}.calendar-day.has-trip{background:#edf5eb;border-color:#a8c2aa}.calendar-day .num{font-size:10px;font-weight:850}.calendar-day .trip-dot{width:6px;height:6px;border-radius:50%;background:#2d6440;align-self:flex-end}.trip-calendar-note{font-size:9px;color:var(--muted);margin:8px 0 0}.trip-add{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}.trip-add input{flex:1;min-width:140px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fffdf7;font-size:11px}.trip-add button{border:0;border-radius:10px;padding:9px 13px;background:var(--forest);color:#fff;font-size:10px;font-weight:850;cursor:pointer}.trip-events{display:grid;gap:7px;margin-top:10px}.trip-event{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#f6f3ea;border:1px solid #e2ded3;border-radius:11px;padding:9px 10px}.trip-event b{font-size:10px}.trip-event span{font-size:9px;color:var(--muted)}.trip-event button{border:0;background:transparent;color:#9a4e43;font-size:9px;font-weight:800;cursor:pointer}
 @media(max-width:390px){.calendar-day{min-height:39px;padding:4px}.trip-add{display:grid;grid-template-columns:1fr}.trip-add button{width:100%}}
@@ -760,12 +773,23 @@ body{padding-bottom:0 !important;}
   <div class="card trip-calendar-wrap">
     <div class="trip-calendar-head"><h3 id="tripMonthLabel">September 2026</h3><div class="calendar-nav"><button type="button" onclick="changeTripMonth(-1)" aria-label="Previous month">‹</button><button type="button" onclick="changeTripMonth(1)" aria-label="Next month">›</button></div></div>
     <div class="calendar-grid" id="tripCalendar"></div>
-    <p class="trip-calendar-note">Tap a date to add a future trip. Your plans can come from anywhere.</p>
-    <div class="trip-add"><input id="tripNameInput" placeholder="Trip name or campground" aria-label="Trip name or campground"><input id="tripDateInput" type="date" aria-label="Trip date"><button type="button" onclick="addTripFromCalendar()">Add Trip</button></div>
+    <p class="trip-calendar-note">Tap a date to set the <strong>start date</strong>, then choose how many nights you’ll stay.</p>
+    <div class="trip-add">
+      <div class="trip-add-field"><label for="tripNameInput">Trip</label><input id="tripNameInput" placeholder="Trip name or campground" aria-label="Trip name or campground"></div>
+      <div class="trip-add-field"><label for="tripDateInput">Start date</label><input id="tripDateInput" type="date" aria-label="Trip start date"></div>
+      <div class="trip-add-field" style="max-width:105px"><label for="tripNightsInput">Nights</label><input id="tripNightsInput" type="number" min="1" max="30" step="1" value="1" aria-label="Number of nights"></div>
+      <button type="button" onclick="addTripFromCalendar()">Add Trip</button>
+    </div>
+    <div id="tripNightsPreview" class="trip-nights-preview"></div>
     <div id="tripEvents" class="trip-events"></div>
   </div>
-  <div class="list-card"><div class="list-thumb"></div><div><h3>Raystown Lake</h3><p>September 18–21 · RV · 4 days</p><button class="small-btn">6 campers also going</button></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div><h3>Deep Creek Lake</h3><p>October 9–12 · RV · 3 nights</p><button class="small-btn">View trip</button></div></div>
+  <div class="trip-list-card" role="button" tabindex="0" onclick="openTripDetail('raystown')" onkeydown="if(event.key==='Enter'||event.key===' ')openTripDetail('raystown')">
+    <div class="trip-list-thumb"></div><div class="trip-list-body"><h3>Raystown Lake</h3><p>September 18–21 · RV · 3 nights</p><div class="trip-list-link">6 campers going · Open trip →</div></div><div class="trip-open-arrow">›</div>
+  </div>
+  <div class="trip-list-card" role="button" tabindex="0" onclick="openTripDetail('deepcreek')" onkeydown="if(event.key==='Enter'||event.key===' ')openTripDetail('deepcreek')">
+    <div class="trip-list-thumb"></div><div class="trip-list-body"><h3>Deep Creek Lake</h3><p>October 9–12 · RV · 3 nights</p><div class="trip-list-link">4 campers going · Open trip →</div></div><div class="trip-open-arrow">›</div>
+  </div>
+  <div id="tripDetailOverlay" class="modalback" onclick="if(event.target===this)closeTripDetail()"><div class="modal" id="tripDetailModal"></div></div>
 </div>
 </section>
 
@@ -1287,6 +1311,10 @@ document.addEventListener('input',function(e){if(e.target&&e.target.id==='broadc
 <script id="trip-calendar-js">
 let tripCalendarDate=new Date(2026,8,1);
 let fireRingTrips=JSON.parse(localStorage.getItem('fireRingTrips')||'[]');
+function dateFromISO(iso){return new Date(iso+'T12:00:00')}
+function isoDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function endDateFor(start,nights){const d=dateFromISO(start);d.setDate(d.getDate()+Number(nights||0));return d}
+function formatDate(iso,opts={month:'short',day:'numeric',year:'numeric'}){return new Intl.DateTimeFormat('en-US',opts).format(dateFromISO(iso))}
 function renderTripCalendar(){
  const grid=document.getElementById('tripCalendar'), label=document.getElementById('tripMonthLabel'); if(!grid||!label)return;
  const y=tripCalendarDate.getFullYear(), m=tripCalendarDate.getMonth();
@@ -1297,17 +1325,30 @@ function renderTripCalendar(){
  const today=new Date();
  for(let day=1;day<=days;day++){
    const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-   const has=fireRingTrips.some(t=>t.date===iso); const istoday=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===day;
+   const has=fireRingTrips.some(t=>t.date===iso || (t.endDate&&iso>=t.date&&iso<=t.endDate));
+   const istoday=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===day;
    grid.insertAdjacentHTML('beforeend',`<button type="button" class="calendar-day ${has?'has-trip ':''}${istoday?'today':''}" onclick="selectTripDate('${iso}')"><span class="num">${day}</span>${has?'<span class="trip-dot"></span>':''}</button>`)
  }
  renderTripEvents();
 }
 function changeTripMonth(delta){tripCalendarDate.setMonth(tripCalendarDate.getMonth()+delta);renderTripCalendar()}
-function selectTripDate(iso){document.getElementById('tripDateInput').value=iso;document.getElementById('tripNameInput').focus()}
-function addTripFromCalendar(){const name=document.getElementById('tripNameInput').value.trim(), date=document.getElementById('tripDateInput').value;if(!name||!date){alert('Enter a trip name and date.');return}fireRingTrips.push({id:Date.now(),name,date});fireRingTrips.sort((a,b)=>a.date.localeCompare(b.date));localStorage.setItem('fireRingTrips',JSON.stringify(fireRingTrips));document.getElementById('tripNameInput').value='';renderTripCalendar()}
+function selectTripDate(iso){document.getElementById('tripDateInput').value=iso;updateTripNightsPreview();document.getElementById('tripNameInput').focus()}
+function updateTripNightsPreview(){const date=document.getElementById('tripDateInput')?.value,n=Number(document.getElementById('tripNightsInput')?.value||0),el=document.getElementById('tripNightsPreview');if(!el)return;if(!date||!n){el.textContent='';return}const end=isoDate(endDateFor(date,n));el.textContent=`${n} night${n===1?'':'s'} · ends ${formatDate(end)}`}
+function addTripFromCalendar(){
+ const name=document.getElementById('tripNameInput').value.trim(), date=document.getElementById('tripDateInput').value, nights=Math.max(1,Math.min(30,Number(document.getElementById('tripNightsInput').value)||0));
+ if(!name||!date){alert('Enter a trip name and start date.');return}
+ const endDate=isoDate(endDateFor(date,nights));fireRingTrips.push({id:Date.now(),name,date,nights,endDate,campers:0});fireRingTrips.sort((a,b)=>a.date.localeCompare(b.date));localStorage.setItem('fireRingTrips',JSON.stringify(fireRingTrips));document.getElementById('tripNameInput').value='';document.getElementById('tripNightsInput').value='1';updateTripNightsPreview();renderTripCalendar();
+}
 function removeTrip(id){fireRingTrips=fireRingTrips.filter(t=>t.id!==id);localStorage.setItem('fireRingTrips',JSON.stringify(fireRingTrips));renderTripCalendar()}
-function renderTripEvents(){const el=document.getElementById('tripEvents');if(!el)return;const future=fireRingTrips.filter(t=>t.date>=new Date().toISOString().slice(0,10)).slice(0,8);el.innerHTML=future.length?future.map(t=>`<div class="trip-event"><div><b>${escapeHtml(t.name)}</b><br><span>${new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric'}).format(new Date(t.date+'T12:00:00'))}</span></div><button type="button" onclick="removeTrip(${t.id})">Remove</button></div>`).join(''):'<div class="trip-calendar-note">No trips added yet.</div>'}
-function escapeHtml(v){return v.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function renderTripEvents(){const el=document.getElementById('tripEvents');if(!el)return;const future=fireRingTrips.filter(t=>t.date>=new Date().toISOString().slice(0,10)).slice(0,8);el.innerHTML=future.length?future.map(t=>{const nights=Number(t.nights||1),end=t.endDate||isoDate(endDateFor(t.date,nights));return `<div class="trip-event" role="button" tabindex="0" onclick="openSavedTripDetail(${t.id})" onkeydown="if(event.key==='Enter'||event.key===' ')openSavedTripDetail(${t.id})"><div><b>${escapeHtml(t.name)}</b><br><span>${formatDate(t.date)} · ${nights} night${nights===1?'':'s'} · ends ${formatDate(end)}</span></div><button type="button" onclick="event.stopPropagation();removeTrip(${t.id})">Remove</button></div>`}).join(''):'<div class="trip-calendar-note">No trips added yet.</div>'}
+function openTripDetail(key){
+ const data={raystown:{name:'Raystown Lake',dates:'September 18–21',type:'RV',nights:3,campers:6},deepcreek:{name:'Deep Creek Lake',dates:'October 9–12',type:'RV',nights:3,campers:4}}[key]; if(!data)return;
+ const ov=document.getElementById('tripDetailOverlay'),m=document.getElementById('tripDetailModal');m.innerHTML=`<button class="close" onclick="closeTripDetail()">×</button><h2>${data.name}</h2><div class="trip-detail-meta">${data.dates} · ${data.type} · ${data.nights} nights</div><div class="trip-detail-stat"><b>${data.campers}</b> campers are going</div><p>Trip details, campground information, and the campers joining this trip can appear here.</p><button class="primary" onclick="closeTripDetail()">Done</button>`;ov.style.display='flex';
+}
+function openSavedTripDetail(id){const t=fireRingTrips.find(x=>x.id===id);if(!t)return;const nights=Number(t.nights||1),end=t.endDate||isoDate(endDateFor(t.date,nights)),ov=document.getElementById('tripDetailOverlay'),m=document.getElementById('tripDetailModal');m.innerHTML=`<button class="close" onclick="closeTripDetail()">×</button><h2>${escapeHtml(t.name)}</h2><div class="trip-detail-meta">${formatDate(t.date)}–${formatDate(end)} · ${nights} night${nights===1?'':'s'}</div><div class="trip-detail-stat"><b>${Number(t.campers||0)}</b> campers going</div><p>This is your saved trip. You can add campground details, travel plans, and connect with other campers here.</p><button class="primary" onclick="closeTripDetail()">Done</button>`;ov.style.display='flex'}
+function closeTripDetail(){document.getElementById('tripDetailOverlay').style.display='none'}
+function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+document.getElementById('tripDateInput')?.addEventListener('change',updateTripNightsPreview);document.getElementById('tripNightsInput')?.addEventListener('input',updateTripNightsPreview);
 renderTripCalendar();
 </script>
 </body>
