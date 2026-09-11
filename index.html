@@ -265,14 +265,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 041 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 042 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 041: clean, text-first primary navigation. */
+/* Build 042: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -304,6 +304,11 @@ body{padding-bottom:0 !important;}
 @media(max-width:390px){.recipient-list{grid-template-columns:1fr}.connect-target-row{grid-template-columns:1fr}.connect-target-row label{margin-bottom:-2px}}
 </style>
 
+
+<style id="fr-location-button-cleanup">
+.fr-location-btn{min-height:39px!important;padding:8px 12px!important;border-radius:11px!important;font-size:11px!important;font-weight:800!important;background:#fffdf7!important;color:var(--forest)!important;border:1px solid var(--line)!important;box-shadow:0 2px 6px rgba(24,51,41,.05)!important}
+.fr-location-btn:hover{background:#f1f5ed!important}
+</style>
 </head>
 <body>
 <div class="app">
@@ -419,7 +424,7 @@ body{padding-bottom:0 !important;}
       <button id="searchBtn" class="primary" style="width:82px;padding:10px;font-size:13px">Search</button>
     </div>
     <div style="display:flex;gap:7px;align-items:center;margin-top:9px;flex-wrap:wrap">
-      <button id="locationBtn" class="secondary" style="padding:9px 11px">📍 Use My Location</button>
+      <button id="locationBtn" class="secondary fr-location-btn">Use My Location</button>
       <select id="radiusFilter" style="border:1px solid var(--line);border-radius:11px;padding:9px 10px;background:white;color:#173d2b">
         <option value="any">Within any distance</option><option value="10">Within 10 miles</option><option value="25">Within 25 miles</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option>
       </select>
@@ -936,7 +941,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 041</div>
+<div class="version-footer">Fire Ring • Build 042</div>
 </div>
 
 
