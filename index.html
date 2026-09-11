@@ -265,10 +265,27 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 035 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 036 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
+</style>
+
+<style id="build036-nav-polish">
+/* Build 036: clean, text-first primary navigation. */
+.fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
+.fr-site-controls button{
+  min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
+  border:1px solid rgba(255,250,240,.22)!important;border-radius:13px!important;
+  background:linear-gradient(180deg,rgba(255,250,240,.14),rgba(255,250,240,.08))!important;
+  color:#fffaf0!important;font-size:11.5px!important;font-weight:800!important;
+  line-height:1.15!important;letter-spacing:.01em!important;white-space:normal!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 8px rgba(0,0,0,.10)!important;
+  transition:background .15s ease,transform .15s ease,border-color .15s ease,box-shadow .15s ease!important;
+}
+.fr-site-controls button:hover{background:rgba(255,250,240,.20)!important;border-color:rgba(255,250,240,.38)!important;transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 12px rgba(0,0,0,.14)!important}
+.fr-site-controls button:active{transform:translateY(0)!important}
+@media(max-width:420px){.fr-site-controls{gap:6px!important}.fr-site-controls button{font-size:10.5px!important;padding:7px 5px!important}}
 </style>
 </head>
 <body>
@@ -281,12 +298,12 @@ body{padding-bottom:0 !important;}
     <button id="headerProfileButton" class="fr-header-profile" onclick="show('profile')" aria-label="Profile">👤</button>
   </div>
   <nav class="fr-site-controls" aria-label="Primary">
-    <button onclick="show('home')">⌂ Home</button>
-    <button onclick="show('explore')">🗺️ Explore Campgrounds</button>
-    <button onclick="show('trips')">📅 My Trips</button>
-    <button onclick="show('packing')">🎒 Packing List</button>
-    <button onclick="show('campers')">👥 Other Campers</button>
-    <button onclick="show('messages')">💬 Messages</button>
+    <button onclick="show('home')">Home</button>
+    <button onclick="show('explore')">Explore Campgrounds</button>
+    <button onclick="show('trips')">My Trips</button>
+    <button onclick="show('packing')">Packing List</button>
+    <button onclick="show('campers')">Other Campers</button>
+    <button onclick="show('messages')">Messages</button>
   </nav>
   <div class="fr-header-glow"></div>
 </header>
@@ -842,7 +859,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 035</div>
+<div class="version-footer">Fire Ring • Build 036</div>
 </div>
 
 
