@@ -1638,23 +1638,32 @@ function openMessageRequest(name){
   requests.push({name,time:new Date().toISOString()});frSet('fireRingPendingRequestsV1',requests);updateRequestBadges();toast('Message request sent to '+name+'. They choose whether to accept it.');
 }
 function updateRequestBadges(){
-  const n=frGet('fireRingPendingRequestsV1',[]).length;
+  const incoming=frGet('fireRingIncomingRequestsV1',['Sarah','Mike']);
+  const sent=frGet('fireRingPendingRequestsV1',[]);
+  const n=incoming.length;
   const badge=document.getElementById('messageRequestBadge');if(badge)badge.textContent=n;
   const count=document.getElementById('requestCount');if(count)count.textContent=n;
 }
 function showMessageRequests(){
   let requests=frGet('fireRingPendingRequestsV1',[]);
-  const incoming=[{name:'Sarah',avatar:'🥾',text:'Looks like we both love hiking and campfires. Want to connect?'},{name:'Mike',avatar:'🎣',text:'We camp in the same region. Thought we might have some places to swap.'}];
+  const incomingAll=[{name:'Sarah',avatar:'🥾',text:'Looks like we both love hiking and campfires. Want to connect?'},{name:'Mike',avatar:'🎣',text:'We camp in the same region. Thought we might have some places to swap.'}];
+  const incoming=incomingAll.filter(x=>frGet('fireRingIncomingRequestsV1',['Sarah','Mike']).includes(x.name));
   const ov=document.createElement('div');ov.className='modalback';ov.style.display='flex';
   ov.innerHTML='<div class="modal" style="max-width:450px"><button class="close" onclick="this.closest(\'.modalback\').remove()">×</button><h2>💬 Message requests</h2><p class="sub">Only accepted requests become private conversations.</p><div id="requestItems">'+incoming.map(x=>'<div class="item" data-request="'+x.name+'"><h3>'+x.avatar+' '+x.name+'</h3><p>“'+x.text+'”</p><button class="primary" onclick="acceptMessageRequest(this,\''+x.name+'\')">Accept</button> <button class="small-btn" onclick="declineMessageRequest(this)">Decline</button></div>').join('')+(requests.length?'<div class="item"><h3>📨 Requests you sent</h3><p>'+requests.map(x=>escapeHtml(x.name)).join(', ')+'</p><small class="profile-action-note">Pending until the camper accepts or declines.</small></div>':'')+'</div></div>';
   document.body.appendChild(ov);
 }
 function acceptMessageRequest(btn,name){
+  let incoming=frGet('fireRingIncomingRequestsV1',['Sarah','Mike']);
+  incoming=incoming.filter(x=>x!==name);frSet('fireRingIncomingRequestsV1',incoming);
   const conns=frGet(frConnectionsKey,[]);if(!conns.includes(name))conns.push(name);frSet(frConnectionsKey,conns);
   const chats=frGet(frChatsKey,{});if(!chats[name])chats[name]=[{from:'them',text:'Thanks for connecting!'}];frSet(frChatsKey,chats);
   btn.closest('.item')?.remove();updateRequestBadges();renderPrivateConversations();toast(name+' is now a connection.'); 
 }
-function declineMessageRequest(btn){btn.closest('.item')?.remove();updateRequestBadges();toast('Request declined.')}
+function declineMessageRequest(btn){
+  const name=btn.closest('.item')?.dataset.request;
+  if(name){let incoming=frGet('fireRingIncomingRequestsV1',['Sarah','Mike']);incoming=incoming.filter(x=>x!==name);frSet('fireRingIncomingRequestsV1',incoming)}
+  btn.closest('.item')?.remove();updateRequestBadges();toast('Request declined.')
+}
 function renderPrivateConversations(){
   const el=document.getElementById('privateConversationList');if(!el)return;
   const chats=frGet(frChatsKey,{}),names=Object.keys(chats);
