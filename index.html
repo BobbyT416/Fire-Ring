@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 046</title>
+<title>Fire Ring — Build 047</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -272,7 +272,7 @@ body{padding-bottom:0 !important;}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 046: clean, text-first primary navigation. */
+/* Build 047: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -978,7 +978,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 046</div>
+<div class="version-footer">Fire Ring • Build 047</div>
 </div>
 
 
@@ -1152,7 +1152,33 @@ function applyExploreFilters(){
   if(userLocation) status.textContent=`${shown} campground${shown===1?'':'s'} shown · sorted nearest to farthest`;
   else status.textContent=q ? `${shown} campground${shown===1?'':'s'} found` : `${shown} campground entries`;
 }
-function runCampgroundSearch(){applyExploreFilters();}
+async function runCampgroundSearch(){
+  const input=document.getElementById('campSearch');
+  const q=(input?.value||'').trim();
+  if(/^\d{5}(?:-\d{4})?$/.test(q)){
+    const status=document.getElementById('locationStatus');
+    if(status) status.textContent='Finding that ZIP code...';
+    try{
+      const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=us&postalcode='+encodeURIComponent(q);
+      const res=await fetch(url,{headers:{'Accept':'application/json'}});
+      const data=await res.json();
+      if(data.length){
+        const lat=Number(data[0].lat),lon=Number(data[0].lon);
+        if(isFinite(lat)&&isFinite(lon)){
+          userLocation={lat,lon};
+          if(status) status.textContent='ZIP '+q+' - results sorted by distance';
+          if(!exploreMap) initExploreMap();
+          if(exploreMap){ if(mapSearchMarker) mapSearchMarker.remove(); mapSearchMarker=L.marker([lat,lon]).addTo(exploreMap).bindPopup('<b>Search location</b><br>'+q).openPopup(); exploreMap.setView([lat,lon],10); }
+          input.value='';
+          applyExploreFilters();
+          return;
+        }
+      }
+      if(status) status.textContent='ZIP code not found. Try a 5-digit ZIP code.';
+    }catch(e){ if(status) status.textContent='Could not look up that ZIP code. Check your connection and try again.'; }
+  }
+  applyExploreFilters();
+}
 function requestLocation(){
   const status=document.getElementById('locationStatus');
   if(!navigator.geolocation){status.textContent='Location is not supported by this browser.';return;}
