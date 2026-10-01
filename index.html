@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-057 -->
+<!-- FIRE-RING-BUILD-058 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 057</title>
+<title>Fire Ring — Build 058</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -331,7 +331,14 @@ body{padding-bottom:0 !important;}
 .trip-calendar-wrap{margin-top:14px}.current-trips-heading{margin:14px 0 8px;font-family:Georgia,"Times New Roman",serif;font-size:17px;color:var(--forest)}.trip-calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.trip-calendar-head h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:18px;color:var(--forest)}.calendar-nav{display:flex;gap:5px}.calendar-nav button{width:31px;height:31px;border:1px solid var(--line);background:#fffdf7;border-radius:9px;color:var(--forest);font-weight:900;cursor:pointer}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.calendar-dow{text-align:center;font-size:8px;font-weight:850;color:#78837c;padding:3px 0}.calendar-day{min-height:43px;border:1px solid #e4e7df;border-radius:9px;background:#fffdf7;padding:5px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;cursor:pointer;color:var(--ink)}.calendar-day.muted{opacity:.35}.calendar-day.today{border-color:#719578;box-shadow:inset 0 0 0 1px #719578}.calendar-day.has-trip{background:#edf5eb;border-color:#a8c2aa}.calendar-day .num{font-size:10px;font-weight:850}.calendar-day .trip-dot{width:6px;height:6px;border-radius:50%;background:#2d6440;align-self:flex-end}.trip-calendar-note{font-size:9px;color:var(--muted);margin:8px 0 0}.trip-add{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}.trip-add input{flex:1;min-width:140px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fffdf7;font-size:11px}.trip-add button{border:0;border-radius:10px;padding:9px 13px;background:var(--forest);color:#fff;font-size:10px;font-weight:850;cursor:pointer}.trip-events{display:grid;gap:7px;margin-top:10px}.trip-event{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#f6f3ea;border:1px solid #e2ded3;border-radius:11px;padding:9px 10px}.trip-event b{font-size:10px}.trip-event span{font-size:9px;color:var(--muted)}.trip-event button{border:0;background:transparent;color:#9a4e43;font-size:9px;font-weight:800;cursor:pointer}
 @media(max-width:390px){.calendar-day{min-height:39px;padding:4px}.trip-add{display:grid;grid-template-columns:1fr}.trip-add button{width:100%}}
 </style>
-</head>
+<style id="build058-css">
+.checkin-status{margin:10px 0;padding:11px 12px;border:1px solid #d7dfd8;border-radius:12px;background:#f7faf7}
+.checkin-status b{display:block;font-family:Georgia,serif;font-size:16px}.checkin-status small{display:block;color:var(--muted);margin-top:3px}
+.camper-card.is-you{border:2px solid #2f6548;background:#fbfdfb}.you-badge{font-size:10px;font-weight:800;color:#2f6548;background:#e7f1e9;border-radius:99px;padding:3px 7px}
+.checkin-modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.checkin-modal-actions button{flex:1;min-width:130px}
+.profile-action-note{font-size:11px;color:var(--muted);margin-top:7px}
+.private-chat{display:flex;flex-direction:column;gap:9px}.chat-bubble{max-width:82%;padding:9px 11px;border-radius:14px;font-size:13px}.chat-bubble.them{background:#eef3ef;align-self:flex-start}.chat-bubble.me{background:#173d2b;color:#fff;align-self:flex-end}.chat-compose{display:flex;gap:7px;margin-top:10px}.chat-compose textarea{flex:1;min-height:44px;resize:none}.chat-compose button{white-space:nowrap}
+</style></head>
 <body>
 <div class="app">
 <header class="fr-top-header">
@@ -1001,7 +1008,7 @@ body{padding-bottom:0 !important;}
 </div>
 </div></section>
 
-<section id="directory_detail"> class="page">
+<section id="directory_detail" class="page">
 <div class="screen"><div class="backline"><button onclick="show('explore')">‹</button><span>Back to Explore</span></div>
 <h1 id="directoryName">Campground</h1>
 <div class="card"><h2>Campground Record</h2><p class="sub" id="directoryMeta"></p><div class="notice" style="margin-top:12px"><b>Real directory entry</b>This campground is part of Fire Ring's Pennsylvania seed directory. The next data pass can enrich it with coordinates, official map links, amenities, photos, rules, activities, and reservation information.</div></div>
@@ -1009,7 +1016,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 057</div>
+<div class="version-footer">Fire Ring • Build 058</div>
 </div>
 
 
@@ -1583,5 +1590,89 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateMessageToggle();
 });
 </script>
-</body>
+<script id="build058-social-js">
+const frCheckinKey='fireRingCheckinV1';
+const frConnectionsKey='fireRingConnectionsV1';
+const frChatsKey='fireRingChatsV1';
+function frGet(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch(_){return fallback}}
+function frSet(key,val){localStorage.setItem(key,JSON.stringify(val))}
+function currentCheckin(){return frGet(frCheckinKey,null)}
+function checkin(){
+  const existing=currentCheckin();
+  const ov=document.getElementById('modal'), box=ov?.querySelector('.modal'); if(!box)return;
+  if(existing){
+    box.innerHTML='<button class="close" onclick="closeModal()">×</button><h2>🔥 You’re checked in</h2><div class="checkin-status"><b>Kentuck Campground</b><small>Checked in until '+escapeHtml(formatDate(existing.until))+'</small></div><p>Other campers who can see you only see that you’re camping at Kentuck. Your campsite number is never shown.</p><div class="checkin-modal-actions"><button class="secondary" onclick="clearCheckin()">Check Out</button><button class="primary" onclick="closeModal();show(\'campers\')">See campers</button></div>';
+  }else{
+    box.innerHTML='<button class="close" onclick="closeModal()">×</button><h2>📍 Check in at Kentuck</h2><p>Let other visible campers know you’re here. Your exact campsite number is never displayed.</p><label style="display:block;font-weight:700;font-size:12px;margin-top:12px">How long are you staying?</label><select id="checkinNights" style="width:100%;margin-top:5px;padding:10px;border-radius:9px"><option value="1">1 night</option><option value="2">2 nights</option><option value="3" selected>3 nights</option><option value="4">4 nights</option><option value="5">5 nights</option><option value="7">1 week</option></select><div class="checkin-modal-actions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" onclick="confirmCheckin()">Check In</button></div>';
+  }
+  ov.style.display='flex';
+}
+function confirmCheckin(){
+  const nights=Math.max(1,Number(document.getElementById('checkinNights')?.value||3));
+  const d=new Date(); d.setDate(d.getDate()+nights);
+  const until=d.toISOString().slice(0,10);
+  frSet(frCheckinKey,{campground:'Kentuck Campground',until,checkedInAt:new Date().toISOString()});
+  closeModal(); updateCheckinUI(); toast('You’re checked in at Kentuck Campground.'); show('campers');
+}
+function clearCheckin(){localStorage.removeItem(frCheckinKey);closeModal();updateCheckinUI();toast('You’re checked out of Kentuck Campground.')}
+function updateCheckinUI(){
+  const checked=!!currentCheckin();
+  document.querySelectorAll('button').forEach(b=>{if((b.textContent||'').includes('Check In')||(b.textContent||'').includes('Check Out')){if(b.closest('#modal'))return;if((b.textContent||'').includes('Check In'))b.innerHTML=checked?'📍 Check Out':'📍 Check In'}});
+  const you=document.querySelector('#camperDirectory .camper-card[data-you]');
+  if(you)you.style.display=checked?'flex':'none';
+}
+function showCamperProfile(name){
+  const data={
+    'Sarah M.':{avatar:'👩',location:'Kentuck Campground',style:'⛺ Tent',interests:['🥾 Hiking','🔥 Campfires'],about:'Always up for a waterfall hike or a good campfire conversation.'},
+    'Mike & Jen R.':{avatar:'🧢',location:'Kentuck Campground',style:'🚐 RV',interests:['🎣 Fishing','🍳 Cooking'],about:'Traveling the region and looking for new places to explore.'},
+    'Chris T.':{avatar:'🧔',location:'Nearby campground · 4 miles away',style:'🛶 Kayaking',interests:['🚲 Cycling','📷 Photography'],about:'Weekend camper, paddler, and sunset photographer.'},
+    'Angela P.':{avatar:'👩',location:'Nearby campground · 8 miles away',style:'🐕 Dogs',interests:['🌌 Stargazing','⛺ Tent'],about:'Camping with my dog and chasing dark skies whenever I can.'}
+  }[name]||{avatar:'🔥',location:'Camper',style:'🏕️ Camping',interests:[],about:'This camper has chosen to share a limited public profile.'};
+  const ov=document.createElement('div');ov.className='modalback';ov.style.display='flex';
+  ov.innerHTML='<div class="modal" style="max-width:430px"><button class="close" onclick="this.closest(\'.modalback\').remove()">×</button><div class="profile-head"><div class="bigavatar">'+data.avatar+'</div><div><h2 style="margin:0;font-family:Georgia,serif">'+escapeHtml(name)+'</h2><p class="sub">'+escapeHtml(data.location)+'</p></div></div><div class="card" style="margin-top:10px"><h3>Camping style</h3><div class="chips"><span class="chip">'+data.style+'</span>'+data.interests.map(x=>'<span class="chip">'+x+'</span>').join('')+'</div><p class="sub" style="margin-top:10px">'+escapeHtml(data.about)+'</p></div><div class="buttons"><button class="primary" onclick="this.closest(\'.modalback\').remove();openMessageRequest(\''+name.replace(/'/g,"\\'")+'\')">Send message request</button><button class="secondary" onclick="this.closest(\'.modalback\').remove()">Done</button></div></div>';
+  document.body.appendChild(ov);
+}
+function openMessageRequest(name){
+  let requests=frGet('fireRingPendingRequestsV1',[]);
+  if(requests.some(x=>x.name===name)){toast('A message request to '+name+' is already pending.');return}
+  requests.push({name,time:new Date().toISOString()});frSet('fireRingPendingRequestsV1',requests);updateRequestBadges();toast('Message request sent to '+name+'. They choose whether to accept it.');
+}
+function updateRequestBadges(){
+  const n=frGet('fireRingPendingRequestsV1',[]).length;
+  const badge=document.getElementById('messageRequestBadge');if(badge)badge.textContent=n;
+  const count=document.getElementById('requestCount');if(count)count.textContent=n;
+}
+function showMessageRequests(){
+  let requests=frGet('fireRingPendingRequestsV1',[]);
+  const incoming=[{name:'Sarah',avatar:'🥾',text:'Looks like we both love hiking and campfires. Want to connect?'},{name:'Mike',avatar:'🎣',text:'We camp in the same region. Thought we might have some places to swap.'}];
+  const ov=document.createElement('div');ov.className='modalback';ov.style.display='flex';
+  ov.innerHTML='<div class="modal" style="max-width:450px"><button class="close" onclick="this.closest(\'.modalback\').remove()">×</button><h2>💬 Message requests</h2><p class="sub">Only accepted requests become private conversations.</p><div id="requestItems">'+incoming.map(x=>'<div class="item" data-request="'+x.name+'"><h3>'+x.avatar+' '+x.name+'</h3><p>“'+x.text+'”</p><button class="primary" onclick="acceptMessageRequest(this,\''+x.name+'\')">Accept</button> <button class="small-btn" onclick="declineMessageRequest(this)">Decline</button></div>').join('')+(requests.length?'<div class="item"><h3>📨 Requests you sent</h3><p>'+requests.map(x=>escapeHtml(x.name)).join(', ')+'</p><small class="profile-action-note">Pending until the camper accepts or declines.</small></div>':'')+'</div></div>';
+  document.body.appendChild(ov);
+}
+function acceptMessageRequest(btn,name){
+  const conns=frGet(frConnectionsKey,[]);if(!conns.includes(name))conns.push(name);frSet(frConnectionsKey,conns);
+  const chats=frGet(frChatsKey,{});if(!chats[name])chats[name]=[{from:'them',text:'Thanks for connecting!'}];frSet(frChatsKey,chats);
+  btn.closest('.item')?.remove();updateRequestBadges();renderPrivateConversations();toast(name+' is now a connection.'); 
+}
+function declineMessageRequest(btn){btn.closest('.item')?.remove();updateRequestBadges();toast('Request declined.')}
+function renderPrivateConversations(){
+  const el=document.getElementById('privateConversationList');if(!el)return;
+  const chats=frGet(frChatsKey,{}),names=Object.keys(chats);
+  if(!names.length){el.innerHTML='<div class="message-empty-state"><b>No private conversations yet.</b><span>When you accept a connection request, your private conversation will appear here.</span></div>';return}
+  el.innerHTML=names.map(n=>'<article class="message-list-card" onclick="openPrivateChat(\''+n.replace(/'/g,"\\'")+'\')"><div class="message-avatar">💬</div><div><div class="message-meta"><b>'+escapeHtml(n)+'</b><span>Private</span></div><p>'+escapeHtml(chats[n].at(-1)?.text||'')+'</p></div></article>').join('');
+}
+function openPrivateChat(name){
+  const chats=frGet(frChatsKey,{});chats[name]=chats[name]||[];frSet(frChatsKey,chats);
+  const ov=document.createElement('div');ov.className='modalback';ov.style.display='flex';
+  const bubbles=chats[name].map(m=>'<div class="chat-bubble '+(m.from==='me'?'me':'them')+'">'+escapeHtml(m.text)+'</div>').join('');
+  ov.innerHTML='<div class="modal" style="max-width:450px"><button class="close" onclick="this.closest(\'.modalback\').remove()">×</button><h2>💬 '+escapeHtml(name)+'</h2><div class="private-chat" id="chatBody">'+bubbles+'</div><div class="chat-compose"><textarea id="chatInput" maxlength="500" placeholder="Write a message…"></textarea><button class="primary" onclick="sendPrivateChat(\''+name.replace(/'/g,"\\'")+'\',this)">Send</button></div></div>';
+  document.body.appendChild(ov);
+}
+function sendPrivateChat(name,btn){
+  const input=btn.previousElementSibling,t=input?.value.trim();if(!t)return;
+  const chats=frGet(frChatsKey,{});chats[name]=chats[name]||[];chats[name].push({from:'me',text:t});frSet(frChatsKey,chats);
+  const body=btn.closest('.modal')?.querySelector('#chatBody');if(body)body.innerHTML+= '<div class="chat-bubble me">'+escapeHtml(t)+'</div>';input.value='';renderPrivateConversations();
+}
+document.addEventListener('DOMContentLoaded',()=>{updateCheckinUI();updateRequestBadges();renderPrivateConversations();});
+</script></body>
 </html>
