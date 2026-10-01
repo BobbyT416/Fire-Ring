@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 047</title>
+<title>Fire Ring — Build 048</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -265,14 +265,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 043 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 048 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 047: clean, text-first primary navigation. */
+/* Build 048: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -978,7 +978,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 047</div>
+<div class="version-footer">Fire Ring • Build 048</div>
 </div>
 
 
@@ -1377,6 +1377,171 @@ function closeTripDetail(){document.getElementById('tripDetailOverlay').style.di
 function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 document.getElementById('tripDateInput')?.addEventListener('change',updateTripNightsPreview);document.getElementById('tripNightsInput')?.addEventListener('input',updateTripNightsPreview);
 renderTripCalendar();
+</script>
+
+<style id="fireRingExpandedCampgroundsCSS">
+#expandedCampgroundResults{margin-top:10px}
+#expandedCampgroundHeader{margin:14px 4px 7px;font-size:12px;font-weight:700;color:#173d2b}
+#expandedCampgroundSource{font-size:10px;color:var(--muted);font-weight:400;margin-left:5px}
+.expanded-campground-result{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(20,55,40,.04)}
+.expanded-campground-result .list-thumb{width:42px;height:42px;border-radius:11px;background:linear-gradient(145deg,#dfeadf,#f5efe2);flex:none}
+.expanded-campground-result h3{margin:0 0 3px;font-size:14px;color:#173d2b}
+.expanded-campground-result p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
+.expanded-campground-result .source-line{margin-top:4px;color:#7a887f;font-size:10px}
+.expanded-campground-result .small-btn{margin-top:7px}
+.expanded-loading{padding:12px;text-align:center;color:var(--muted);font-size:11px}
+</style>
+
+<script id="fireRingExpandedCampgrounds">
+(function(){
+  const STATE_NAMES={
+    alabama:"Alabama",alaska:"Alaska",arizona:"Arizona",arkansas:"Arkansas",california:"California",
+    colorado:"Colorado",connecticut:"Connecticut",delaware:"Delaware",florida:"Florida",georgia:"Georgia",
+    hawaii:"Hawaii",idaho:"Idaho",illinois:"Illinois",indiana:"Indiana",iowa:"Iowa",kansas:"Kansas",
+    kentucky:"Kentucky",louisiana:"Louisiana",maine:"Maine",maryland:"Maryland",massachusetts:"Massachusetts",
+    michigan:"Michigan",minnesota:"Minnesota",mississippi:"Mississippi",missouri:"Missouri",montana:"Montana",
+    nebraska:"Nebraska",nevada:"Nevada","new hampshire":"New Hampshire","new jersey":"New Jersey",
+    "new mexico":"New Mexico","new york":"New York","north carolina":"North Carolina","north dakota":"North Dakota",
+    ohio:"Ohio",oklahoma:"Oklahoma",oregon:"Oregon",pennsylvania:"Pennsylvania","rhode island":"Rhode Island",
+    "south carolina":"South Carolina","south dakota":"South Dakota",tennessee:"Tennessee",texas:"Texas",
+    utah:"Utah",vermont:"Vermont",virginia:"Virginia","washington":"Washington","west virginia":"West Virginia",
+    wisconsin:"Wisconsin",wyoming:"Wyoming"
+  };
+  const stateRe=new RegExp("^("+Object.keys(STATE_NAMES).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")$","i");
+  let osmLayer=null, requestSerial=0;
+
+  function norm(v){return String(v||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+  function miles(lat1,lon1,lat2,lon2){
+    const R=3958.7613,p=Math.PI/180;
+    const a=Math.sin((lat2-lat1)*p/2)**2+Math.cos(lat1*p)*Math.cos(lat2*p)*Math.sin((lon2-lon1)*p/2)**2;
+    return 2*R*Math.asin(Math.sqrt(a));
+  }
+  function classify(t){
+    const x=((t.operator||"")+" "+(t["operator:type"]||"")+" "+(t.name||"")).toLowerCase();
+    return /(state park|national park|national forest|forest service|blm|bureau of land|army corps|corps of engineers|national recreation|county park|city park|town park|township park|state forest|state recreation|government|municipal)/i.test(x)?"Public":"Private";
+  }
+  function escapeHtml(x){
+    return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  function ensurePanel(){
+    let p=document.getElementById("expandedCampgroundResults");
+    if(p)return p;
+    p=document.createElement("div");p.id="expandedCampgroundResults";
+    const status=document.getElementById("searchStatus");
+    if(status)status.insertAdjacentElement("afterend",p);
+    else document.getElementById("campgroundResults")?.before(p);
+    return p;
+  }
+  function point(e){return {lat:e.lat??e.center?.lat,lon:e.lon??e.center?.lon};}
+  function card(t,dist){
+    const div=document.createElement("div");div.className="expanded-campground-result";
+    const place=[t["addr:city"],t["addr:state"],t["addr:postcode"]].filter(Boolean).join(", ");
+    const type=classify(t);
+    const operator=t.operator?" · "+t.operator:"";
+    const amen=[];
+    if(t.tents==="yes")amen.push("Tent");
+    if(t.caravans==="yes")amen.push("RV");
+    if(t.ele)amen.push("Electric");
+    div.innerHTML='<div class="list-thumb"></div><div style="flex:1"><h3>'+escapeHtml(t.name||"Unnamed campground")+
+      '</h3><p>'+escapeHtml(type+(place?" · "+place:"")+operator+(amen.length?" · "+amen.join(" · "):""))+
+      '</p><div class="distance-line" style="font-size:12px;color:var(--muted);margin:5px 0">'+
+      (dist!=null?dist.toFixed(1)+" miles away":"")+
+      '</div><div class="source-line">OpenStreetMap community campground data</div>'+
+      (t.website?'<button class="small-btn frOsmVisit">Visit campground</button>':"")+
+      '</div>';
+    if(t.website)div.querySelector(".frOsmVisit").addEventListener("click",e=>{e.stopPropagation();window.open(t.website,"_blank","noopener");});
+    return div;
+  }
+  async function geocode(q){
+    const r=await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=us&q="+encodeURIComponent(q),{headers:{Accept:"application/json"}});
+    if(!r.ok)throw new Error("geocode");
+    const a=await r.json();if(!a.length)throw new Error("not found");
+    return {lat:+a[0].lat,lon:+a[0].lon};
+  }
+  async function around(lat,lon,meters){
+    const q='[out:json][timeout:30];nwr(around:'+Math.round(meters)+','+lat+','+lon+')["tourism"="camp_site"];out center tags;';
+    const r=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"text/plain"},body:q});
+    if(!r.ok)throw new Error("overpass");
+    return (await r.json()).elements||[];
+  }
+  async function stateCamp(state){
+    const q='[out:json][timeout:45];area["name="'+state.replace(/"/g,'\\"')+'"]["boundary"="administrative"]["admin_level"="4"]->.a;nwr(area.a)["tourism"="camp_site"];out center tags;';
+    const r=await fetch("https://overpass-api.de/api/interpreter",{method:"POST",headers:{"Content-Type":"text/plain"},body:q});
+    if(!r.ok)throw new Error("overpass state");
+    return (await r.json()).elements||[];
+  }
+  function addMarkers(items){
+    if(typeof L==="undefined"||!window.exploreMap)return;
+    if(!osmLayer)osmLayer=L.layerGroup().addTo(window.exploreMap);
+    osmLayer.clearLayers();
+    items.slice(0,250).forEach(e=>{
+      const p=point(e);if(!Number.isFinite(p.lat)||!Number.isFinite(p.lon))return;
+      L.marker([p.lat,p.lon]).bindPopup("<b>"+escapeHtml(e.tags?.name||"Campground")+"</b><br><span style='font-size:11px'>OpenStreetMap campground data</span>").addTo(osmLayer);
+    });
+  }
+  async function loadExpanded(){
+    const q=(document.getElementById("campSearch")?.value||"").trim();
+    if(!q)return;
+    const radius=document.getElementById("radiusFilter")?.value||"50";
+    const typeFilter=document.getElementById("typeFilter")?.value||"all";
+    const panel=ensurePanel(),status=document.getElementById("searchStatus"),serial=++requestSerial;
+    panel.innerHTML='<div class="expanded-loading">Finding additional campgrounds…</div>';
+    try{
+      let items=[],origin=null;
+      const sm=stateRe.exec(q.toLowerCase());
+      if(sm&&radius==="any")items=await stateCamp(STATE_NAMES[sm[1].toLowerCase()]);
+      else{
+        origin=await geocode(q);
+        items=await around(origin.lat,origin.lon,(radius==="any"?100:+radius)*1609.344);
+      }
+      if(serial!==requestSerial)return;
+      const seen=new Set([...document.querySelectorAll(".campground-result")].map(c=>norm(c.dataset.name)));
+      const out=[];
+      for(const e of items){
+        const t=e.tags||{},p=point(e);if(!t.name||!Number.isFinite(p.lat)||!Number.isFinite(p.lon))continue;
+        const typ=classify(t);if(typeFilter!=="all"&&typeFilter!==typ.toLowerCase())continue;
+        const key=norm(t.name);if(seen.has(key))continue;seen.add(key);
+        out.push({e,d:origin?miles(origin.lat,origin.lon,p.lat,p.lon):null});
+      }
+      out.sort((a,b)=>(a.d??999999)-(b.d??999999));
+      panel.innerHTML='<div id="expandedCampgroundHeader">Additional campgrounds <span id="expandedCampgroundSource">OpenStreetMap community data</span></div>';
+      if(!out.length){panel.insertAdjacentHTML("beforeend",'<div class="expanded-loading">No additional campgrounds were found in this search area.</div>');return;}
+      out.slice(0,150).forEach(x=>panel.appendChild(card(x.e.tags,x.d)));
+      addMarkers(out.map(x=>x.e));
+      if(status)status.textContent=(status.textContent||"")+" · Additional campground data loaded";
+    }catch(err){
+      if(serial!==requestSerial)return;
+      panel.innerHTML='<div class="expanded-loading">The expanded campground directory is temporarily unavailable. The built-in Fire Ring campground directory is still available.</div>';
+    }
+  }
+  document.addEventListener("DOMContentLoaded",()=>{
+    const btn=document.getElementById("searchBtn"),input=document.getElementById("campSearch"),loc=document.getElementById("locationBtn");
+    if(btn)btn.addEventListener("click",()=>setTimeout(loadExpanded,900));
+    if(input)input.addEventListener("keydown",e=>{if(e.key==="Enter")setTimeout(loadExpanded,900);});
+    if(loc)loc.addEventListener("click",()=>{
+      if(!navigator.geolocation)return;
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        const panel=ensurePanel(),typeFilter=document.getElementById("typeFilter")?.value||"all",radius=document.getElementById("radiusFilter")?.value||"50";
+        panel.innerHTML='<div class="expanded-loading">Finding additional nearby campgrounds…</div>';
+        try{
+          const items=await around(pos.coords.latitude,pos.coords.longitude,(radius==="any"?100:+radius)*1609.344);
+          const seen=new Set([...document.querySelectorAll(".campground-result")].map(c=>norm(c.dataset.name))),out=[];
+          for(const e of items){
+            const t=e.tags||{},p=point(e);if(!t.name||!Number.isFinite(p.lat)||!Number.isFinite(p.lon))continue;
+            const typ=classify(t);if(typeFilter!=="all"&&typeFilter!==typ.toLowerCase())continue;
+            const key=norm(t.name);if(seen.has(key))continue;seen.add(key);
+            out.push({e,d:miles(pos.coords.latitude,pos.coords.longitude,p.lat,p.lon)});
+          }
+          out.sort((a,b)=>a.d-b.d);
+          panel.innerHTML='<div id="expandedCampgroundHeader">Additional nearby campgrounds <span id="expandedCampgroundSource">OpenStreetMap community data</span></div>';
+          if(!out.length){panel.insertAdjacentHTML("beforeend",'<div class="expanded-loading">No additional campgrounds were found nearby.</div>');return;}
+          out.slice(0,150).forEach(x=>panel.appendChild(card(x.e.tags,x.d)));
+          addMarkers(out.map(x=>x.e));
+        }catch(e){panel.innerHTML='<div class="expanded-loading">The expanded campground directory is temporarily unavailable. The built-in Fire Ring campground directory is still available.</div>';}
+      });
+    });
+  });
+})();
 </script>
 </body>
 </html>
