@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-051 -->
+<!-- FIRE-RING-BUILD-052 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 051</title>
+<title>Fire Ring — Build 052</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -269,14 +269,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 051 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 052 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 051: clean, text-first primary navigation. */
+/* Build 052: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -982,7 +982,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 051</div>
+<div class="version-footer">Fire Ring • Build 052</div>
 </div>
 
 
@@ -1166,7 +1166,7 @@ function frRenderExternal(items){
  rows.sort((a,b)=>(a.d??Infinity)-(b.d??Infinity)||a.t.name.localeCompare(b.t.name));
  if(!rows.length){panel.insertAdjacentHTML('beforeend','<div class="fr-no-results">No additional campgrounds found.</div>');return}
  if(typeof L!=='undefined'&&exploreMap)frExplore.layer=L.layerGroup().addTo(exploreMap);
- rows.slice(0,150).forEach(x=>{const row=document.createElement('div'),town=x.t['addr:city']||x.t['addr:town']||x.t['addr:village']||x.t['addr:hamlet']||'',dist=frDistanceText(x.d,x.cd)||'Distance unavailable';row.className='fr-simple-result';row.innerHTML='<div class="fr-simple-main"><b>'+frEscape(x.t.name)+'</b><span>'+frEscape(town)+'</span></div><div class="fr-simple-distance">'+dist+'</div><div class="fr-result-details"><b>'+frEscape(x.t.name)+'</b><br>'+(x.typ==='public'?'Public':'Private')+' campground'+(town?' · '+frEscape(town):'')+(x.t.operator?'<br>Operator: '+frEscape(x.t.operator):'')+(x.t.website?'<br><a href="'+frEscape(x.t.website)+'" target="_blank" rel="noopener">Campground website</a>':'')+'<br>Source: OpenStreetMap community data</div>';row.addEventListener('click',e=>{if(!e.target.closest('a'))row.classList.toggle('expanded')});panel.appendChild(row);if(frExplore.layer)L.marker([x.p.lat,x.p.lon]).bindPopup('<b>'+frEscape(x.t.name)+'</b>').addTo(frExplore.layer)})
+ rows.slice(0,150).forEach(x=>{const row=document.createElement('div'),town=x.t['addr:city']||x.t['addr:town']||x.t['addr:village']||x.t['addr:hamlet']||'',dist=frDistanceText(x.d,x.cd)||'Distance unavailable';row.className='fr-simple-result';row.innerHTML='<div class="fr-simple-main"><b>'+frEscape(x.t.name)+'</b><span>'+frEscape(town)+'</span><div class="fr-simple-distance">'+dist+'</div></div><div class="fr-result-details"><b>'+frEscape(x.t.name)+'</b><br>'+(x.typ==='public'?'Public':'Private')+' campground'+(town?' · '+frEscape(town):'')+(x.t.operator?'<br>Operator: '+frEscape(x.t.operator):'')+(x.t.website?'<br><a href="'+frEscape(x.t.website)+'" target="_blank" rel="noopener">Campground website</a>':'')+'<br>Source: OpenStreetMap community data</div>';row.addEventListener('click',e=>{if(!e.target.closest('a'))row.classList.toggle('expanded')});panel.appendChild(row);if(frExplore.layer)L.marker([x.p.lat,x.p.lon]).bindPopup('<b>'+frEscape(x.t.name)+'</b>').addTo(frExplore.layer)})
 }
 function applyExploreFilters(){
  frPrepareBuiltIn();const q=frNorm(document.getElementById('campSearch').value||''),radius=frRadius(),type=frType(),cards=[...document.querySelectorAll('#campgroundResults .campground-result')];
@@ -1364,5 +1364,24 @@ renderTripCalendar();
 </script>
 
 
-<style id="fireRingExplore050CSS">#expandedCampgroundResults{margin:8px 0 12px}.fr-expanded-header{font-size:12px;font-weight:700;color:#173d2b;margin:12px 4px 7px}.fr-expanded-header span{font-size:10px;color:var(--muted);font-weight:400;margin-left:5px}.fr-simple-result{position:relative;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fff;margin-bottom:7px;cursor:pointer}.fr-simple-main{display:flex;flex-direction:column;gap:2px;padding-right:82px}.fr-simple-main b{font-size:13px;color:#173d2b}.fr-simple-main span{font-size:11px;color:var(--muted)}.fr-simple-distance{position:absolute;right:12px;top:13px;font-size:11px;color:var(--muted);font-weight:600}.fr-result-details{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);line-height:1.5}.fr-simple-result.expanded .fr-result-details,.campground-result.expanded .fr-result-details{display:block}.fr-result-details a{color:#315f49}.fr-no-results{padding:12px;color:var(--muted);font-size:11px}#campgroundResults .campground-result{cursor:pointer}#campgroundResults .campground-result:focus{outline:2px solid #7d9d88;outline-offset:2px}</style></body>
+<style id="fireRingExplore052CSS">
+#expandedCampgroundResults{margin:8px 0 12px}
+.fr-expanded-header{font-size:12px;font-weight:700;color:#173d2b;margin:12px 4px 7px}
+.fr-expanded-header span{font-size:10px;color:var(--muted);font-weight:400;margin-left:5px}
+.fr-simple-result{position:relative;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fff;margin-bottom:7px;cursor:pointer;overflow:hidden}
+.fr-simple-main{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fr-simple-main b{font-size:13px;color:#173d2b;line-height:1.25;overflow-wrap:anywhere}
+.fr-simple-main span{font-size:11px;color:var(--muted);line-height:1.25;overflow-wrap:anywhere}
+.fr-simple-distance{position:static;margin-top:5px;font-size:11px;color:var(--muted);font-weight:600;line-height:1.35;white-space:normal}
+.fr-result-details{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);line-height:1.5}
+.fr-simple-result.expanded .fr-result-details,.campground-result.expanded .fr-result-details{display:block}
+.fr-result-details a{color:#315f49}
+.fr-no-results{padding:12px;color:var(--muted);font-size:11px}
+#campgroundResults .campground-result{cursor:pointer}
+#campgroundResults .campground-result:focus{outline:2px solid #7d9d88;outline-offset:2px}
+#campgroundResults .campground-result>div{min-width:0}
+#campgroundResults .campground-result h3{line-height:1.25;margin-bottom:2px;overflow-wrap:anywhere}
+#campgroundResults .campground-result p{line-height:1.3;margin-top:0;overflow-wrap:anywhere}
+#campgroundResults .distance-line{padding-right:0!important;line-height:1.35}
+</style></body>
 </html>
