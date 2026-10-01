@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-055 -->
+<!-- FIRE-RING-BUILD-056 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 055</title>
+<title>Fire Ring — Build 056</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -1466,5 +1466,47 @@ renderTripCalendar();
 @keyframes frSpin{to{transform:rotate(360deg)}}
 .fr-search-phase{font-size:10px;color:var(--muted);margin:4px 4px 8px}
 </style>
+
+<style id="fireRingBuild056CSS">
+/* Build 056: cleaner Home + clearer connection safety */
+.home-social > .broadcast-card,
+.home-social > .safety-card{display:none !important}
+.home-social{padding-bottom:18px}
+.connect-heading{transition:background .18s ease,box-shadow .18s ease}
+.connect-heading:hover{background:#fbfff8}
+.connect-heading.open{box-shadow:0 5px 16px rgba(24,51,41,.08)}
+.profile-switch .toggle{pointer-events:none}
+.profile-switch small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+</style>
+
+<script id="fireRingBuild056JS">
+/* Build 056: message requests are always available; the camper controls acceptance. */
+function toggleProfileSetting(){
+  profileState.messaging=true;
+  updateMessageToggle();
+  saveProfileDraft();
+  toast('Message requests are always available. You decide which requests to accept.');
+}
+function updateMessageToggle(){
+  const b=document.getElementById('messageToggle');
+  if(b){
+    b.classList.add('on');
+    b.setAttribute('aria-pressed','true');
+  }
+  const row=document.querySelector('.profile-switch');
+  if(row){
+    const small=row.querySelector('small');
+    if(small) small.textContent='Message requests are always available. You choose which ones to accept.';
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const b=document.getElementById('messageToggle');
+  if(b){
+    b.setAttribute('aria-label','Message requests are always available');
+    b.setAttribute('aria-pressed','true');
+  }
+  updateMessageToggle();
+});
+</script>
 </body>
 </html>
