@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-054 -->
+<!-- FIRE-RING-BUILD-055 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 054</title>
+<title>Fire Ring — Build 055</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -269,14 +269,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 054 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 055 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 054: clean, text-first primary navigation. */
+/* Build 055: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -456,6 +456,8 @@ body{padding-bottom:0 !important;}
     </div>
     <div id="locationStatus" style="margin-top:8px;color:var(--muted);font-size:11px">Search by campground name, state, city, ZIP code, or a nearby landmark.</div>
     <div class="search-examples">Try: <b>Ohiopyle</b> · <b>Pennsylvania</b> · <b>15470</b> · <b>Fallingwater</b></div>
+    <div id="recentSearches" class="fr-recent-wrap" style="display:none"><div class="fr-mini-label">Recent searches</div><div id="recentSearchChips" class="fr-chip-row"></div></div>
+    <div id="savedCampgroundsWrap" class="fr-saved-wrap" style="display:none"><div class="fr-mini-label">Saved campgrounds</div><div id="savedCampgrounds" class="fr-saved-list"></div></div>
     <div style="margin-top:6px;color:var(--muted);font-size:11px">Pennsylvania campground directory · 68 state-park entries + real local campground records</div>
   </div>
   <div id="searchStatus" style="font-size:12px;color:var(--muted);margin:10px 4px 7px"></div>
@@ -982,7 +984,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 054</div>
+<div class="version-footer">Fire Ring • Build 055</div>
 </div>
 
 
@@ -1134,6 +1136,19 @@ function frMiles(a,b,c,d){const R=3958.7613,p=Math.PI/180,x=Math.sin((c-a)*p/2)*
 function frEscape(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 const frStates={alabama:'Alabama',alaska:'Alaska',arizona:'Arizona',arkansas:'Arkansas',california:'California',colorado:'Colorado',connecticut:'Connecticut',delaware:'Delaware',florida:'Florida',georgia:'Georgia',hawaii:'Hawaii',idaho:'Idaho',illinois:'Illinois',indiana:'Indiana',iowa:'Iowa',kansas:'Kansas',kentucky:'Kentucky',louisiana:'Louisiana',maine:'Maine',maryland:'Maryland',massachusetts:'Massachusetts',michigan:'Michigan',minnesota:'Minnesota',mississippi:'Mississippi',missouri:'Missouri',montana:'Montana',nebraska:'Nebraska',nevada:'Nevada','new hampshire':'New Hampshire','new jersey':'New Jersey','new mexico':'New Mexico','new york':'New York','north carolina':'North Carolina','north dakota':'North Dakota',ohio:'Ohio',oklahoma:'Oklahoma',oregon:'Oregon',pennsylvania:'Pennsylvania','rhode island':'Rhode Island','south carolina':'South Carolina','south dakota':'South Dakota',tennessee:'Tennessee',texas:'Texas',utah:'Utah',vermont:'Vermont',virginia:'Virginia',washington:'Washington','west virginia':'West Virginia',wisconsin:'Wisconsin',wyoming:'Wyoming'};
 const frExplore={origin:null,currentLocation:null,currentLocationRequested:false,query:'',request:0,external:[],layer:null};
+const frSavedKey='fireRingSavedCampgrounds';
+const frRecentKey='fireRingRecentSearches';
+function frSaved(){try{return JSON.parse(localStorage.getItem(frSavedKey)||'[]')}catch(_){return[]}}
+function frSetSaved(v){localStorage.setItem(frSavedKey,JSON.stringify(v));renderFrSaved()}
+function frIsSaved(name){return frSaved().some(x=>frNorm(x.name)===frNorm(name))}
+function frToggleSaved(name,meta='',lat=null,lon=null){let a=frSaved();const i=a.findIndex(x=>frNorm(x.name)===frNorm(name));if(i>=0)a.splice(i,1);else a.unshift({name,meta,lat,lon});a=a.slice(0,30);frSetSaved(a);frRefreshSaveButtons()}
+function frRefreshSaveButtons(){document.querySelectorAll('.fr-save-btn').forEach(b=>{const n=b.dataset.name||'';const yes=frIsSaved(n);b.classList.toggle('saved',yes);b.textContent=yes?'★ Saved':'☆ Save'})}
+function renderFrSaved(){const wrap=document.getElementById('savedCampgroundsWrap'),list=document.getElementById('savedCampgrounds');if(!wrap||!list)return;const a=frSaved();wrap.style.display=a.length?'block':'none';list.innerHTML=a.map((x,i)=>'<div class="fr-saved-item" data-index="'+i+'"><b>★ '+frEscape(x.name)+'</b><button type="button" data-remove="1">×</button></div>').join('');list.querySelectorAll('.fr-saved-item').forEach(el=>{const i=Number(el.dataset.index),name=a[i]?.name;el.addEventListener('click',()=>frRunSaved(name));el.querySelector('[data-remove]').addEventListener('click',e=>{e.stopPropagation();frToggleSaved(name)})})}
+function frRunSaved(name){const i=document.getElementById('campSearch');if(i){i.value=name;runCampgroundSearch()}}
+function frAddRecent(q){q=q.trim();if(!q)return;let a=[];try{a=JSON.parse(localStorage.getItem(frRecentKey)||'[]')}catch(_){}a=[q,...a.filter(x=>frNorm(x)!==frNorm(q))].slice(0,6);localStorage.setItem(frRecentKey,JSON.stringify(a));renderFrRecent()}
+function renderFrRecent(){const wrap=document.getElementById('recentSearches'),list=document.getElementById('recentSearchChips');if(!wrap||!list)return;let a=[];try{a=JSON.parse(localStorage.getItem(frRecentKey)||'[]')}catch(_){}wrap.style.display=a.length?'block':'none';list.innerHTML=a.map((q,i)=>'<button type="button" class="fr-recent-chip" data-index="'+i+'">'+frEscape(q)+'</button>').join('');list.querySelectorAll('.fr-recent-chip').forEach(el=>el.addEventListener('click',()=>frRunRecent(a[Number(el.dataset.index)])))}
+function frRunRecent(q){const i=document.getElementById('campSearch');if(i){i.value=q;runCampgroundSearch()}}
+
 function frRadius(){const v=document.getElementById('radiusFilter')?.value||'50';return v==='any'?Infinity:Number(v)}
 function frType(){return document.getElementById('typeFilter')?.value||'all'}
 function frClassify(t){return /(state park|state forest|national park|national forest|forest service|bureau of land|blm|army corps|corps of engineers|federal|county park|municipal|township|city park|government)/i.test(((t.operator||'')+' '+(t.name||'')+' '+(t['operator:type']||'')).toLowerCase())?'public':'private'}
@@ -1174,7 +1189,7 @@ async function frOverpassNear(lat,lon,radius){const miles=Math.min(Math.max(radi
 async function frOverpassState(state){const safe=state.replace(/"/g,'\\"'),q=`[out:json][timeout:8];area["name"="${safe}"]["boundary"="administrative"]["admin_level"="4"]->.a;nwr(area.a)["tourism"="camp_site"];out center tags;`;return frOverpassFetch(q,9000)}
 function frSetOrigin(lat,lon,label){frExplore.origin={lat,lon,label};if(!exploreMap)initExploreMap();if(exploreMap){if(mapSearchMarker)mapSearchMarker.remove();mapSearchMarker=L.marker([lat,lon]).addTo(exploreMap).bindPopup('<b>'+frEscape(label)+'</b>');exploreMap.setView([lat,lon],10)}}
 function frClearExternal(){document.getElementById('expandedCampgroundResults')?.remove();if(frExplore.layer){frExplore.layer.remove();frExplore.layer=null}frExplore.external=[]}
-function frPrepareBuiltIn(){document.querySelectorAll('#campgroundResults .campground-result').forEach(row=>{if(row.dataset.frPrepared)return;row.dataset.frPrepared='1';row.setAttribute('role','button');row.setAttribute('tabindex','0');row.querySelector('button.small-btn')?.remove();row.addEventListener('click',e=>{if(e.target.closest('a,button'))return;let d=row.querySelector('.fr-result-details');if(!d){d=document.createElement('div');d.className='fr-result-details';row.appendChild(d)}d.innerHTML='<b>'+frEscape(row.dataset.name||row.querySelector('h3')?.textContent||'Campground')+'</b><br>'+frEscape(row.querySelector('p')?.textContent||'')+(row._distance!=null?'<br>'+row._distance.toFixed(1)+' miles away':'');row.classList.toggle('expanded')});row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();row.click()}})})}
+function frPrepareBuiltIn(){document.querySelectorAll('#campgroundResults .campground-result').forEach(row=>{if(row.dataset.frPrepared)return;row.dataset.frPrepared='1';row.setAttribute('role','button');row.setAttribute('tabindex','0');row.querySelector('button.small-btn')?.remove();const sb=document.createElement('button');sb.type='button';sb.className='fr-save-btn';sb.dataset.name=row.dataset.name||row.querySelector('h3')?.textContent||'';sb.textContent=frIsSaved(sb.dataset.name)?'★ Saved':'☆ Save';sb.onclick=e=>{e.stopPropagation();frToggleSaved(sb.dataset.name,row.querySelector('p')?.textContent||'',row.dataset.lat?+row.dataset.lat:null,row.dataset.lon?+row.dataset.lon:null)};row.querySelector('div[style*="flex:1"]')?.prepend(sb);row.addEventListener('click',e=>{if(e.target.closest('a,button'))return;let d=row.querySelector('.fr-result-details');if(!d){d=document.createElement('div');d.className='fr-result-details';row.appendChild(d)}d.innerHTML='<b>'+frEscape(row.dataset.name||row.querySelector('h3')?.textContent||'Campground')+'</b><br>'+frEscape(row.querySelector('p')?.textContent||'')+(row._distance!=null?'<br>'+row._distance.toFixed(1)+' miles away':'');row.classList.toggle('expanded')});row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();row.click()}})})}
 function frFormatDistance(d){return d==null?'':(d<10?d.toFixed(1):Math.round(d))+' mi'}
 function frDistanceText(searchDistance,currentDistance){let parts=[];if(searchDistance!=null&&frExplore.origin)parts.push(frFormatDistance(searchDistance)+' from '+frExplore.origin.label);if(currentDistance!=null)parts.push(frFormatDistance(currentDistance)+' from your current location');return parts.join('<br>')}
 function frRenderExternal(items){
@@ -1185,7 +1200,7 @@ function frRenderExternal(items){
  rows.sort((a,b)=>(a.d??Infinity)-(b.d??Infinity)||a.t.name.localeCompare(b.t.name));
  if(!rows.length){panel.insertAdjacentHTML('beforeend','<div class="fr-no-results">No additional campgrounds found.</div>');return}
  if(typeof L!=='undefined'&&exploreMap)frExplore.layer=L.layerGroup().addTo(exploreMap);
- rows.slice(0,150).forEach(x=>{const row=document.createElement('div'),town=x.t['addr:city']||x.t['addr:town']||x.t['addr:village']||x.t['addr:hamlet']||'',dist=frDistanceText(x.d,x.cd)||'Distance unavailable';row.className='fr-simple-result';row.innerHTML='<div class="fr-simple-main"><b>'+frEscape(x.t.name)+'</b><span>'+frEscape(town)+'</span><div class="fr-simple-distance">'+dist+'</div></div><div class="fr-result-details"><b>'+frEscape(x.t.name)+'</b><br>'+(x.typ==='public'?'Public':'Private')+' campground'+(town?' · '+frEscape(town):'')+(x.t.operator?'<br>Operator: '+frEscape(x.t.operator):'')+(x.t.website?'<br><a href="'+frEscape(x.t.website)+'" target="_blank" rel="noopener">Campground website</a>':'')+'<br>Source: OpenStreetMap community data</div>';row.addEventListener('click',e=>{if(!e.target.closest('a'))row.classList.toggle('expanded')});panel.appendChild(row);if(frExplore.layer)L.marker([x.p.lat,x.p.lon]).bindPopup('<b>'+frEscape(x.t.name)+'</b>').addTo(frExplore.layer)})
+ rows.slice(0,150).forEach(x=>{const row=document.createElement('div'),town=x.t['addr:city']||x.t['addr:town']||x.t['addr:village']||x.t['addr:hamlet']||'',dist=frDistanceText(x.d,x.cd)||'Distance unavailable';row.className='fr-simple-result';row.innerHTML='<div class="fr-simple-main"><button type="button" class="fr-save-btn" data-name="'+frEscape(x.t.name)+'">'+(frIsSaved(x.t.name)?'★ Saved':'☆ Save')+'</button><b>'+frEscape(x.t.name)+'</b><span>'+frEscape(town)+'</span><div class="fr-simple-distance">'+dist+'</div></div><div class="fr-result-details"><b>'+frEscape(x.t.name)+'</b><br>'+(x.typ==='public'?'Public':'Private')+' campground'+(town?' · '+frEscape(town):'')+(x.t.operator?'<br>Operator: '+frEscape(x.t.operator):'')+(x.t.website?'<br><a href="'+frEscape(x.t.website)+'" target="_blank" rel="noopener">Campground website</a>':'')+'<br>Source: OpenStreetMap community data</div>';row.querySelector('.fr-save-btn').addEventListener('click',e=>{e.stopPropagation();frToggleSaved(x.t.name,(town||'')+' · '+(x.typ==='public'?'Public':'Private'),x.p.lat,x.p.lon)});row.addEventListener('click',e=>{if(!e.target.closest('a,button'))row.classList.toggle('expanded')});panel.appendChild(row);if(frExplore.layer)L.marker([x.p.lat,x.p.lon]).bindPopup('<b>'+frEscape(x.t.name)+'</b>').addTo(frExplore.layer)})
 }
 function applyExploreFilters(){
  frPrepareBuiltIn();const q=frNorm(document.getElementById('campSearch').value||''),radius=frRadius(),type=frType(),cards=[...document.querySelectorAll('#campgroundResults .campground-result')];
@@ -1200,21 +1215,23 @@ async function runCampgroundSearch(){
  const loading=document.createElement('div');loading.className='fr-search-loading';loading.innerHTML='<span class="fr-search-spinner"></span><span>Finding campgrounds…</span>';
  panel.insertAdjacentElement('afterend',loading);
  if(!q){frExplore.origin=null;frExplore.loadingExternal=false;loading.remove();applyExploreFilters();return}
- frExplore.loadingExternal=true;status.textContent='Finding campgrounds near '+q+'…';applyExploreFilters();
+ frExplore.loadingExternal=true;frAddRecent(q);status.textContent='Finding campgrounds near '+q+'…';applyExploreFilters();
  try{
    const r=await frResolve(q);
    if(req!==frExplore.request){loading.remove();return}
    if(r.kind==='point'){
      frSetOrigin(r.lat,r.lon,r.label);
-     status.textContent=r.label+' · finding nearby campgrounds…';
+     status.textContent=r.label+' · loading Fire Ring results…';
      applyExploreFilters();
-     try{frRenderExternal(await frOverpassNear(r.lat,r.lon,isFinite(frRadius())?frRadius():100))}
+     loading.innerHTML='<span class="fr-search-spinner"></span><span>Loading Fire Ring results…</span>';
+     try{loading.innerHTML='<span class="fr-search-spinner"></span><span>Adding community campground results…</span>';frRenderExternal(await frOverpassNear(r.lat,r.lon,isFinite(frRadius())?frRadius():100))}
      catch(e){const p=document.getElementById('expandedCampgroundResults');if(p)p.innerHTML='<div class="fr-expanded-header">Additional campgrounds <span>OpenStreetMap community data</span></div><div class="fr-search-note">Additional community results are temporarily unavailable. Fire Ring results above are still available.</div>';}
    }else{
      frExplore.origin=null;
-     status.textContent=r.label+' · finding campgrounds…';
+     status.textContent=r.label+' · loading Fire Ring results…';
      applyExploreFilters();
-     try{frRenderExternal(await frOverpassState(r.state))}
+     loading.innerHTML='<span class="fr-search-spinner"></span><span>Loading Fire Ring results…</span>';
+     try{loading.innerHTML='<span class="fr-search-spinner"></span><span>Adding community campground results…</span>';frRenderExternal(await frOverpassState(r.state))}
      catch(e){const p=document.getElementById('expandedCampgroundResults');if(p)p.innerHTML='<div class="fr-expanded-header">Additional campgrounds <span>OpenStreetMap community data</span></div><div class="fr-search-note">Additional community results are temporarily unavailable. Fire Ring results above are still available.</div>';}
    }
    frExplore.loadingExternal=false;loading.remove();applyExploreFilters();
@@ -1254,7 +1271,7 @@ if(searchInput)searchInput.addEventListener('input',()=>{if(!searchInput.value.t
 const locationButton=document.getElementById('locationBtn');if(locationButton)locationButton.addEventListener('click',requestLocation);
 const radiusFilter=document.getElementById('radiusFilter');if(radiusFilter)radiusFilter.addEventListener('change',()=>{if(frExplore.origin||(searchInput?.value||'').trim())runCampgroundSearch();else applyExploreFilters()});
 const typeFilter=document.getElementById('typeFilter');if(typeFilter)typeFilter.addEventListener('change',applyExploreFilters);
-if(document.getElementById('searchStatus')){frPrepareBuiltIn();applyExploreFilters()}
+if(document.getElementById('searchStatus')){frPrepareBuiltIn();renderFrRecent();renderFrSaved();applyExploreFilters()}
 window.addEventListener('load',()=>{ if(document.getElementById('exploreMap')) setTimeout(()=>{initExploreMap(); if(exploreMap) exploreMap.invalidateSize();},100); });
 </script>
 <script>
@@ -1430,5 +1447,24 @@ renderTripCalendar();
 #campgroundResults .campground-result h3{line-height:1.25;margin-bottom:2px;overflow-wrap:anywhere}
 #campgroundResults .campground-result p{line-height:1.3;margin-top:0;overflow-wrap:anywhere}
 #campgroundResults .distance-line{padding-right:0!important;line-height:1.35}
-</style></body>
+</style>
+<style id="fireRingBuild055CSS">
+.fr-recent-wrap,.fr-saved-wrap{margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
+.fr-mini-label{font-size:10px;font-weight:800;color:var(--forest);margin-bottom:6px;text-transform:uppercase;letter-spacing:.7px}
+.fr-chip-row{display:flex;gap:6px;flex-wrap:wrap}
+.fr-recent-chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 9px;font-size:10px;color:var(--forest);cursor:pointer}
+.fr-recent-chip:hover{background:#f1f5ee}
+.fr-saved-list{display:flex;flex-direction:column;gap:5px}
+.fr-saved-item{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;cursor:pointer}
+.fr-saved-item b{font-size:11px;flex:1;min-width:0;overflow-wrap:anywhere}
+.fr-saved-item button{border:0;background:transparent;color:#9a5d42;font-size:13px;padding:3px}
+.fr-save-btn{float:right;border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 8px;color:var(--forest);font-size:11px;font-weight:800;cursor:pointer}
+.fr-save-btn.saved{background:#eef5ea;color:#315f49}
+.fr-simple-main{position:relative;padding-right:0}
+.fr-search-loading{display:flex;align-items:center;gap:8px;padding:10px 5px;color:var(--muted);font-size:11px}
+.fr-search-spinner{width:14px;height:14px;border:2px solid #d9e0d8;border-top-color:var(--green);border-radius:50%;animation:frSpin .8s linear infinite;flex:none}
+@keyframes frSpin{to{transform:rotate(360deg)}}
+.fr-search-phase{font-size:10px;color:var(--muted);margin:4px 4px 8px}
+</style>
+</body>
 </html>
