@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-052 -->
+<!-- FIRE-RING-BUILD-053 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 052</title>
+<title>Fire Ring — Build 053</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -269,14 +269,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 052 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 053 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 052: clean, text-first primary navigation. */
+/* Build 053: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -982,7 +982,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 052</div>
+<div class="version-footer">Fire Ring • Build 053</div>
 </div>
 
 
@@ -1140,15 +1140,33 @@ function frClassify(t){return /(state park|state forest|national park|national f
 function frPoint(e){return{lat:Number(e.lat??e.center?.lat),lon:Number(e.lon??e.center?.lon)}}
 async function frNominatim(params){let u='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&countrycodes=us';Object.entries(params).forEach(([k,v])=>{if(v)u+='&'+encodeURIComponent(k)+'='+encodeURIComponent(v)});const r=await fetch(u,{headers:{Accept:'application/json'}});if(!r.ok)throw Error('geocoder');return r.json()}
 function frStateName(q){return frStates[frNorm(q)]||null}
+function frStateFromAbbr(v){const m={AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};return m[String(v||'').trim().toUpperCase()]||null}
+function frPickLocationResult(results){
+ const score=d=>{const a=d.address||{},t=(d.type||'').toLowerCase(),c=(d.class||'').toLowerCase();let s=0;
+   if(a.city||a.town||a.village||a.hamlet||a.municipality)s+=80;
+   if(['city','town','village','hamlet','locality'].includes(t))s+=60;
+   if(c==='place'||c==='boundary')s+=25;
+   if(c==='amenity'&&t==='post_office')s-=100;
+   if(t==='post_office')s-=100;
+   if(/camp_site|caravan_site/.test(t))s-=20;
+   return s;
+ };
+ return [...results].sort((a,b)=>score(b)-score(a))[0]||null;
+}
 async function frResolve(q){
- if(/^\d{5}(?:-\d{4})?$/.test(q)){const d=await frNominatim({postalcode:q});if(d[0])return{kind:'point',label:'ZIP '+q,lat:+d[0].lat,lon:+d[0].lon};throw Error('zip')}
- const parts=q.split(',').map(x=>x.trim()).filter(Boolean); // city/state search
- if(parts.length>=2&&frStateName(parts[1])){const d=await frNominatim({city:parts[0],state:frStateName(parts[1]),country:'United States'});if(d[0])return{kind:'point',label:parts[0]+', '+frStateName(parts[1]),lat:+d[0].lat,lon:+d[0].lon}}
+ if(/^\d{5}(?:-\d{4})?$/.test(q)){const d=await frNominatim({postalcode:q});if(d[0]){const a=d[0].address||{};const label=a.city||a.town||a.village||a.hamlet||('ZIP '+q);return{kind:'point',label:label+(a.state?', '+a.state:''),lat:+d[0].lat,lon:+d[0].lon}}throw Error('zip')}
+ const parts=q.split(',').map(x=>x.trim()).filter(Boolean);
+ if(parts.length>=2){
+   const state=frStateName(parts[1])||frStateFromAbbr(parts[1]);
+   if(state){const d=await frNominatim({city:parts[0],state,country:'United States'});if(d[0])return{kind:'point',label:parts[0]+', '+state,lat:+d[0].lat,lon:+d[0].lon}}
+ }
+ const m=q.match(/^(.+?)\s+([A-Za-z]{2})$/);
+ if(m){const state=frStateFromAbbr(m[2]);if(state){const d=await frNominatim({q:m[1]+', '+state+', United States',addressdetails:1});const pick=frPickLocationResult(d);if(pick)return{kind:'point',label:m[1]+', '+m[2].toUpperCase(),lat:+pick.lat,lon:+pick.lon}}}
  const st=frStateName(q);if(st)return{kind:'state',label:st,state:st};
- // Try campground/POI name first, then general place search.
- let d=await frNominatim({q:q+' campground, United States',addressdetails:1});
- if(!d.length)d=await frNominatim({q:q+', United States',addressdetails:1});
- if(d[0])return{kind:'point',label:d[0].display_name.split(',').slice(0,2).join(', '),lat:+d[0].lat,lon:+d[0].lon};
+ let d=await frNominatim({q:q+', United States',addressdetails:1});
+ let pick=frPickLocationResult(d);
+ if(!pick){d=await frNominatim({q:q+' campground, United States',addressdetails:1});pick=frPickLocationResult(d)}
+ if(pick){return{kind:'point',label:q,lat:+pick.lat,lon:+pick.lon}}
  throw Error('not found')
 }
 async function frOverpassNear(lat,lon,radius){const miles=Math.min(Math.max(radius,1),500),meters=Math.round(miles*1609.344),q=`[out:json][timeout:45];nwr(around:${meters},${lat},${lon})["tourism"="camp_site"];out center tags;`;const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'text/plain'},body:q});if(!r.ok)throw Error('overpass');return(await r.json()).elements||[]}
