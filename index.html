@@ -5,9 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- FIRE-RING-BUILD-056 -->
+<!-- FIRE-RING-BUILD-057 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fire Ring — Build 056</title>
+<title>Fire Ring — Build 057</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--forest:#173d2b;--green:#3d7745;--cream:#f7f6ef;--paper:#fffef9;--ink:#183329;--muted:#6d776f;--line:#e1e5dc;--gold:#d49a16;--blue:#78b2c9;--shadow:0 10px 28px rgba(24,51,41,.10)}
@@ -269,14 +269,14 @@ body{padding-bottom:0 !important;}
 
 
 <style id="build035-nav">
-/* Build 055 — six clear primary destinations in a compact portrait-friendly grid */
+/* Build 035 — six clear primary destinations in a compact portrait-friendly grid */
 .fr-site-controls{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:10px 0 0!important}
 .fr-site-controls button{min-height:43px!important;padding:7px 5px!important;font-size:10.5px!important;line-height:1.12!important;white-space:normal!important}
 @media(max-width:360px){.fr-site-controls{gap:5px!important}.fr-site-controls button{font-size:9.5px!important;min-height:42px!important;padding:6px 3px!important}}
 </style>
 
 <style id="build036-nav-polish">
-/* Build 055: clean, text-first primary navigation. */
+/* Build 036: clean, text-first primary navigation. */
 .fr-site-controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;margin-top:8px!important;padding:0!important}
 .fr-site-controls button{
   min-width:0!important;min-height:44px!important;height:44px!important;padding:7px 10px!important;
@@ -857,7 +857,7 @@ body{padding-bottom:0 !important;}
     </div>
     <div class="profile-card message-card"><div class="profile-section-head"><div><div class="eyebrow">CAMPER CONNECTIONS</div><h2>Private messages, by permission.</h2><p class="profile-copy">No one gets a private conversation with you just because they found your profile.</p></div><span class="section-mark">💬</span></div>
       <div class="message-flow"><div class="flow-step"><span>1</span><b>Request</b><small>A camper sends a connection request.</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>2</span><b>You decide</b><small>Accept or decline it.</small></div><div class="flow-arrow">→</div><div class="flow-step"><span>3</span><b>Message</b><small>Only accepted connections can chat.</small></div></div>
-      <div class="switchrow profile-switch"><div><b>Allow message requests</b><small>Turn requests off whenever you want.</small></div><button id="messageToggle" class="toggle on" onclick="toggleProfileSetting('messaging')"><i></i></button></div>
+      <div class="switchrow profile-switch"><div><b>Allow message requests</b><small>Message requests are always available. You choose which ones to accept.</small></div><button id="messageToggle" class="toggle on" onclick="toggleProfileSetting('messaging')"><i></i></button></div>
       <button class="request-demo" onclick="showMessageRequests()">💬 Message requests <span id="requestCount">2</span> ›</button>
     </div>
     <div class="profile-card broadcast-card">
@@ -974,9 +974,34 @@ body{padding-bottom:0 !important;}
 <div class="social-page"><div class="page-back"><button onclick="goBack()">← Back</button></div><div class="social-hero"><div><div class="eyebrow">THE FIRE RING COMMUNITY</div><h1>Campers nearby</h1><p>Meet people who have chosen to be visible and are camping in your area.</p></div><div class="social-hero-icon">👥</div></div><div class="social-controls"><button class="seg selected" onclick="filterCampers('current',this)">📍 Here now</button><button class="seg" onclick="filterCampers('nearby',this)">🔥 Nearby</button><button class="seg" onclick="filterCampers('all',this)">✨ All</button></div><div class="camper-safety-note">🛡️ Only campers who have chosen to be visible appear here. Exact campsite numbers are never shown.</div><div id="camperDirectory" class="camper-directory"><article class="camper-card" data-scope="current"><div class="camper-avatar">👩</div><div class="camper-info"><div class="camper-top"><h3>Sarah M.</h3><span class="online-dot">● Here now</span></div><p class="camper-location">Kentuck Campground</p><div class="chips"><span class="chip">⛺ Tent</span><span class="chip">🥾 Hiking</span><span class="chip">🔥 Campfires</span></div><p class="camper-about">Always up for a waterfall hike or a good campfire conversation.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Sarah M.')">View profile</button><button class="primary" onclick="openMessageRequest('Sarah M.')">Connect</button></div></div></article><article class="camper-card" data-scope="current"><div class="camper-avatar">🧢</div><div class="camper-info"><div class="camper-top"><h3>Mike &amp; Jen R.</h3><span class="online-dot">● Here now</span></div><p class="camper-location">Kentuck Campground</p><div class="chips"><span class="chip">🚐 RV</span><span class="chip">🎣 Fishing</span><span class="chip">🍳 Cooking</span></div><p class="camper-about">Traveling the region and looking for new places to explore.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Mike & Jen R.')">View profile</button><button class="primary" onclick="openMessageRequest('Mike & Jen R.')">Connect</button></div></div></article><article class="camper-card" data-scope="nearby"><div class="camper-avatar">🧔</div><div class="camper-info"><div class="camper-top"><h3>Chris T.</h3><span class="nearby-dot">● 4 miles away</span></div><p class="camper-location">Nearby campground</p><div class="chips"><span class="chip">🛶 Kayaking</span><span class="chip">🚲 Cycling</span><span class="chip">📷 Photography</span></div><p class="camper-about">Weekend camper, paddler, and sunset photographer.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Chris T.')">View profile</button><button class="primary" onclick="openMessageRequest('Chris T.')">Connect</button></div></div></article><article class="camper-card" data-scope="nearby"><div class="camper-avatar">👩</div><div class="camper-info"><div class="camper-top"><h3>Angela P.</h3><span class="nearby-dot">● 8 miles away</span></div><p class="camper-location">Nearby campground</p><div class="chips"><span class="chip">🐕 Dogs</span><span class="chip">🌌 Stargazing</span><span class="chip">⛺ Tent</span></div><p class="camper-about">Camping with my dog and chasing dark skies whenever I can.</p><div class="camper-actions"><button class="secondary" onclick="showCamperProfile('Angela P.')">View profile</button><button class="primary" onclick="openMessageRequest('Angela P.')">Connect</button></div></div></article></div><div class="social-footnote">Visibility is always controlled from your profile. You can disappear from the camper directory whenever you choose.</div></div>
 </section>
 
-<section id="messages" class="page"><div class="social-page"><div class="page-back"><button onclick="goBack()">← Back</button></div><div class="social-hero"><div><div class="eyebrow">YOUR FIRE RING CONVERSATIONS</div><h1>Messages</h1><p>Campfire broadcasts and private conversations, all with your permission.</p></div><div class="social-hero-icon">💬</div></div><div class="message-tabs"><button class="seg selected">📣 Campfire</button><button class="seg">🤝 Requests <span class="badge">2</span></button><button class="seg">🔒 Private</button></div><div class="message-list"><article class="message-list-card"><div class="message-avatar">🔥</div><div><div class="message-meta"><b>Pine Creek Campground</b><span>10:24 AM</span></div><p><b>Mike &amp; Sarah:</b> Anyone interested in a group hike this afternoon?</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article><article class="message-list-card"><div class="message-avatar">🌲</div><div><div class="message-meta"><b>Nearby Campers · 10 miles</b><span>Yesterday</span></div><p><b>Nature_Nancy:</b> The falls are amazing this time of year!</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article></div><div class="message-privacy">🛡️ <b>Your privacy stays yours.</b> Receiving a broadcast never automatically reveals you, creates a connection, or sends feedback.</div></div></section>
+<section id="messages" class="page"><div class="social-page"><div class="page-back"><button onclick="goBack()">← Back</button></div><div class="social-hero"><div><div class="eyebrow">YOUR FIRE RING CONVERSATIONS</div><h1>Messages</h1><p>Campfire broadcasts and private conversations, all with your permission.</p></div><div class="social-hero-icon">💬</div></div>
+<div class="message-tabs">
+  <button class="seg selected" onclick="setMessageTab('campfire',this)">📣 Campfire</button>
+  <button class="seg" onclick="setMessageTab('requests',this)">🤝 Requests <span class="badge" id="messageRequestBadge">2</span></button>
+  <button class="seg" onclick="setMessageTab('private',this)">🔒 Private</button>
+</div>
+<div id="messagePanelCampfire" class="message-tab-panel">
+  <div class="message-list">
+    <article class="message-list-card"><div class="message-avatar">🔥</div><div><div class="message-meta"><b>Pine Creek Campground</b><span>10:24 AM</span></div><p><b>Mike &amp; Sarah:</b> Anyone interested in a group hike this afternoon?</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article>
+    <article class="message-list-card"><div class="message-avatar">🌲</div><div><div class="message-meta"><b>Nearby Campers · 10 miles</b><span>Yesterday</span></div><p><b>Nature_Nancy:</b> The falls are amazing this time of year!</p><div class="message-actions"><button onclick="replyToBroadcast('all')">↩ Reply to campers</button><button onclick="replyToBroadcast('private')">🔒 Reply privately</button></div></div></article>
+  </div>
+  <div class="message-privacy">🛡️ <b>Your privacy stays yours.</b> Receiving a broadcast never automatically reveals you, creates a connection, or sends feedback.</div>
+</div>
+<div id="messagePanelRequests" class="message-tab-panel" style="display:none">
+  <div class="message-privacy">🤝 <b>Requests require your decision.</b> A request does not become a private conversation unless you accept it.</div>
+  <div class="message-list">
+    <article class="message-list-card"><div class="message-avatar">🥾</div><div><div class="message-meta"><b>Sarah</b><span>Today</span></div><p>“Looks like we both love hiking and campfires. Want to connect?”</p><div class="message-actions"><button class="primary" onclick="acceptMessageRequest(this,'Sarah')">Accept</button><button onclick="declineMessageRequest(this)">Decline</button></div></div></article>
+    <article class="message-list-card"><div class="message-avatar">🎣</div><div><div class="message-meta"><b>Mike</b><span>Yesterday</span></div><p>“We camp in the same region. Thought we might have some places to swap.”</p><div class="message-actions"><button class="primary" onclick="acceptMessageRequest(this,'Mike')">Accept</button><button onclick="declineMessageRequest(this)">Decline</button></div></div></article>
+  </div>
+</div>
+<div id="messagePanelPrivate" class="message-tab-panel" style="display:none">
+  <div id="privateConversationList" class="message-list">
+    <div class="message-empty-state"><b>No private conversations yet.</b><span>When you accept a connection request, your private conversation will appear here.</span></div>
+  </div>
+</div>
+</div></section>
 
-<section id="directory_detail" class="page">
+<section id="directory_detail"> class="page">
 <div class="screen"><div class="backline"><button onclick="show('explore')">‹</button><span>Back to Explore</span></div>
 <h1 id="directoryName">Campground</h1>
 <div class="card"><h2>Campground Record</h2><p class="sub" id="directoryMeta"></p><div class="notice" style="margin-top:12px"><b>Real directory entry</b>This campground is part of Fire Ring's Pennsylvania seed directory. The next data pass can enrich it with coordinates, official map links, amenities, photos, rules, activities, and reservation information.</div></div>
@@ -984,7 +1009,7 @@ body{padding-bottom:0 !important;}
 </div></section>
 
 
-<div class="version-footer">Fire Ring • Build 056</div>
+<div class="version-footer">Fire Ring • Build 057</div>
 </div>
 
 
@@ -1448,7 +1473,7 @@ renderTripCalendar();
 #campgroundResults .campground-result p{line-height:1.3;margin-top:0;overflow-wrap:anywhere}
 #campgroundResults .distance-line{padding-right:0!important;line-height:1.35}
 </style>
-<style id="fireRingBuild055CSS">
+<style id="fireRingBuild049CSS">
 .fr-recent-wrap,.fr-saved-wrap{margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
 .fr-mini-label{font-size:10px;font-weight:800;color:var(--forest);margin-bottom:6px;text-transform:uppercase;letter-spacing:.7px}
 .fr-chip-row{display:flex;gap:6px;flex-wrap:wrap}
@@ -1467,6 +1492,56 @@ renderTripCalendar();
 .fr-search-phase{font-size:10px;color:var(--muted);margin:4px 4px 8px}
 </style>
 
+<style id="fireRingBuild057CSS">
+.message-tab-panel{min-height:90px}
+.message-empty-state{display:flex;flex-direction:column;gap:5px;align-items:center;text-align:center;padding:28px 18px;background:#fffdf7;border:1px dashed #d8ded5;border-radius:17px;color:#526158}
+.message-empty-state b{font-size:13px}.message-empty-state span{font-size:10px;line-height:1.4;color:#7b857e;max-width:300px}
+.message-actions .primary{width:auto;min-width:76px;padding:8px 11px;font-size:10px}
+.checklist .checkitem input:checked + label{text-decoration:line-through;color:#8a928c}
+</style>
+<script id="fireRingBuild057JS">
+function setMessageTab(tab,btn){
+  document.querySelectorAll('.message-tabs .seg').forEach(b=>b.classList.remove('selected'));
+  btn?.classList.add('selected');
+  ['campfire','requests','private'].forEach(x=>{
+    const p=document.getElementById('messagePanel'+x.charAt(0).toUpperCase()+x.slice(1));
+    if(p)p.style.display=x===tab?'block':'none';
+  });
+}
+function acceptMessageRequest(btn,name){
+  const card=btn.closest('.message-list-card');
+  if(card)card.remove();
+  toast(name+' is now a private connection.');
+  const badge=document.getElementById('messageRequestBadge');
+  if(badge){const n=Math.max(0,Number(badge.textContent||0)-1);badge.textContent=n;if(!n)badge.style.display='none';}
+}
+function declineMessageRequest(btn){
+  const card=btn.closest('.message-list-card');
+  if(card)card.remove();
+  const badge=document.getElementById('messageRequestBadge');
+  if(badge){const n=Math.max(0,Number(badge.textContent||0)-1);badge.textContent=n;if(!n)badge.style.display='none';}
+}
+const frPackingKey='fireRingPacking_v1';
+function loadPackingList(){
+  let saved={};try{saved=JSON.parse(localStorage.getItem(frPackingKey)||'{}')}catch(_){}
+  document.querySelectorAll('#packing input[type="checkbox"]').forEach(cb=>{cb.checked=!!saved[cb.id];});
+  updatePackingCount();
+}
+function savePackingItem(cb){
+  let saved={};try{saved=JSON.parse(localStorage.getItem(frPackingKey)||'{}')}catch(_){}
+  saved[cb.id]=cb.checked;localStorage.setItem(frPackingKey,JSON.stringify(saved));updatePackingCount();
+}
+function updatePackingCount(){
+  const boxes=[...document.querySelectorAll('#packing input[type="checkbox"]')];
+  const done=boxes.filter(x=>x.checked).length,total=boxes.length;
+  const pill=document.querySelector('#packing .row .pill');
+  if(pill)pill.textContent=done+' / '+total+' packed';
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('#packing input[type="checkbox"]').forEach(cb=>cb.addEventListener('change',()=>savePackingItem(cb)));
+  loadPackingList();
+});
+</script>
 <style id="fireRingBuild056CSS">
 /* Build 056: cleaner Home + clearer connection safety */
 .home-social > .broadcast-card,
